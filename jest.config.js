@@ -1,6 +1,6 @@
 
 module.exports = {
-    name: 'dt-react-component',
+    name: 'dt-react-monaco-editor',
     globals: {
     },
     setupFilesAfterEnv: ["./setupTests.js"],

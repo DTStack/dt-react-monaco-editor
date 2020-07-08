@@ -1,5 +1,7 @@
 
 const path = require('path');
+const ROOT_PATH = path.resolve(__dirname, '../');
+const APP_PATH = path.resolve(ROOT_PATH, 'src');     
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
         test: /\.(ts|tsx)$/,
@@ -36,8 +38,14 @@ module.exports = async ({ config, mode }) => {
             "file-loader?name=[name].[ext]",
             "url-loader?limit=100000"
         ]
+    },{
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
     });
     config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx", ".scss", ".css");
+    config.node = {
+        fs: 'empty'
+    };
     // Return the altered config
     return config;
 };
