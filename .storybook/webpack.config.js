@@ -1,7 +1,5 @@
 
-const path = require('path');
-const ROOT_PATH = path.resolve(__dirname, '../');
-const APP_PATH = path.resolve(ROOT_PATH, 'src');     
+const path = require('path');  
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
         test: /\.(ts|tsx)$/,
@@ -44,7 +42,8 @@ module.exports = async ({ config, mode }) => {
     });
     config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx", ".scss", ".css");
     config.node = {
-        fs: 'empty'
+        fs: 'empty',
+        module: "empty",
     };
     // Return the altered config
     return config;
