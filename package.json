@@ -31,6 +31,7 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
+    "@storybook/addon-knobs": "^5.1.9",
     "babel-loader": "^8.1.0"
   }
 }
