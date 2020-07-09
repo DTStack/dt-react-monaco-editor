@@ -1,5 +1,5 @@
 
-const path = require('path');  
+const path = require('path');
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
         test: /\.(ts|tsx)$/,
@@ -36,7 +36,7 @@ module.exports = async ({ config, mode }) => {
             "file-loader?name=[name].[ext]",
             "url-loader?limit=100000"
         ]
-    },{
+    }, {
         test: /\.worker\.js$/,
         use: { loader: 'worker-loader' }
     });

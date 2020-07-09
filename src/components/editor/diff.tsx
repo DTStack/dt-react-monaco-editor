@@ -69,7 +69,7 @@ export interface DiffEditorProps {
 }
 
 class DiffEditor extends React.Component<DiffEditorProps, any> {
-    constructor (props: any) {
+    constructor(props: any) {
         super(props);
     }
     monacoDom: any = null;
@@ -91,7 +91,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
         }
     }
     // eslint-disable-next-line
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps (nextProps: any) {
         const { sync, original = {}, modified = {}, options = {}, theme } = nextProps;
         if (this.props.original && this.props.original.value !== original.value && sync) {
             const editorText = !original.value ? '' : original.value;
