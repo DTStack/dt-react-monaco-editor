@@ -30,15 +30,42 @@ npm install
 ```plain
 npm run build-storybook
 ```
+
+## :postbox: 版本发布
+
 **组件发布至 npm**
 **在按照一些列组件开发规范流程下，测试组件无问题后进行组件发布**
 
-```plain
-npm run compile 输出 lib 目录
-登陆 npm 执行 npm publish
+```bash
+# output to lib
+npm run compile
+# Publish to registry
+npm publish
 ```
-这里使用 netlify 托管 storybook 静态服务
-netlify 服务器检测到 push master 操作会自动执行 npm run build-storybook，生成最新的静态资源重新部署，可在 [https://dtux.netlify.com/](https://dtux.netlify.com/) 查看效果
+```bash
+# 默认分支为 master , 发布为此版本更新
+$ npm run release
+
+#【自定义】版本发布名称为 v1.0.0-test
+$ npm run release -- -r v1.0.0-test
+
+# 指定升级版本为【次】版本号
+$ npm run release -- -r minor
+
+# 指定升级版本为【主】版本号
+$ npm run release -- -r major
+
+# 指定升级版本为【修订】版本号
+$ npm run release -- -r patch
+
+# 指定发布分支
+$ npm run release -- -b branchName
+
+# 指定发布分支以及发布名称
+$ npm run release -- -b branchName -r versionName
+
+```
+
 
 ## :blue_book: 相关资料
 * [Monaco Editor](https://microsoft.github.io/monaco-editor/)
