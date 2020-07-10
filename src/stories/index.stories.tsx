@@ -1,9 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { FaGitlab } from 'react-icons/fa';
+import MarkdownRender from '../components/markdown-render';
 import { Table } from 'antd';
 import Editor from '../components/editor';
 
-const stories = storiesOf('Editor 编辑器', module);
+const readmeHtml = require('../../README.md');
+const { name, repository, version } = require('../../package.json');
+const stories = storiesOf('Dt React Monaco Editor', module)
+console.log('%c欢迎使用 dt-react-component\n使用过程中如有问题欢迎联系 qingyi@dtstack.com ', 'color:#2517b1')
 const dataSource = [
     {
         property: 'value',
@@ -114,32 +119,66 @@ const columns = [
         key: 'defaultValue'
     }
 ];
-stories.add('Editor', () => {
-    return (
-        <div className='story_wrapper'>
-            <h2>何时使用</h2>
-            <p>页面需使用编辑器时</p>
-            <h2>示例</h2>
-            <p>基础用法</p>
+stories
+    .add('介绍', () => (
+        <article className='story_wrapper summary-story'>
+            <h1>
+                <span>{name}</span>
+                <a href={repository.url} rel="noopener noreferrer" target='_blank'>
+                    <FaGitlab/>
+                </a>
+            </h1>
+
+            <h2>当前版本</h2>
+            <p >
+                v{version}
+            </p>
+
+            <h2>概述</h2>
+            <p >
+            dt-react-monaco-editor是基于monaco-editor做的一款编辑器组件，完美继承monaco-editor，在此基础上进行了业务封装和代码优化，主要用于目前公司有关编辑器场景的应用使用。
+            </p>
+
+            <h2>FAQ</h2>
+            <p>使用过程中如有问题欢迎沟通～～</p>
+        </article>
+    ))
+    .add(`快速上手`, () => {
+        return (
+            <div className='story_wrapper'>
+                <MarkdownRender
+                    text={`${readmeHtml && readmeHtml.default}`}
+                    dark={false}
+                />
+            </div>
+        )
+    })
+    .add('Editor 编辑器', () => {
+        return (
+            <div className='story_wrapper'>
+                <h2>何时使用</h2>
+                <p>页面需使用编辑器时</p>
+                <h2>示例</h2>
+                <p>基础用法</p>
+                <Editor
+                    value='// 初始注释'
+                    language="dtsql"
+                    options={{ readOnly: false }}
+                />
+            </div>
+        )
+    }, {
+        info: {
+            TableComponent: () => (<Table dataSource={dataSource} columns={columns} pagination={false} />),
+            text: `
+            代码示例：
+            ~~~js
             <Editor
-                value='// 初始注释'
+                value=‘// 初始注释’
                 language="dtsql"
                 options={{ readOnly: false }}
             />
-        </div>
-    )
-}, {
-    info: {
-        TableComponent: () => (<Table dataSource={dataSource} columns={columns} pagination={false} />),
-        text: `
-        代码示例：
-        ~~~js
-        <Editor
-            value=‘// 初始注释’
-            language="dtsql"
-            options={{ readOnly: false }}
-        />
-        ~~~
-        `
-    }
-})
+            ~~~
+            `
+        }
+    })
