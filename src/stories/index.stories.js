@@ -168,7 +168,7 @@ stories
         )
     }, {
         info: {
-            TableComponent: () => (<Table dataSource={dataSource} columns={columns} pagination={false} />),
+            TableComponent: () => (<Table dataSource={dataSource} columns={columns} pagination={false} rowKey="property" />),
             text: `
             代码示例：
             ~~~js
