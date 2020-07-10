@@ -9,7 +9,7 @@ class DtParser {
     _eventMap: any;
 
     constructor () {
-        this._DtParser = new DtWorker();
+        this._DtParser = DtWorker;
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;

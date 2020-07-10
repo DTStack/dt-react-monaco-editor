@@ -6,7 +6,7 @@
 npm i dt-react-monaco-editor --save
 ```
 ## :book: 如何使用
-**直接引入l**
+**直接引入**
 ```plain
 import { Editor } from 'dt-react-monaco-editor/lib'
  <Editor
