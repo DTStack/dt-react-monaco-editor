@@ -8,8 +8,8 @@ stages:
   - lintdoc
   - check-types
   - test
-  - build_deploy
-# 当 merge_requests, master, dev, test 分支时会执行依赖安装
+
+  # 当 merge_requests, master, dev, test 分支时会执行依赖安装
 install_dependencies: 
   stage: install
   script: 
@@ -49,16 +49,3 @@ doc_quality:
   only:
     - /doc(s)|release/
     - master
-# TODO 等待 jenkins 配置好修复
-# 开发环境更新部署
-# build_deploy: # deploy dev environment
-#   stage: build_deploy
-#   script:
-#     - npm run build
-#     - echo "删除原来的文件"
-#     - rm -rf /home/admin/app/dt-insight-front/aiworks
-#     - echo "复制当前的文件"
-#     - cp ./dist/aiworks -r /home/admin/app/dt-insight-front/aiworks
-#     - echo "部署成功"
-#   only:
-#     - /master|(d|D)ev_|test_/
