@@ -8,7 +8,6 @@ import Editor from '../components/editor';
 const readmeHtml = require('../../README.md');
 const { name, repository, version } = require('../../package.json');
 const stories = storiesOf('Dt React Monaco Editor', module)
-console.log('%c欢迎使用 dt-react-component\n使用过程中如有问题欢迎联系 qingyi@dtstack.com ', 'color:#2517b1')
 const dataSource = [
     {
         property: 'value',
