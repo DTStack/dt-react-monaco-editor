@@ -1,4 +1,5 @@
 
+const webpack = require('webpack');
 const path = require('path');
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
@@ -45,6 +46,10 @@ module.exports = async ({ config, mode }) => {
         fs: 'empty',
         module: "empty",
     };
+    config.plugins.push(new webpack.ContextReplacementPlugin(
+        /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
+        __dirname
+    ))
     // Return the altered config
     return config;
 };
