@@ -12,7 +12,7 @@ module.exports = async ({ config, mode }) => {
             ]
         }
     }, {
-        test: /\.stories\.(ts|tsx)$/,
+        test: /\.stories\.(j|t)sx?$/,
         loaders: [require.resolve('@storybook/addon-storysource/loader')],
         enforce: 'pre',
     }, {

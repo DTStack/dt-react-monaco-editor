@@ -1,6 +1,6 @@
 {
   "name": "dt-react-monaco-editor",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Monaco editor for React.",
   "repository": {
     "type": "git",
@@ -12,25 +12,26 @@
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook",
+    "deploy-storybook": "storybook-to-ghpages",
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/styles/index.scss ./lib/index.css",
+    "build-css": "node-sass ./src/components/editor/style.scss ./lib/style.css",
     "release": "./scripts/release.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "check-types": "tsc --skipLibCheck",
     "test": "jest --no-chche",
     "test:update": "npm run test -u",
     "lint": "npx eslint './src/**/*.tsx' ",
-    "lint-doc": "node ./node_modules/lint-md/bin ./*.md src/stories/markdown/*.md",
+    "lint-doc": "node ./node_modules/lint-md/bin ./*.md src/stories/**/*.md",
     "lint-fix": "npx eslint './src/**/*.tsx' --fix && lint-md ./*.md src/stories/markdown/*.md --fix"
   },
   "keywords": [
     "react",
     "storybook",
-    "monaco-editor"
+    "monacoeditor"
   ],
-  "author": "jingyu",
-  "license": "ISC",
+  "author": "Jerome",
+  "license": "MIT",
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
@@ -40,6 +41,9 @@
     "hooks": {
       "commit-msg": "commitlint -c ./commitlint.config.js -E HUSKY_GIT_PARAMS"
     }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@DTStack"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
