@@ -4,7 +4,7 @@
   "description": "Monaco editor for React.",
   "repository": {
     "type": "git",
-    "url": "http://gitlab.prod.dtstack.cn/dt-insight-front/infrastructure/dt-react-monaco-editor.git"
+    "url": "https://github.com/DTStack/dt-react-monaco-editor"
   },
   "main": "lib/index.js",
   "module": "lib/index.js",
