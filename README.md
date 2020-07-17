@@ -6,6 +6,25 @@
 npm i dt-react-monaco-editor --save
 ```
 ## :book: 如何使用
+**webpack配置**
+```plain
+1、
+rule.push( {
+    test: /\.worker\.js$/,
+    use: { loader: 'worker-loader' }
+})
+2、
+node = {
+    fs: 'empty',
+    module: "empty",
+};
+3、
+plugins.push(new webpack.ContextReplacementPlugin(
+    /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
+    __dirname
+))
+
+```
 **直接引入**
 ```plain
 import { Editor } from 'dt-react-monaco-editor'
