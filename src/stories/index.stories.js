@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { FaGitlab } from 'react-icons/fa';
 import MarkdownRender from '../components/markdown-render';
 import { Table } from 'antd';
-import Editor from '../components/editor';
+import Editor from '../../lib';
 
 const readmeHtml = require('../../README.md');
 const { name, repository, version } = require('../../package.json');
