@@ -1,6 +1,6 @@
 {
   "name": "dt-react-monaco-editor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Monaco editor for React.",
   "repository": {
     "type": "git",
@@ -41,9 +41,6 @@
     "hooks": {
       "commit-msg": "commitlint -c ./commitlint.config.js -E HUSKY_GIT_PARAMS"
     }
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@DTStack"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -130,7 +127,7 @@
   },
   "dependencies": {
     "@handsontable/react": "^2.1.0",
-    "antd": "2.13.14",
+    "antd": "^3.26.13",
     "babel-preset-react-app": "^9.1.2",
     "classnames": "^2.2.6",
     "dt-sql-parser": "2.0.11",
@@ -138,8 +135,8 @@
     "highlight.js": "9.14.2",
     "lodash": "^4.17.19",
     "monaco-editor": "0.13.1",
-    "react": "16.8.3",
-    "react-dom": "16.8.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.0",
     "react-icons": "^3.10.0",
     "react-is": "^16.13.1",
     "react-router": "3.0.4",
