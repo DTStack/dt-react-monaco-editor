@@ -69,7 +69,7 @@ export interface DiffEditorProps {
 }
 
 class DiffEditor extends React.Component<DiffEditorProps, any> {
-    constructor(props: any) {
+    constructor (props: any) {
         super(props);
     }
     monacoDom: any = null;
