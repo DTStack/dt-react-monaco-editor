@@ -6,7 +6,8 @@
 npm i dt-react-monaco-editor --save
 ```
 ## :book: 如何使用
-在线预览：https://DTStack.github.io/dt-react-monaco-editor/
+**直接引入**
+https://DTStack.github.io/dt-react-monaco-editor/
 **webpack配置**
 ```plain
 1、
