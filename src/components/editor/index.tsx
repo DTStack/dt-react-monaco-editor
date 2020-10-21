@@ -7,6 +7,7 @@ import './languages/shell/shell.contribution';
 import * as dtsql from './languages/dtsql/dtsql.contribution'
 import * as dtflink from './languages/dt-flink/dtflink.contribution'
 import './languages/dtlog/dtlog.contribution'
+import * as dtPython from './languages/dt-python/python.contribution'
 
 import './style.scss';
 import whiteTheme from './theme/whiteTheme';
@@ -44,6 +45,17 @@ const provideCompletionItemsMap: any = {
          */
         dispose: dtflink.disposeProvider,
         onChange: dtflink.onChange
+    },
+    dtPython: {
+        /**
+         * 注册自定义补全函数
+         */
+        register: dtPython.registeCompleteItemsProvider,
+        /**
+         * 释放自定义补全函数
+         */
+        dispose: dtPython.disposeProvider,
+        onChange: dtPython.onChange
     }
 }
 class Editor extends React.Component<any, any> {
