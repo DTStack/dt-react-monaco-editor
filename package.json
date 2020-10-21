@@ -132,6 +132,7 @@
     "dt-sql-parser": "2.0.11",
     "lodash": "^4.17.19",
     "monaco-editor": "0.13.1",
+    "monaco-editor-core": "^0.21.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.0",
     "react-icons": "^3.10.0",
