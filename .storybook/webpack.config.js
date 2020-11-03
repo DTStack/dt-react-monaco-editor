@@ -1,8 +1,16 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const ROOT_PATH = path.resolve(__dirname, '../');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
+        test: /\.worker.[jt]s$/,
+        exclude: [
+            path.resolve(ROOT_PATH, "node_modules")
+        ],
+        use: { loader: 'worker-loader' }
+    }, {
         test: /\.(ts|tsx)$/,
         loader: require.resolve('babel-loader'),
         options: {
@@ -37,19 +45,24 @@ module.exports = async ({ config, mode }) => {
             "file-loader?name=[name].[ext]",
             "url-loader?limit=100000"
         ]
-    }, {
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' }
     });
-    config.resolve.extensions.push(".ts", ".tsx", ".js", ".jsx", ".scss", ".css");
+    config.resolve = {
+        modules: ["node_modules"],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".scss", ".css"], //后缀名自动补全
+        alias: {}
+    },
     config.node = {
         fs: 'empty',
         module: "empty",
     };
-    config.plugins.push(new webpack.ContextReplacementPlugin(
+    config.plugins.push(
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.ContextReplacementPlugin(
         /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
         __dirname
-    ))
+        ),
+        new MonacoWebpackPlugin()
+    );
     // Return the altered config
     return config;
 };
