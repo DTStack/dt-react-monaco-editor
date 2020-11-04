@@ -1,16 +1,15 @@
 // import * as monaco from 'monaco-editor/esm/vs/editor/edcore.main.js';
 import * as monaco from 'monaco-editor';
-import DtWorker from './dtsql.worker';
+import DtWorker from './python.worker';
 import { get } from 'lodash';
 
 let _DtParserInstance: any;
-
 class DtParser {
     _DtParser: any;
     _eventMap: any;
 
     constructor () {
-        this._DtParser = new DtWorker();
+        this._DtParser = DtWorker;
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;
