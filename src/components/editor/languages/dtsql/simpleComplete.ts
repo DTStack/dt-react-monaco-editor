@@ -10,8 +10,7 @@ class DtParser {
     _eventMap: any;
 
     constructor () {
-        this._DtParser = DtWorker;
-        console.log(this._DtParser)
+        this._DtParser = new DtWorker();
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;
@@ -26,7 +25,6 @@ class DtParser {
         const arg = arguments;
         const eventId = this._createId();
         return new Promise((resolve: any, reject: any) => {
-            console.log(this._DtParser)
             this._DtParser.postMessage({
                 eventId: eventId,
                 type: 'parserSql',
