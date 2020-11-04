@@ -9,11 +9,13 @@ class DtParser {
     _eventMap: any;
 
     constructor () {
-        this._DtParser = DtWorker;
+        this._DtParser = new DtWorker();
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;
             const eventId = data.eventId;
+            console.log('result: ',this._eventMap[eventId],data.result)
+
             if (this._eventMap[eventId]) {
                 this._eventMap[eventId].resolve(data.result)
                 this._eventMap[eventId] = null;
@@ -40,7 +42,7 @@ class DtParser {
     parseSyntax () {
         const arg = arguments;
         const eventId = this._createId();
-        return new Promise((resolve: any, reject: any) => {
+        return (resolve: any, reject: any) => {
             this._DtParser.postMessage({
                 eventId: eventId,
                 type: 'parseSyntax',
@@ -52,7 +54,7 @@ class DtParser {
                 arg,
                 type: 'parseSyntax'
             }
-        })
+        }
     }
     _createId () {
         return new Date().getTime() + '' + ~~(Math.random() * 100000)
@@ -145,7 +147,7 @@ function createDependencyProposals () {
     return cacheKeyWords
 }
 
-monaco.languages.registerCompletionItemProvider('dtsql', {
+monaco.languages.registerCompletionItemProvider('dtpython', {
     triggerCharacters: ['.'],
     provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
         const completeItems = createDependencyProposals();
@@ -155,7 +157,9 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                 const textValue = model.getValue();
                 const cursorIndex = model.getOffsetAt(position);
                 const dtParser = loadDtParser();
+                
                 let autoComplete = await dtParser.parserSql([textValue.substr(0, cursorIndex), textValue.substr(cursorIndex)]);
+                console.log('有点关键',autoComplete)
                 let columnContext: any;
                 let tableContext: any;
                 let suggestTablesIdentifierChain = get(autoComplete, 'suggestTables.identifierChain', []);
@@ -184,6 +188,7 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                     }
                 });
             } else {
+                // console.log('over')
                 resolve(completeItems)
             }
         });
@@ -209,11 +214,16 @@ export function disposeProvider (_editor: any) {
     _completeProvideFunc[id] = undefined;
 }
 export async function onChange (value = '', _editor: any, callback: any) {
+    // console.log('卡点',123)
     const dtParser = loadDtParser();
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
+    // console.log('卡点',dtParser.parserSql(value))
     let autoComplete = await dtParser.parserSql(value);
+    // console.log(autoComplete, '111')
+
     let syntax = await dtParser.parseSyntax(value.replace(/\r\n/g, '\n'));
+    // console.log(autoComplete, syntax)
     if (syntax && syntax.token != 'EOF') {
         const message = messageCreate(syntax);
         monaco.editor.setModelMarkers(model, model.getModeId(), [{
