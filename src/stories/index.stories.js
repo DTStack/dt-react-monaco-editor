@@ -161,7 +161,7 @@ stories
                 <p>基础用法</p>
                 <Editor
                     value='// 初始注释'
-                    language="dtpython"
+                    language="dtsql"
                     options={{ readOnly: false }}
                 />
             </div>
