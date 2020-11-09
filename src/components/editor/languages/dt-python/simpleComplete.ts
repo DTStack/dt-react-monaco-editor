@@ -14,8 +14,6 @@ class DtParser {
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;
             const eventId = data.eventId;
-            console.log('result: ',this._eventMap[eventId],data.result)
-
             if (this._eventMap[eventId]) {
                 this._eventMap[eventId].resolve(data.result)
                 this._eventMap[eventId] = null;
@@ -42,7 +40,7 @@ class DtParser {
     parseSyntax () {
         const arg = arguments;
         const eventId = this._createId();
-        return (resolve: any, reject: any) => {
+        return new Promise((resolve: any, reject: any) => {
             this._DtParser.postMessage({
                 eventId: eventId,
                 type: 'parseSyntax',
@@ -54,7 +52,7 @@ class DtParser {
                 arg,
                 type: 'parseSyntax'
             }
-        }
+        })
     }
     _createId () {
         return new Date().getTime() + '' + ~~(Math.random() * 100000)
@@ -147,7 +145,7 @@ function createDependencyProposals () {
     return cacheKeyWords
 }
 
-monaco.languages.registerCompletionItemProvider('dtpython', {
+monaco.languages.registerCompletionItemProvider('dtPython', {
     triggerCharacters: ['.'],
     provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
         const completeItems = createDependencyProposals();
@@ -159,7 +157,6 @@ monaco.languages.registerCompletionItemProvider('dtpython', {
                 const dtParser = loadDtParser();
                 
                 let autoComplete = await dtParser.parserSql([textValue.substr(0, cursorIndex), textValue.substr(cursorIndex)]);
-                console.log('有点关键',autoComplete)
                 let columnContext: any;
                 let tableContext: any;
                 let suggestTablesIdentifierChain = get(autoComplete, 'suggestTables.identifierChain', []);
@@ -214,7 +211,6 @@ export function disposeProvider (_editor: any) {
     _completeProvideFunc[id] = undefined;
 }
 export async function onChange (value = '', _editor: any, callback: any) {
-    // console.log('卡点',123)
     const dtParser = loadDtParser();
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
@@ -227,11 +223,11 @@ export async function onChange (value = '', _editor: any, callback: any) {
     if (syntax && syntax.token != 'EOF') {
         const message = messageCreate(syntax);
         monaco.editor.setModelMarkers(model, model.getModeId(), [{
-            startLineNumber: syntax.loc.first_line,
-            startColumn: syntax.loc.first_column + 1,
-            endLineNumber: syntax.loc.last_line,
-            endColumn: syntax.loc.last_column + 1,
-            message: `[语法错误！] \n${message}`,
+            startLineNumber: syntax.startLine,
+            startColumn: syntax.startCol+1,
+            endLineNumber: syntax.endLine+1,
+            endColumn: syntax.endCol+ 1,
+            message: `[语法错误！] \n${syntax.message}`,
             severity: 8
         }])
         _tmpDecorations = _editor.deltaDecorations(_tmpDecorations, createLineMarker(syntax))

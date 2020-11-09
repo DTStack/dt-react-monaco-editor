@@ -8,9 +8,11 @@ ctx.onmessage = (e: any) => {
     const message = e.data;
     // console.log('消息来源',message,ParserPython2)
     const { eventId, data = [], type } = message;
+
+        // console.log(...data)
         ctx.postMessage({
             eventId: eventId,
-            result: ParserPython2(data)
+            result: ParserPython2(...data)
         })
 
 }

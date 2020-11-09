@@ -12,7 +12,7 @@ declare var self: any;
 // Allow for running under nodejs/requirejs in tests
 var _monaco = typeof monaco === 'undefined' ? self.monaco : monaco;
 registerLanguage({
-    id: 'dtpython',
+    id: 'dtPython',
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
     aliases: ['Python', 'py'],
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
