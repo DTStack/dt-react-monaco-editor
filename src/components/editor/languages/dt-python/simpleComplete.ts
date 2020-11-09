@@ -7,8 +7,9 @@ let _DtParserInstance: any;
 class DtParser {
     _DtParser: any;
     _eventMap: any;
-
-    constructor () {
+    private currentLanguage:any;
+    constructor (currentLanguage) {
+        this.currentLanguage = currentLanguage
         this._DtParser = new DtWorker();
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
@@ -27,7 +28,8 @@ class DtParser {
             this._DtParser.postMessage({
                 eventId: eventId,
                 type: 'parserSql',
-                data: Array.from(arg)
+                data: Array.from(arg),
+                language:this.currentLanguage
             });
             this._eventMap[eventId] = {
                 resolve,
@@ -44,7 +46,8 @@ class DtParser {
             this._DtParser.postMessage({
                 eventId: eventId,
                 type: 'parseSyntax',
-                data: Array.from(arg)
+                data: Array.from(arg),
+                language:this.currentLanguage
             });
             this._eventMap[eventId] = {
                 resolve,
@@ -59,9 +62,9 @@ class DtParser {
     }
 }
 
-function loadDtParser () {
+function loadDtParser (currentLanguage:string) {
     if (!_DtParserInstance) {
-        _DtParserInstance = new DtParser();
+        _DtParserInstance = new DtParser(currentLanguage);
     }
     return _DtParserInstance;
 }
@@ -280,13 +283,15 @@ function createDependencyProposals () {
 monaco.languages.registerCompletionItemProvider('dtPython', {
     triggerCharacters: ['.'],
     provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
+        const currentLanguage=model?._languageIdentifier?.language
+
         const completeItems = createDependencyProposals();
         return new Promise<any>(async (resolve: any, reject: any) => {
             const completeProvideFunc = _completeProvideFunc[model.id]
             if (completeProvideFunc) {
                 const textValue = model.getValue();
                 const cursorIndex = model.getOffsetAt(position);
-                const dtParser = loadDtParser();
+                const dtParser = loadDtParser(currentLanguage);
                 let autoComplete = await dtParser.parserSql([textValue.substr(0, cursorIndex), textValue.substr(cursorIndex)]);
                 let columnContext: any;
                 let tableContext: any;
@@ -340,8 +345,11 @@ export function disposeProvider (_editor: any) {
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = undefined;
 }
+
 export async function onChange (value = '', _editor: any, callback: any) {
-    const dtParser = loadDtParser();
+    const currentLanguage=_editor?.model?._languageIdentifier?.language
+
+    const dtParser = loadDtParser(currentLanguage);
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
     let autoComplete = await dtParser.parserSql(value);
@@ -379,14 +387,15 @@ function createLineMarker (syntax: any) {
 }
 
 function messageCreate (syntax: any) {
-    let expected = syntax.expected || [];
-    if (expected.length) {
-        return `您可能想输入是${expected.map(
+    const { expected, message }=syntax
+    let expect = expected || [];
+    if (expect.length) {
+        return `您可能想输入是${expect.map(
             (item: any) => {
                 return ` '${item.text}'`
             }
         ).filter((value: any, index: any) => { return index < 20 }).join(',')}?`
     } else {
-        return '请检查您的语法！'
+        return message || '请检查您的语法!' 
     }
 }
