@@ -1,4 +1,4 @@
-import {ParserPython2} from 'dt-python-parser';
+import { ParserPython2 } from 'dt-python-parser';
 
 const ctx: Worker = self as any;
 
@@ -6,15 +6,11 @@ console.log('*****dtsql-worker初始化*****')
 
 ctx.onmessage = (e: any) => {
     const message = e.data;
-    // console.log('消息来源',message,ParserPython2)
-    const { eventId, data = [], type } = message;
-
-        // console.log(...data)
-        ctx.postMessage({
-            eventId: eventId,
-            result: ParserPython2(...data)
-        })
-
+    const { eventId, data = [] } = message;
+    ctx.postMessage({
+        eventId: eventId,
+        result: ParserPython2(...data)
+    })
 }
 
 console.log('*****dtsql-worker初始化完成*****')
