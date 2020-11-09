@@ -168,7 +168,6 @@ export async function onChange (value = '', _editor: monaco.editor.IStandaloneCo
     if (callback) {
         callback(syntax);
     }
-    console.log(syntax)
 }
 
 function createLineMarker (begin: monaco.Position, end: monaco.Position) {

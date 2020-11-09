@@ -17,7 +17,7 @@ const dataSource = [
     },
     {
         property: 'language',
-        description: '编辑器语言种类,目前已支持种类有sql、dtsql、dtflink、dtlog、shell。(PS: 如果后续有语言扩展请联系前端组)',
+        description: '编辑器语言种类,目前已支持种类有sql、dtsql、dtflink、dtlog、shell、dtPython。(PS: 如果后续有语言扩展请联系前端组)',
         propType: 'string',
         defaultValue: 'sql'
     },
@@ -161,7 +161,7 @@ stories
                 <p>基础用法</p>
                 <Editor
                     value='// 初始注释'
-                    language="dtsql"
+                    language="dtPython"
                     options={{ readOnly: false }}
                 />
             </div>
@@ -174,7 +174,7 @@ stories
             ~~~js
             <Editor
                 value=‘// 初始注释’
-                language="dtsql"
+                language="dtPython"
                 options={{ readOnly: false }}
             />
             ~~~

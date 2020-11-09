@@ -233,7 +233,6 @@ export async function onChange (value = '', _editor: any, callback: any) {
     if (callback) {
         callback(autoComplete, syntax);
     }
-    console.log(syntax)
 }
 
 function createLineMarker (syntax: any) {

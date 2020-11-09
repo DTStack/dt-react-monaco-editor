@@ -9,7 +9,7 @@ class DtParser {
     _eventMap: any;
 
     constructor () {
-        this._DtParser = DtWorker;
+        this._DtParser = new DtWorker();
         this._eventMap = {};
         this._DtParser.onmessage = (e: any) => {
             const data = e.data;
@@ -74,13 +74,145 @@ function loadDtParser () {
 let cacheKeyWords: any = [];
 let _completeProvideFunc: any = {};
 let _tmpDecorations: any = [];
-function dtsqlWords () {
+function dtPythonWords () {
     return {
         // builtinFunctions: ["FROM_UNIXTIME", "UNIX_TIMESTAMP", "TO_DATE", "YEAR", "QUARTER", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND", "WEEKOFYEAR", "DATEDIFF", "DATE_ADD", "DATE_SUB", "FROM_UTC_TIMESTAMP", "TO_UTC_TIMESTAMP", "CURRENT_DATE", "CURRENT_TIMESTAMP", "ADD_MONTHS", "LAST_DAY", "NEXT_DAY", "TRUNC", "MONTHS_BETWEEN", "DATE_FORMAT", "ROUND", "BROUND", "FLOOR", "CEIL", "RAND", "EXP", "LN", "LOG10", "LOG2", "LOG", "POW", "SQRT", "BIN", "HEX", "UNHEX", "CONV", "ABS", "PMOD", "SIN", "ASIN", "COS", "ACOS", "TAN", "ATAN", "DEGREES", "RADIANS", "POSITIVE", "NEGATIVE", "SIGN", "E", "PI", "FACTORIAL", "CBRT", "SHIFTLEFT", "SHIFTRIGHT", "SHIFTRIGHTUNSIGNED", "GREATEST", "LEAST", "ASCII", "BASE64", "CONCAT", "CHR", "CONTEXT_NGRAMS", "CONCAT_WS", "DECODE", "ENCODE", "FIND_IN_SET", "FORMAT_NUMBER", "GET_JSON_OBJECT", "IN_FILE", "INSTR", "LENGTH", "LOCATE", "LOWER", "LPAD", "LTRIM", "NGRAMS", "PARSE_URL", "PRINTF", "REGEXP_EXTRACT", "REGEXP_REPLACE", "REPEAT", "REVERSE", "RPAD", "RTRIM", "SENTENCES", "SPACE", "SPLIT", "STR_TO_MAP", "SUBSTR", "SUBSTRING_INDEX", "TRANSLATE", "TRIM", "UNBASE64", "UPPER", "INITCAP", "LEVENSHTEIN", "SOUNDEX", "SIZE", "MAP_KEYS", "MAP_VALUES", "ARRAY_CONTAINS", "SORT_ARRAY", "ROW_NUMBER"],
         // windowsFunctions: ["COUNT", "AVG", "MAX", "MIN", "STDDEV_SAMP", "SUM"],
         // innerFunctions: ["COUNT", "SUM", "AVG", "MIN", "MAX", "VARIANCE", "VAR_SAMP", "STDDEV_POP", "STDDEV_SAMP", "COVAR_POP", "COVAR_SAMP", "CORR", "PERCENTILE", "EXPLODE", "POSEXPLODE", "STACK", "JSON_TUPLE", "PARSE_URL_TUPLE", "INLINE"],
         // otherFunctions: ["IF", "NVL", "COALESCE", "ISNULL", "ISNOTNULL", "ASSERT_TRUE", "CAST", "BINARY"],
-        keywords: ['SELECT', 'FROM', 'WHERE', 'UNION ALL', 'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN', 'UNION', 'INSERT', 'ADD', 'ADMIN', 'AFTER', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'ARCHIVE', 'ARRAY', 'AS', 'ASC', 'AUTHORIZATION', 'BEFORE', 'BETWEEN', 'BIGINT', 'BINARY', 'BOOLEAN', 'BOTH', 'BUCKET', 'BUCKETS', 'BY', 'CASCADE', 'CASE', 'CHANGE', 'CHAR', 'CLUSTER', 'CLUSTERED', 'CLUSTERSTATUS', 'COLLECTION', 'COLUMN', 'COLUMNS', 'COMMENT', 'COMPACT', 'COMPACTIONS', 'COMPUTE', 'CONCATENATE', 'CONF', 'CONTINUE', 'CREATE', 'CROSS', 'CUBE', 'CURRENT', 'CURSOR', 'DATA', 'DATABASE', 'DATABASES', 'DATE', 'DATETIME', 'DBPROPERTIES', 'DECIMAL', 'DEFERRED', 'DEFINED', 'DELETE', 'DELIMITED', 'DEPENDENCY', 'DESC', 'DESCRIBE', 'DIRECTORIES', 'DIRECTORY', 'DISABLE', 'DISTINCT', 'DISTRIBUTE', 'DOUBLE', 'DROP', 'ELEM_TYPE', 'ELSE', 'ENABLE', 'END', 'ESCAPED', 'EXCHANGE', 'EXCLUSIVE', 'EXISTS', 'EXPLAIN', 'EXPORT', 'EXTENDED', 'EXTERNAL', 'FALSE', 'FETCH', 'FIELDS', 'FILE', 'FILEFORMAT', 'FIRST', 'FLOAT', 'FOLLOWING', 'FORMAT', 'FORMATTED', 'FULL', 'FUNCTION', 'FUNCTIONS', 'GRANT', 'GROUP', 'GROUPING', 'HAVING', 'HOLD_DDLTIME', 'IDXPROPERTIES', 'IGNORE', 'IMPORT', 'IN', 'INDEX', 'INDEXES', 'INNER', 'INPATH', 'INPUTDRIVER', 'INPUTFORMAT', 'INT', 'INTERSECT', 'INTERVAL', 'INTO', 'IS', 'ITEMS', 'JOIN', 'JAR', 'KEYS', 'KEY_TYPE', 'LATERAL', 'LEFT', 'LESS', 'LIFECYCLE', 'LIKE', 'LIMIT', 'LINES', 'LOAD', 'LOCAL', 'LOCATION', 'LOCK', 'LOCKS', 'LOGICAL', 'LONG', 'MACRO', 'MAP', 'MAPJOIN', 'MATERIALIZED', 'MINUS', 'MORE', 'MSCK', 'NOT', 'NONE', 'NOSCAN', 'NO_DROP', 'NULL', 'OF', 'OFFLINE', 'ON', 'OPTION', 'OR', 'ORC', 'ORDER', 'OUT', 'OUTER', 'OUTPUTDRIVER', 'OUTPUTFORMAT', 'OVER', 'OVERWRITE', 'OWNER', 'PARTIALSCAN', 'PARTITION', 'PARTITIONED', 'PARTITIONS', 'PERCENT', 'PARQUET', 'PLUS', 'PRECEDING', 'PRESERVE', 'PRETTY', 'PRINCIPALS', 'PROCEDURE', 'PURGE', 'RANGE', 'READ', 'READONLY', 'READS', 'REBUILD', 'RECORDREADER', 'RECORDWRITER', 'REDUCE', 'REGEXP', 'RELOAD', 'RENAME', 'REPAIR', 'REPLACE', 'RESTRICT', 'REVOKE', 'REWRITE', 'RIGHT', 'RLIKE', 'ROLE', 'ROLES', 'ROLLUP', 'ROW', 'ROWS', 'SCHEMA', 'SCHEMAS', 'SEMI', 'SERDE', 'SERDEPROPERTIES', 'SERVER', 'SET', 'SETS', 'SHARED', 'SHOW', 'SHOW_DATABASE', 'SKEWED', 'SMALLINT', 'SORT', 'SORTED', 'SSL', 'STATISTICS', 'STORED', 'STREAMTABLE', 'STRING', 'STRUCT', 'TABLE', 'TABLES', 'TABLESAMPLE', 'TBLPROPERTIES', 'TEMPORARY', 'TERMINATED', 'TEXTFILE', 'THEN', 'TIMESTAMP', 'TINYINT', 'TO', 'TOUCH', 'TRANSACTIONS', 'TRANSFORM', 'TRIGGER', 'TRUNCATE', 'TRUE', 'UNARCHIVE', 'UNBOUNDED', 'UNDO', 'UNIONTYPE', 'UNIQUEJOIN', 'UNLOCK', 'UNSET', 'UNSIGNED', 'UPDATE', 'URI', 'USE', 'USER', 'USING', 'UTC', 'UTC_TMESTAMP', 'VALUES', 'VALUE_TYPE', 'VARCHAR', 'VIEW', 'WHEN', 'WHILE', 'WINDOW', 'WITH']
+        keywords: [
+            'False', // promoted to keyword.kwlist in Python 3
+            'None', // promoted to keyword.kwlist in Python 3
+            'True', // promoted to keyword.kwlist in Python 3
+            'and',
+            'as',
+            'assert',
+            'async', // new in Python 3
+            'await', // new in Python 3
+            'break',
+            'class',
+            'continue',
+            'def',
+            'del',
+            'elif',
+            'else',
+            'except',
+            'exec', // Python 2, but not 3.
+            'finally',
+            'for',
+            'from',
+            'global',
+            'if',
+            'import',
+            'in',
+            'is',
+            'lambda',
+            'nonlocal', // new in Python 3
+            'not',
+            'or',
+            'pass',
+            'print', // Python 2, but not 3.
+            'raise',
+            'return',
+            'try',
+            'while',
+            'with',
+            'yield',
+
+            'int',
+            'float',
+            'long',
+            'complex',
+            'hex',
+
+            'abs',
+            'all',
+            'any',
+            'apply',
+            'basestring',
+            'bin',
+            'bool',
+            'buffer',
+            'bytearray',
+            'callable',
+            'chr',
+            'classmethod',
+            'cmp',
+            'coerce',
+            'compile',
+            'complex',
+            'delattr',
+            'dict',
+            'dir',
+            'divmod',
+            'enumerate',
+            'eval',
+            'execfile',
+            'file',
+            'filter',
+            'format',
+            'frozenset',
+            'getattr',
+            'globals',
+            'hasattr',
+            'hash',
+            'help',
+            'id',
+            'input',
+            'intern',
+            'isinstance',
+            'issubclass',
+            'iter',
+            'len',
+            'locals',
+            'list',
+            'map',
+            'max',
+            'memoryview',
+            'min',
+            'next',
+            'object',
+            'oct',
+            'open',
+            'ord',
+            'pow',
+            'print',
+            'property',
+            'reversed',
+            'range',
+            'raw_input',
+            'reduce',
+            'reload',
+            'repr',
+            'reversed',
+            'round',
+            'self',
+            'set',
+            'setattr',
+            'slice',
+            'sorted',
+            'staticmethod',
+            'str',
+            'sum',
+            'super',
+            'tuple',
+            'type',
+            'unichr',
+            'unicode',
+            'vars',
+            'xrange',
+            'zip',
+            '__dict__',
+            '__methods__',
+            '__members__',
+            '__class__',
+            '__bases__',
+            '__name__',
+            '__mro__',
+            '__subclasses__',
+            '__init__',
+            '__import__'
+        ]
     }
 }
 function keywordsCompleteItemCreater (words: any) {
@@ -137,7 +269,7 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
  */
 function createDependencyProposals () {
     if (!cacheKeyWords.length) {
-        const words: any = dtsqlWords();
+        const words: any = dtPythonWords();
         const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
         const keywords: any = [].concat(words.keywords);
         cacheKeyWords = keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
@@ -145,7 +277,7 @@ function createDependencyProposals () {
     return cacheKeyWords
 }
 
-monaco.languages.registerCompletionItemProvider('dtsql', {
+monaco.languages.registerCompletionItemProvider('dtPython', {
     triggerCharacters: ['.'],
     provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
         const completeItems = createDependencyProposals();
@@ -162,7 +294,7 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                 if (suggestTablesIdentifierChain.length) {
                     tableContext = suggestTablesIdentifierChain[0].name;
                 }
-                if (autoComplete.suggestColumns && autoComplete.suggestColumns.tables && autoComplete.suggestColumns.tables.length) {
+                if (autoComplete && autoComplete.suggestColumns && autoComplete.suggestColumns.tables && autoComplete.suggestColumns.tables.length) {
                     columnContext = autoComplete.suggestColumns.tables.map(
                         (table: any) => {
                             return table.identifierChain.map((identifier: any) => {
@@ -213,14 +345,15 @@ export async function onChange (value = '', _editor: any, callback: any) {
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
     let autoComplete = await dtParser.parserSql(value);
+
     let syntax = await dtParser.parseSyntax(value.replace(/\r\n/g, '\n'));
     if (syntax && syntax.token != 'EOF') {
         const message = messageCreate(syntax);
         monaco.editor.setModelMarkers(model, model.getModeId(), [{
-            startLineNumber: syntax.loc.first_line,
-            startColumn: syntax.loc.first_column + 1,
-            endLineNumber: syntax.loc.last_line,
-            endColumn: syntax.loc.last_column + 1,
+            startLineNumber: syntax.startLine,
+            startColumn: syntax.startCol + 1,
+            endLineNumber: syntax.endLine + 1,
+            endColumn: syntax.endCol + 1,
             message: `[语法错误！] \n${message}`,
             severity: 8
         }])
@@ -232,12 +365,11 @@ export async function onChange (value = '', _editor: any, callback: any) {
     if (callback) {
         callback(autoComplete, syntax);
     }
-    console.log(syntax)
 }
 
 function createLineMarker (syntax: any) {
     return [{
-        range: new monaco.Range(syntax.loc.first_line, 1, syntax.loc.last_line, 1),
+        range: new monaco.Range(syntax.startLine, 1, syntax.endLine, 1),
         options: {
             isWholeLine: true,
             // linesDecorationsClassName: 'dt-monaco-line-error' ,
