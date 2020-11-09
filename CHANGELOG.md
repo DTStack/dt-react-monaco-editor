@@ -1,8 +1,10 @@
-## 0.0.6 (2020-09-22)
+## 0.0.7 (2020-11-09)
 
 
 ### Bug Fixes
 
+* **webpack:** fix worker cannot be identified ([87a5f7d](https://github.com/DTStack/dt-react-monaco-editor/commit/87a5f7df80e98bbbcfd3a25413ecdff5b658a1b6))
+* **worker:** fixed worker unable to instantiate ([c971218](https://github.com/DTStack/dt-react-monaco-editor/commit/c971218f4fe04214b6ee20438a9f577ac95e3d67))
 * add webpack ([19366cd](https://github.com/DTStack/dt-react-monaco-editor/commit/19366cd8c60bf9550c06dffe0fc92f9a95fc62c0))
 * change rowKey ([c37f596](https://github.com/DTStack/dt-react-monaco-editor/commit/c37f596c2d06c3318a5b08e54f812b40665199a5))
 * change tsx ([5124353](https://github.com/DTStack/dt-react-monaco-editor/commit/5124353413c18bb249df1c7444169ffe78e014e0))
@@ -12,6 +14,8 @@
 
 ### Features
 
+* **python:** add keywords and python syntax parsing ([bc74e81](https://github.com/DTStack/dt-react-monaco-editor/commit/bc74e813fa124a1a56edfa06ee0e4555b609c9be))
+* **python:** added Python syntax support ([bc3b5ed](https://github.com/DTStack/dt-react-monaco-editor/commit/bc3b5ed0839a652d009816287aec948ac46ee1b7))
 * add editor code ([67a08f4](https://github.com/DTStack/dt-react-monaco-editor/commit/67a08f4ef5f9abd5a72e3b481a2a261a210d756f))
 * add gitignore ([a602fb2](https://github.com/DTStack/dt-react-monaco-editor/commit/a602fb2511eca1722dbc77556620320caf704fba))
 * add icon ([e0efe32](https://github.com/DTStack/dt-react-monaco-editor/commit/e0efe329e4e49e8b74e284ed9af56af3b7e43fd1))
