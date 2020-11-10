@@ -280,11 +280,56 @@ function createDependencyProposals () {
     return cacheKeyWords
 }
 
-monaco.languages.registerCompletionItemProvider('dtPython', {
+monaco.languages.registerCompletionItemProvider('dtPython2', {
     triggerCharacters: ['.'],
     provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
         const currentLanguage=model?._languageIdentifier?.language
+        const completeItems = createDependencyProposals();
+        return new Promise<any>(async (resolve: any, reject: any) => {
+            const completeProvideFunc = _completeProvideFunc[model.id]
+            if (completeProvideFunc) {
+                const textValue = model.getValue();
+                const cursorIndex = model.getOffsetAt(position);
+                const dtParser = loadDtParser(currentLanguage);
+                let autoComplete = await dtParser.parserSql([textValue.substr(0, cursorIndex), textValue.substr(cursorIndex)]);
+                let columnContext: any;
+                let tableContext: any;
+                let suggestTablesIdentifierChain = get(autoComplete, 'suggestTables.identifierChain', []);
+                if (suggestTablesIdentifierChain.length) {
+                    tableContext = suggestTablesIdentifierChain[0].name;
+                }
+                if (autoComplete && autoComplete.suggestColumns && autoComplete.suggestColumns.tables && autoComplete.suggestColumns.tables.length) {
+                    columnContext = autoComplete.suggestColumns.tables.map(
+                        (table: any) => {
+                            return table.identifierChain.map((identifier: any) => {
+                                return identifier.name
+                            }).join('.');
+                        }
+                    )
+                }
+                completeProvideFunc(completeItems, resolve, customCompletionItemsCreater, {
+                    status: 0,
+                    model: model,
+                    position: position,
+                    word: model.getWordAtPosition(position),
+                    autoComplete: autoComplete,
+                    context: {
+                        columnContext: columnContext,
+                        tableContext: tableContext,
+                        completionContext: CompletionContext
+                    }
+                });
+            } else {
+                resolve(completeItems)
+            }
+        });
+    }
+});
 
+monaco.languages.registerCompletionItemProvider('dtPython3', {
+    triggerCharacters: ['.'],
+    provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
+        const currentLanguage=model?._languageIdentifier?.language
         const completeItems = createDependencyProposals();
         return new Promise<any>(async (resolve: any, reject: any) => {
             const completeProvideFunc = _completeProvideFunc[model.id]

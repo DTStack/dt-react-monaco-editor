@@ -10,6 +10,7 @@ declare var monaco: any;
 declare var self: any;
 // Allow for running under nodejs/requirejs in tests
 var _monaco = typeof monaco === 'undefined' ? self.monaco : monaco;
+
 registerLanguage({
     id: 'dtPython2',
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
@@ -17,6 +18,7 @@ registerLanguage({
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
     loader: function () { return _monaco.Promise.wrap(import('./python')); }
 });
+
 registerLanguage({
     id: 'dtPython3',
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
@@ -24,4 +26,5 @@ registerLanguage({
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
     loader: function () { return _monaco.Promise.wrap(import('./python')); }
 });
+
 export { registeCompleteItemsProvider, disposeProvider, onChange };
