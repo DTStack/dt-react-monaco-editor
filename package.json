@@ -10,6 +10,7 @@
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "start": "start-storybook -p 9001 -c .storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
@@ -42,7 +43,9 @@
       "commit-msg": "commitlint -c ./commitlint.config.js -E HUSKY_GIT_PARAMS"
     }
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
