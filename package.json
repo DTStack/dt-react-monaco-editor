@@ -30,7 +30,7 @@
     "storybook",
     "monacoeditor"
   ],
-  "author": "andyzjy",
+  "author": "Jerome",
   "license": "MIT",
   "config": {
     "commitizen": {
