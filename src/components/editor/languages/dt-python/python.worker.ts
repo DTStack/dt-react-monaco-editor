@@ -1,4 +1,4 @@
-import { ParserPython2,ParserPython3 } from 'dt-python-parser';
+import { ParserPython2, ParserPython3 } from 'dt-python-parser';
 
 const ctx: Worker = self as any;
 
@@ -7,11 +7,14 @@ console.log('*****dtsql-worker初始化*****')
 ctx.onmessage = (e: any) => {
     const message = e.data;
     const { eventId, data = [], language } = message;
-    let parserMethod=ParserPython2
-    if(language==='dtPython3')  parserMethod=ParserPython3
+    let parserMethod = ParserPython2
+    const newData = data.map(item => {
+        return item[item?.length - 1] !== '\n' ? item + '\n' : item
+    })
+    if (language === 'dtPython3') parserMethod = ParserPython3
     ctx.postMessage({
         eventId: eventId,
-        result: parserMethod(...data)
+        result: parserMethod(...newData)
     })
 }
 
