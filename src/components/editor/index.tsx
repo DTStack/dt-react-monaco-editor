@@ -46,7 +46,18 @@ const provideCompletionItemsMap: any = {
         dispose: dtflink.disposeProvider,
         onChange: dtflink.onChange
     },
-    dtPython: {
+    dtPython2: {
+        /**
+         * 注册自定义补全函数
+         */
+        register: dtPython.registeCompleteItemsProvider,
+        /**
+         * 释放自定义补全函数
+         */
+        dispose: dtPython.disposeProvider,
+        onChange: dtPython.onChange
+    },
+    dtPython3: {
         /**
          * 注册自定义补全函数
          */
