@@ -3,9 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *-------------------------------------------------------------------------------------------- */
 
-import { languages } from 'monaco-editor-core';
-
-export const conf: languages.LanguageConfiguration = {
+export const conf: any = {
     comments: {
         lineComment: '#',
         blockComment: ["'''", "'''"]
@@ -33,8 +31,7 @@ export const conf: languages.LanguageConfiguration = {
         {
             beforeText: new RegExp(
                 '^\\s*(?:def|class|for|if|elif|else|while|try|with|finally|except|async).*?:\\s*$'
-            ),
-            action: { indentAction: languages.IndentAction.Indent }
+            )
         }
     ],
     folding: {
@@ -47,7 +44,7 @@ export const conf: languages.LanguageConfiguration = {
 };
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-export const language = <languages.IMonarchLanguage>{
+export const language = {
     defaultToken: '',
     tokenPostfix: '.python',
 
