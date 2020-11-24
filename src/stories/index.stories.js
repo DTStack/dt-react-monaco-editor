@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { FaGitlab } from 'react-icons/fa';
 import MarkdownRender from 'dt-react-component/lib/markdown-render';
 import { Table } from 'antd';
-import Editor from '../components/editor';
+import OnlineDemo from './components/onlineDemo';
 
 const readmeHtml = require('../../README.md');
 const { name, repository, version } = require('../../package.json');
@@ -17,7 +17,7 @@ const dataSource = [
     },
     {
         property: 'language',
-        description: '编辑器语言种类,目前已支持种类有sql、dtsql、dtflink、dtlog、shell、dtPython。(PS: 如果后续有语言扩展请联系前端组)',
+        description: '编辑器语言种类(具体可直接在线体验)',
         propType: 'string',
         defaultValue: 'sql'
     },
@@ -127,17 +127,12 @@ stories
                     <FaGitlab/>
                 </a>
             </h1>
-
             <h2>当前版本</h2>
-            <p >
-                v{version}
-            </p>
-
+            <p >v{version}</p>
             <h2>概述</h2>
             <p >
-            dt-react-monaco-editor是基于monaco-editor做的一款编辑器组件，完美继承monaco-editor，在此基础上进行了业务封装和代码优化，主要用于目前公司有关编辑器场景的应用使用。
+                dt-react-monaco-editor是基于monaco-editor做的一款编辑器组件，完美继承monaco-editor，在此基础上进行了业务封装和代码优化，主要用于目前公司有关编辑器场景的应用使用。
             </p>
-
             <h2>FAQ</h2>
             <p>使用过程中如有问题欢迎沟通～～</p>
         </article>
@@ -159,22 +154,24 @@ stories
                 <p>页面需使用编辑器时</p>
                 <h2>示例</h2>
                 <p>基础用法</p>
-                <Editor
-                    value='// 初始注释'
-                    language="dtPython3"
-                    options={{ readOnly: false }}
-                />
+                <OnlineDemo />
             </div>
         )
     }, {
         info: {
-            TableComponent: () => (<Table dataSource={dataSource} columns={columns} pagination={false} rowKey="property" />),
+            TableComponent: () => (
+                <Table
+                    dataSource={dataSource}
+                    columns={columns}
+                    pagination={false}
+                    rowKey="property"
+                />),
             text: `
             代码示例：
             ~~~js
             <Editor
                 value=‘// 初始注释’
-                language="dtPython"
+                language="dtsql"
                 options={{ readOnly: false }}
             />
             ~~~
