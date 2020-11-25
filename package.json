@@ -130,8 +130,8 @@
   "dependencies": {
     "antd": "^3.26.13",
     "babel-preset-react-app": "^9.1.2",
-    "dt-python-parser": "^0.8.0",
-    "dt-react-component": "^1.4.1",
+    "dt-python-parser": "0.8.0",
+    "dt-react-component": "2.0.0",
     "dt-sql-parser": "3.0.5",
     "lodash": "^4.17.19",
     "monaco-editor": "0.13.1",

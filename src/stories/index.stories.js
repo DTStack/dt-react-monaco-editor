@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { FaGitlab } from 'react-icons/fa';
-import MarkdownRender from 'dt-react-component/lib/markdown-render';
+import MarkdownRender from 'dt-react-component/lib/markdownRender';
 import { Table } from 'antd';
 import OnlineDemo from './components/onlineDemo';
 
