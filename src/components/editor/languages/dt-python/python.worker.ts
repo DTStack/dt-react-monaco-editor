@@ -1,4 +1,4 @@
-import { ParserPython2, ParserPython3 } from 'dt-python-parser';
+import { ParserPython3 } from './python.instantiation';
 
 const ctx: Worker = self as any;
 
@@ -7,14 +7,14 @@ console.log('*****dtPython-worker初始化*****')
 ctx.onmessage = (e: any) => {
     const message = e.data;
     const { eventId, data = [], language } = message;
-    let parserMethod = ParserPython2
+    let parserMethod = ParserPython3
     const newData = data.map(item => {
         return item[item?.length - 1] !== '\n' ? item + '\n' : item
     })
     if (language === 'dtPython3') parserMethod = ParserPython3
     ctx.postMessage({
         eventId: eventId,
-        result: parserMethod(...newData)
+        result: parserMethod(newData)
     })
 }
 
