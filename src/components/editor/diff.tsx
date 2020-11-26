@@ -16,6 +16,7 @@ import 'monaco-editor/esm/vs/basic-languages/python/python.contribution.js';
 // monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
 import './languages/shell/shell.contribution';
 import './languages/dtsql/dtsql.contribution'
+import './languages/dt-python/python.contribution'
 
 import './style.scss';
 import { defaultOptions } from './config';
@@ -69,7 +70,7 @@ export interface DiffEditorProps {
 }
 
 class DiffEditor extends React.Component<DiffEditorProps, any> {
-    constructor(props: any) {
+    constructor (props: any) {
         super(props);
     }
     monacoDom: any = null;
@@ -80,7 +81,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
     _modifiedModel: any = null;
 
     shouldComponentUpdate (nextProps: any, nextState: any) {
-        // // 此处禁用render，直接用editor实例更新编辑器
+        // 此处禁用render，直接用editor实例更新编辑器
         return false;
     }
 
