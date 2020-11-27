@@ -10,6 +10,7 @@
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "dev": "start-storybook -p 9001 -c .storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
