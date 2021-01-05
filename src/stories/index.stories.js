@@ -147,7 +147,7 @@ stories
             </div>
         )
     })
-    .add('Editor 编辑器', () => {
+    .add('在线演示 & 文档', () => {
         return (
             <div style={{ marginLeft: 40 }}>
                 <h2>何时使用</h2>
