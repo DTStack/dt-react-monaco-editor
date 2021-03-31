@@ -1,5 +1,5 @@
 ## :house: 简述
-    基于开源monaco-editor,根据业务使用场景进行二次封装，极大的简化了代码，使编辑器部分代码可控性更高。
+基于开源 monaco-editor,根据业务使用场景进行二次封装，极大的简化了代码，使编辑器部分代码可控性更高。
 ## :zap: 安装
 > 使用 npm
 ```bash
@@ -8,9 +8,9 @@
 ## :book: 如何使用
 **在线预览**
 
-    https://DTStack.github.io/dt-react-monaco-editor/
+https://DTStack.github.io/dt-react-monaco-editor/
 
-**webpack配置**
+**webpack 配置**
 ```diff
     1、
         rule.push( {
