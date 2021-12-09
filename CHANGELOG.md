@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## 0.0.7 (2020-09-22)
 
 
@@ -28,6 +32,3 @@
 * initialization architecture ([444c41d](https://github.com/DTStack/dt-react-monaco-editor/commit/444c41d136fa48d4df7ddbd1f90bdbc5115c7b08))
 * update ([059baf3](https://github.com/DTStack/dt-react-monaco-editor/commit/059baf3a4cce49b975c41828155e724d96f841d6))
 * update version ([d961146](https://github.com/DTStack/dt-react-monaco-editor/commit/d961146c751200b9976b578b3a0746af51566fb1))
-
-
-
