@@ -16,6 +16,7 @@ https://DTStack.github.io/dt-react-monaco-editor/
         rule.push( {
             test: /\.worker\.[jt]s$/,
             use: { loader: 'worker-loader' }
+            // 请确认您的项目已经引入worker-loader，如果没有请引入
         })
     2、
         node = {
