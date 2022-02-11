@@ -7,6 +7,7 @@ console.log('*****dtPython-worker初始化*****')
 ctx.onmessage = (e: any) => {
     const message = e.data;
     const { eventId, data = [], language } = message;
+    if (!eventId) return;
     let parserMethod = ParserPython3
     const newData = data.map(item => {
         return item[item?.length - 1] !== '\n' ? item + '\n' : item
