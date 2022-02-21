@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.1.3...v0.1.4) (2022-02-21)
+
+
+### Bug Fixes
+
+* fix language worker loop call onmessage ([f1694e9](https://github.com/DTStack/dt-react-monaco-editor/commit/f1694e9eaa3b57e224b25ba6c0c118a352e1f33d))
+* fix loop call python worker onmessage case cpu too high ([7f14b3a](https://github.com/DTStack/dt-react-monaco-editor/commit/7f14b3ae0636416e6cc35f52e469dc3e723a2891))
+* fix loop call python worker onmessage case cpu too high ([#9](https://github.com/DTStack/dt-react-monaco-editor/issues/9)) ([1a08ffd](https://github.com/DTStack/dt-react-monaco-editor/commit/1a08ffd74b04c3d8324981db48239dc202679501))
+
 ### 0.1.3 (2021-12-10)
 
 
