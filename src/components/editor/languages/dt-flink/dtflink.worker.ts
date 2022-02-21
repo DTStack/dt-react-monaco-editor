@@ -7,6 +7,7 @@ console.log('*****dtsql-worker初始化*****')
 ctx.onmessage = (e: any) => {
     const message = e.data;
     const { eventId, data = [], type } = message;
+    if (!eventId) return;
     if (type == 'parseSyntax') {
         let result = dtsql.flinksqlParser(...data);
         ctx.postMessage({
