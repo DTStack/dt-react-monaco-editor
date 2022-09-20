@@ -14,7 +14,7 @@ class OnlineDemo extends React.Component<any, any> {
     render () {
         const { language } = this.state;
         const dataSource = [
-            'dtsql', 'dtflink', 'dtPython2', 'dtPython3', 'shell', 'dtlog'
+            'dtsql', 'dtflink', 'dtPython2', 'dtPython3','json', 'shell', 'dtlog'
         ]
         const sqlText = `-- name dt-react-monaco-editor
 -- type dtsql
@@ -84,6 +84,14 @@ class ClusterEvaluateAi(Model):
         # 上传到hdfs中
         super().upload_to_hdfs(data=index_data, path=index_out, sep="\t")
         print("cluster evaluation has been already successfully executed")`
+        const jsonText = `
+        {
+            "foo": 1,
+            "bar": {
+            "bas": 3
+            }
+            }
+        `
         return (
             <>
             <Select
@@ -126,6 +134,15 @@ class ClusterEvaluateAi(Model):
                     options={{ readOnly: false }}
                 />
             )}
+            {
+                language === 'json' && (
+                    <Editor
+                        value={jsonText}
+                        language='json'
+                        options={{ readOnly: false }}
+                    />
+                )
+            }
             {language === 'shell' && (
                 <Editor
                     value=' shell功能完善中，敬请期待'
