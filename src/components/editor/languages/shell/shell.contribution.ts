@@ -10,11 +10,12 @@ declare var self: any;
 declare var monaco: any;
 
 // Allow for running under nodejs/requirejs in tests
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var _monaco = typeof monaco === 'undefined' ? self.monaco : monaco;
 
 registerLanguage({
     id: 'shell',
     extensions: ['.sh', '.bash'],
     aliases: ['Shell', 'sh'],
-    loader: function () { return _monaco.Promise.wrap(import('./shell')); }
+    loader: () => import('./shell')
 });

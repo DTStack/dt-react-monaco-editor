@@ -152,7 +152,7 @@ export async function onChange (value = '', _editor: monaco.editor.IStandaloneCo
         const message = syntax.errorMsg;
         let begin = _editor.getModel().getPositionAt(syntax.token.start);
         let end = _editor.getModel().getPositionAt(syntax.token.stop);
-        monaco.editor.setModelMarkers(model, model.getModeId(), [{
+        monaco.editor.setModelMarkers(model, model.getLanguageId(), [{
             startLineNumber: begin.lineNumber,
             startColumn: begin.column,
             endLineNumber: end.lineNumber,
@@ -163,7 +163,7 @@ export async function onChange (value = '', _editor: monaco.editor.IStandaloneCo
         _tmpDecorations = _editor.deltaDecorations(_tmpDecorations, createLineMarker(begin, end))
     } else {
         _editor.deltaDecorations(_tmpDecorations, [])
-        monaco.editor.setModelMarkers(model, model.getModeId(), [])
+        monaco.editor.setModelMarkers(model, model.getLanguageId(), [])
     }
     if (callback) {
         callback(syntax);

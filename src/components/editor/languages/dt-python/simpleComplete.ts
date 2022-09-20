@@ -267,7 +267,7 @@ export async function onChange (value = '', _editor: any, callback: any) {
     let syntax = await dtParser.parseSyntax(value.replace(/\r\n/g, '\n'));
     if (syntax && syntax.token != 'EOF') {
         const message = messageCreate(syntax);
-        monaco.editor.setModelMarkers(model, model.getModeId(), [{
+        monaco.editor.setModelMarkers(model, model.getLanguageId(), [{
             startLineNumber: syntax.startLine,
             startColumn: syntax.startCol + 1,
             endLineNumber: syntax.endLine + 1,
@@ -278,7 +278,7 @@ export async function onChange (value = '', _editor: any, callback: any) {
         _tmpDecorations = _editor.deltaDecorations(_tmpDecorations, createLineMarker(syntax))
     } else {
         _editor.deltaDecorations(_tmpDecorations, [])
-        monaco.editor.setModelMarkers(model, model.getModeId(), [])
+        monaco.editor.setModelMarkers(model, model.getLanguageId(), [])
     }
     if (callback) {
         callback(autoComplete, syntax);

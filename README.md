@@ -30,6 +30,8 @@ https://DTStack.github.io/dt-react-monaco-editor/
         ))
 
 ```
+**另请引入对应的官方 [webpack-plugin](https://github.com/microsoft/monaco-editor/tree/main/webpack-plugin)**
+
 **直接引入**
 ```js
     import { Editor } from 'dt-react-monaco-editor'
