@@ -248,7 +248,7 @@ class Editor extends React.Component<any, any> {
             return;
         }
         const newValue = this.monacoInstance.getValue();
-        const languageId = this.monacoInstance.getModel().getModeId();
+        const languageId = this.monacoInstance.getModel().getLanguageId();
         if (provideCompletionItemsMap[languageId] && provideCompletionItemsMap[languageId].onChange) {
             provideCompletionItemsMap[languageId].onChange(newValue, this.monacoInstance, callback);
         }
@@ -270,7 +270,7 @@ class Editor extends React.Component<any, any> {
             }
         });
 
-        this.monacoInstance.onDidBlurEditor(() => {
+        this.monacoInstance.onDidBlurEditorText(() => {
             this.log('编辑器事件 onDidBlur');
             const { onBlur, value } = this.props;
             if (onBlur) {
@@ -279,7 +279,7 @@ class Editor extends React.Component<any, any> {
             }
         });
 
-        this.monacoInstance.onDidFocusEditor(() => {
+        this.monacoInstance.onDidFocusEditorText(() => {
             this.log('编辑器事件 onDidFocus');
             const { onFocus, value } = this.props;
             if (onFocus) {

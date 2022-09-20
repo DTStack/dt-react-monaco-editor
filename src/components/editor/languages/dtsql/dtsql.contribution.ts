@@ -10,11 +10,12 @@ declare var monaco: any;
 declare var self: any;
 
 // Allow for running under nodejs/requirejs in tests
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var _monaco = typeof monaco === 'undefined' ? self.monaco : monaco;
 registerLanguage({
     id: 'dtsql',
     extensions: ['.dtsql', '.dtsql'],
     aliases: ['DtSql', 'dtsql'],
-    loader: function () { return _monaco.Promise.wrap(import('./dtsql')); }
+    loader: () => import('./dtsql')
 });
 export { registeCompleteItemsProvider, disposeProvider, onChange };

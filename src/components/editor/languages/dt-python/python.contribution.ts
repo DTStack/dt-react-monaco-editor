@@ -9,6 +9,7 @@ import { registeCompleteItemsProvider, disposeProvider, onChange } from './simpl
 declare var monaco: any;
 declare var self: any;
 // Allow for running under nodejs/requirejs in tests
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var _monaco = typeof monaco === 'undefined' ? self.monaco : monaco;
 
 registerLanguage({
@@ -16,7 +17,7 @@ registerLanguage({
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
     aliases: ['Python', 'py'],
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
-    loader: function () { return _monaco.Promise.wrap(import('./python')); }
+    loader: () => import('./python')
 });
 
 registerLanguage({
@@ -24,6 +25,6 @@ registerLanguage({
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
     aliases: ['Python', 'py'],
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
-    loader: function () { return _monaco.Promise.wrap(import('./python')); }
+    loader: () => import('./python')
 });
 export { registeCompleteItemsProvider, disposeProvider, onChange };
