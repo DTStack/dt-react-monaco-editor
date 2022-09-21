@@ -1,6 +1,6 @@
 {
   "name": "dt-react-monaco-editor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Monaco editor for React.",
   "repository": {
     "type": "git",
@@ -16,8 +16,8 @@
     "deploy-storybook": "storybook-to-ghpages",
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/components/editor/style.scss ./lib/style.scss",
-    "release": "./scripts/release.sh",
+    "build-css": "sass ./src/components/editor/style.scss ./lib/style.scss",
+    "release": "npm run compile && bash ./scripts/release.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "check-types": "tsc --skipLibCheck",
     "test": "jest --no-chche",
