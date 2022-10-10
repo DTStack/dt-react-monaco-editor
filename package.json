@@ -7,16 +7,20 @@
     "url": "https://github.com/DTStack/dt-react-monaco-editor"
   },
   "main": "lib/index.js",
-  "module": "lib/index.js",
+  "files": [
+    "lib",
+    "workers"
+  ],
   "types": "lib/index.d.ts",
   "scripts": {
     "dev": "start-storybook -p 9001 -c .storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook",
     "deploy-storybook": "storybook-to-ghpages",
-    "compile": "rm -rf lib && npm run build-ts && npm run build-css",
+    "compile": "rm -rf lib && npm run build-ts && npm run build-css && npm run build-workers",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "sass ./src/components/editor/style.scss ./lib/style.scss",
+    "build-workers": "./scripts/build_workers.sh",
     "release": "npm run compile && bash ./scripts/release.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "check-types": "tsc --skipLibCheck",
@@ -91,6 +95,7 @@
     "babel-plugin-macros": "^2.6.1",
     "babel-plugin-transform-require-context": "^0.1.1",
     "commitizen": "^4.1.2",
+    "copy-webpack-plugin": "^5.1.2",
     "css-loader": "^3.1.0",
     "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.11.0",
@@ -113,6 +118,7 @@
     "less-loader": "^5.0.0",
     "lint-md": "^0.2.0",
     "monaco-editor-webpack-plugin": "^6.0.0",
+    "parcel": "1.12.3",
     "react-docgen-typescript-loader": "^3.1.1",
     "react-storybook-addon-chapters": "^3.1.7",
     "react-test-renderer": "^16.8.6",
