@@ -2,8 +2,9 @@
 const webpack = require('webpack');
 const path = require('path');
 const ROOT_PATH = path.resolve(__dirname, '../');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const monacoConfig = require('./monacoConfig');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const monacoConfig = require('./monacoConfig');
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
         test: /\.worker.[jt]s$/,
@@ -54,11 +55,11 @@ module.exports = async ({ config, mode }) => {
         ]
     });
     config.entry.app= './src/index.tsx';
-    config.entry['editor.worker']= 'monaco-editor/esm/vs/editor/editor.worker.js';
-    config.entry['json.worker']= 'monaco-editor/esm/vs/language/json/json.worker';
-    config.entry['css.worker']= 'monaco-editor/esm/vs/language/css/css.worker';
-    config.entry['html.worker']= 'monaco-editor/esm/vs/language/html/html.worker';
-    config.entry['ts.worker']= 'monaco-editor/esm/vs/language/typescript/ts.worker';
+    // config.entry['editor.worker']= 'monaco-editor/esm/vs/editor/editor.worker.js';
+    // config.entry['json.worker']= 'monaco-editor/esm/vs/language/json/json.worker';
+    // config.entry['css.worker']= 'monaco-editor/esm/vs/language/css/css.worker';
+    // config.entry['html.worker']= 'monaco-editor/esm/vs/language/html/html.worker';
+    // config.entry['ts.worker']= 'monaco-editor/esm/vs/language/typescript/ts.worker';
     config.output.globalObject = 'self';
     config.resolve = {
         modules: ["node_modules"],
@@ -75,10 +76,16 @@ module.exports = async ({ config, mode }) => {
         /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
         __dirname
         ),
-        new MonacoWebpackPlugin({
-            features: monacoConfig.features,
-            languages: monacoConfig.languages
-        })
+        new CopyWebpackPlugin([
+            {
+                from: path.join(__dirname, '../workers'),
+                to: config.output.path
+            }
+        ])
+        // new MonacoWebpackPlugin({
+        //     features: monacoConfig.features,
+        //     languages: monacoConfig.languages
+        // })
     );
     // Return the altered config
     return config;

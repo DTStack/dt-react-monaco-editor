@@ -68,10 +68,22 @@ const provideCompletionItemsMap: any = {
         dispose: dtPython.disposeProvider,
         onChange: dtPython.onChange
     }
-}
+};
+
 class Editor extends React.Component<any, any> {
     constructor (props: any) {
         super(props);
+        (self as any).MonacoEnvironment = {
+            getWorkerUrl: function (moduleId, label) {
+                if (label === 'json') {
+                    return './json.worker.js';
+                }
+                if (label === 'typescript' || label === 'javascript') {
+                    return './ts.worker.js';
+                }
+                return './editor.worker.js';
+            }
+        };
     }
     /**
      * monaco需要的渲染节点
