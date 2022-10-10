@@ -30,7 +30,9 @@ https://DTStack.github.io/dt-react-monaco-editor/
         ))
 
 ```
-**另请引入对应的官方 [webpack-plugin](https://github.com/microsoft/monaco-editor/tree/main/webpack-plugin)**
+<del>**另请引入对应的官方 [webpack-plugin](https://github.com/microsoft/monaco-editor/tree/main/webpack-plugin)**</del>
+
+**可以不引用官方的webpack-plugin,具体参考这个[commit](https://github.com/DTStack/dt-react-monaco-editor/commit/3f6238c6b38a0c58724b654935a017e32529eb56)**
 
 **直接引入**
 ```js
