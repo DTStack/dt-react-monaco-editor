@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.1.4...v0.3.1) (2022-10-13)
+
+
+### Features
+
+* add InsertAsSnippet rule to auto complete items ([8265915](https://github.com/DTStack/dt-react-monaco-editor/commit/82659159130bc483a4bff1821dec34c0bcc2004e))
+* update deps & scripts ([96d6e21](https://github.com/DTStack/dt-react-monaco-editor/commit/96d6e21b0c28e6398b62a4e12c887d41b14caa81))
+* using plain webpack without monoco-editor-webpack-plugin ([3f6238c](https://github.com/DTStack/dt-react-monaco-editor/commit/3f6238c6b38a0c58724b654935a017e32529eb56))
+
+
+### Bug Fixes
+
+* correct simpleComplete code to compat monaco-editor@0.3.x ([34df442](https://github.com/DTStack/dt-react-monaco-editor/commit/34df442e148c1b38b6e546eae7b261e327df9927))
+
 ## 0.2.0 (2022-09-20)
 
 
