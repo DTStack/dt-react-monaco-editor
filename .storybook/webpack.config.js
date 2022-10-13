@@ -2,8 +2,9 @@
 const webpack = require('webpack');
 const path = require('path');
 const ROOT_PATH = path.resolve(__dirname, '../');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const monacoConfig = require('./monacoConfig');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const monacoConfig = require('./monacoConfig');
 module.exports = async ({ config, mode }) => {
     config.module.rules.push({
         test: /\.worker.[jt]s$/,
@@ -75,10 +76,16 @@ module.exports = async ({ config, mode }) => {
         /monaco-editor(\\|\/)esm(\\|\/)vs(\\|\/)editor(\\|\/)common(\\|\/)services/,
         __dirname
         ),
-        new MonacoWebpackPlugin({
-            features: monacoConfig.features,
-            languages: monacoConfig.languages
-        })
+        new CopyWebpackPlugin([
+            {
+                from: path.join(__dirname, '../workers'),
+                to: config.output.path
+            }
+        ])
+        // new MonacoWebpackPlugin({
+        //     features: monacoConfig.features,
+        //     languages: monacoConfig.languages
+        // })
     );
     // Return the altered config
     return config;
