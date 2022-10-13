@@ -72,7 +72,6 @@ function loadDtParser () {
  * thing=([,.\w])
  */
 // const selectRegExp = /Select\s+[\s\S]+\s+from(\s+\w+)((\s*,\s*\w+)*)\s*;/i;
-let cacheKeyWords: any = [];
 let _completeProvideFunc: any = {};
 let _tmpDecorations: any = [];
 function dtsqlWords () {
@@ -105,11 +104,10 @@ function functionsCompleteItemCreater (functions: any) {
                 label: functionName,
                 kind: monaco.languages.CompletionItemKind.Function,
                 detail: '函数',
-                insertText: {
-                    value: functionName + '($1) '
-                },
+                insertText: functionName + '($1) ',
                 sortText: '2000' + index + functionName,
-                filterText: functionName.toLowerCase()
+                filterText: functionName.toLowerCase(),
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         }
     )
@@ -125,10 +123,9 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
                 label: name,
                 kind: monaco.languages.CompletionItemKind[type || 'Text'],
                 detail: detail,
-                insertText: {
-                    value: type == 'Function' ? (name + '($1) ') : (name)
-                },
-                sortText: sortIndex + index + name
+                insertText: type == 'Function' ? (name + '($1) ') : (name),
+                sortText: sortIndex + index + name,
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         }
     )
@@ -137,13 +134,10 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
  * 创建固定的补全项，例如：keywords...
  */
 function createDependencyProposals () {
-    if (!cacheKeyWords.length) {
-        const words: any = dtsqlWords();
-        const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
-        const keywords: any = [].concat(words.keywords);
-        cacheKeyWords = keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
-    }
-    return cacheKeyWords
+    const words: any = dtsqlWords();
+    const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
+    const keywords: any = [].concat(words.keywords);
+    return keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
 }
 
 monaco.languages.registerCompletionItemProvider('dtsql', {
@@ -172,7 +166,13 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                         }
                     )
                 }
-                completeProvideFunc(completeItems, resolve, customCompletionItemsCreater, {
+                const resolveCompleteItems = (completeItems) => (
+                    resolve({
+                        suggestions: completeItems,
+                        incomplete: true
+                    })
+                )
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
                     status: 0,
                     model: model,
                     position: position,
@@ -185,7 +185,10 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                     }
                 });
             } else {
-                resolve(completeItems)
+                resolve({
+                    suggestions: completeItems,
+                    incomplete: true
+                })
             }
         });
     }
