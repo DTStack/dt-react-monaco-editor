@@ -88,7 +88,8 @@ function functionsCompleteItemCreater (functions: any) {
                 detail: '函数',
                 insertText: functionName + '($1) ',
                 sortText: '2000' + index + functionName,
-                filterText: functionName.toLowerCase()
+                filterText: functionName.toLowerCase(),
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         }
     )
@@ -106,7 +107,8 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
                 kind: monaco.languages.CompletionItemKind[type || 'Text'],
                 detail: detail,
                 insertText: type == 'Function' ? (name + '($1) ') : (name),
-                sortText: sortIndex + index + name
+                sortText: sortIndex + index + name,
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
             }
         }
     )
