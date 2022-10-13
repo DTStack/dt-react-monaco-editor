@@ -135,7 +135,11 @@ monaco.languages.registerCompletionItemProvider('dtflink', {
                 completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
                     status: 0,
                     model: model,
-                    position: position
+                    position: position,
+                    word: model.getWordAtPosition(position),
+                    context: {
+                        completionContext: completionContext
+                    }
                 });
             } else {
                 resolve({
