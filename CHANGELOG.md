@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.1...v0.3.2) (2022-10-13)
+
+
+### Features
+
+* expose completionContext of dtflick language ([4f71f97](https://github.com/DTStack/dt-react-monaco-editor/commit/4f71f97de66a774fa1f821c4de23422f00b2de82))
+
 ### [0.3.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.1.4...v0.3.1) (2022-10-13)
 
 
