@@ -75,7 +75,6 @@ function loadDtParser (currentLanguage: string) {
  * thing=([,.\w])
  */
 // const selectRegExp = /Select\s+[\s\S]+\s+from(\s+\w+)((\s*,\s*\w+)*)\s*;/i;
-let cacheKeyWords: any = [];
 let _completeProvideFunc: any = {};
 let _tmpDecorations: any = [];
 function dtPythonWords () {
@@ -104,9 +103,7 @@ function functionsCompleteItemCreater (functions: any) {
                 label: functionName,
                 kind: monaco.languages.CompletionItemKind.Function,
                 detail: '函数',
-                insertText: {
-                    value: functionName + '($1) '
-                },
+                insertText: functionName + '($1) ',
                 sortText: '2000' + index + functionName,
                 filterText: functionName.toLowerCase()
             }
@@ -124,9 +121,7 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
                 label: name,
                 kind: monaco.languages.CompletionItemKind[type || 'Text'],
                 detail: detail,
-                insertText: {
-                    value: type == 'Function' ? (name + '($1) ') : (name)
-                },
+                insertText: type == 'Function' ? (name + '($1) ') : (name),
                 sortText: sortIndex + index + name
             }
         }
@@ -136,13 +131,10 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
  * 创建固定的补全项，例如：keywords...
  */
 function createDependencyProposals () {
-    if (!cacheKeyWords.length) {
-        const words: any = dtPythonWords();
-        const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
-        const keywords: any = [].concat(words.keywords);
-        cacheKeyWords = keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
-    }
-    return cacheKeyWords
+    const words: any = dtPythonWords();
+    const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
+    const keywords: any = [].concat(words.keywords);
+    return keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
 }
 
 monaco.languages.registerCompletionItemProvider('dtPython2', {
@@ -172,7 +164,12 @@ monaco.languages.registerCompletionItemProvider('dtPython2', {
                         }
                     )
                 }
-                completeProvideFunc(completeItems, resolve, customCompletionItemsCreater, {
+                const resolveCompleteItems = (completeItems) => (
+                    resolve({
+                        suggestions: completeItems
+                    })
+                )
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
                     status: 0,
                     model: model,
                     position: position,
@@ -185,7 +182,9 @@ monaco.languages.registerCompletionItemProvider('dtPython2', {
                     }
                 });
             } else {
-                resolve(completeItems)
+                resolve({
+                    suggestions: completeItems
+                })
             }
         });
     }
@@ -218,7 +217,12 @@ monaco.languages.registerCompletionItemProvider('dtPython3', {
                         }
                     )
                 }
-                completeProvideFunc(completeItems, resolve, customCompletionItemsCreater, {
+                const resolveCompleteItems = (completeItems) => (
+                    resolve({
+                        suggestions: completeItems
+                    })
+                )
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
                     status: 0,
                     model: model,
                     position: position,
@@ -231,7 +235,9 @@ monaco.languages.registerCompletionItemProvider('dtPython3', {
                     }
                 });
             } else {
-                resolve(completeItems)
+                resolve({
+                    suggestions: completeItems
+                })
             }
         });
     }

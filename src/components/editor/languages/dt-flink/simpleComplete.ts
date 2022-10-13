@@ -2,7 +2,6 @@
 import * as monaco from 'monaco-editor';
 import FlinkWorker from './dtflink.worker';
 
-let cacheKeyWords: any = [];
 let _completeProvideFunc: any = {};
 let _tmpDecorations: any = [];
 let _DtParserInstance: any;
@@ -87,9 +86,7 @@ function functionsCompleteItemCreater (functions: any) {
                 label: functionName,
                 kind: monaco.languages.CompletionItemKind.Function,
                 detail: '函数',
-                insertText: {
-                    value: functionName + '($1) '
-                },
+                insertText: functionName + '($1) ',
                 sortText: '2000' + index + functionName,
                 filterText: functionName.toLowerCase()
             }
@@ -108,37 +105,40 @@ function customCompletionItemsCreater (_customCompletionItems: any) {
                 label: name,
                 kind: monaco.languages.CompletionItemKind[type || 'Text'],
                 detail: detail,
-                insertText: {
-                    value: type == 'Function' ? (name + '($1) ') : (name)
-                },
+                insertText: type == 'Function' ? (name + '($1) ') : (name),
                 sortText: sortIndex + index + name
             }
         }
     )
 }
 function createDependencyProposals () {
-    if (!cacheKeyWords.length) {
-        const words = dtsqlWords();
-        const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
-        const keywords: any = [].concat(words.keywords);
-        cacheKeyWords = keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
-    }
-    return cacheKeyWords
+    const words = dtsqlWords();
+    const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
+    const keywords: any = [].concat(words.keywords);
+    return keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
 }
 
 monaco.languages.registerCompletionItemProvider('dtflink', {
-    provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
+    triggerCharacters: ['.'],
+    provideCompletionItems: function (model: any, position: any, token: any, completionContext: any) {
         const completeItems = createDependencyProposals();
         return new Promise<any>(async (resolve: any, reject: any) => {
             const completeProvideFunc = _completeProvideFunc[model.id]
             if (completeProvideFunc) {
-                completeProvideFunc(completeItems, resolve, customCompletionItemsCreater, {
+                const resolveCompleteItems = (completeItems) => (
+                    resolve({
+                        suggestions: completeItems
+                    })
+                )
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
                     status: 0,
                     model: model,
                     position: position
                 });
             } else {
-                resolve(completeItems);
+                resolve({
+                    suggestions: completeItems
+                })
             }
         });
     }
