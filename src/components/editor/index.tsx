@@ -70,7 +70,67 @@ const provideCompletionItemsMap: any = {
     }
 };
 
-class Editor extends React.Component<any, any> {
+type IMonarchLanguageConf = monaco.languages.IMonarchLanguage | PromiseLike<monaco.languages.IMonarchLanguage>;
+export interface EditorProps {
+    /**
+     * editor 的内容
+     */
+    value: string;
+    className?: string;
+    style?: object;
+    /**
+     * editor 配置项
+     */
+    options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
+    /**
+     * editor 主题
+     */
+    theme?: monaco.editor.BuiltinTheme;
+    /**
+     * editor language
+     */
+    language?: string;
+    languageConfig?: IMonarchLanguageConf;
+    /**
+     * 获取 editor 实例
+     */
+    editorInstanceRef?: (editorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    /**
+     * 光标当前位置
+     */
+    cursorPosition?: monaco.IPosition;
+    /**
+     * 是否禁用语法解析
+     */
+    disabledSyntaxCheck?: boolean;
+    /**
+     * 当value变化时，是否同步到editor中
+     */
+    sync?: boolean;
+    /**
+     * 文件内容改变事件回调函数
+     */
+    onChange?: (value: string, editorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    onBlur?: (value: string, preValue: string) => any;
+    onFocus?: (value: string, preValue: string) => any;
+    /**
+     * 文件指针改变事件回调函数
+     */
+    onCursorSelection?: (selectionContent: string) => any;
+    /**
+     * 语法解析完成回调函数
+     */
+    onSyntaxChange?: Function;
+    /**
+     * 提供自动补全项的方法
+     */
+    customCompleteProvider?: (completeItems: any, resolve: any, customCompletionItemsCreater: any, ext: any) => any;
+    /**
+     * 是否打印编辑器日志
+     */
+    isLog?: boolean;
+}
+class Editor extends React.Component<EditorProps, any> {
     constructor (props: any) {
         super(props);
     }
@@ -87,7 +147,7 @@ class Editor extends React.Component<any, any> {
      */
     _linkId: any = null;
 
-    shouldComponentUpdate (nextProps: any, nextState: any) {
+    shouldComponentUpdate (nextProps: EditorProps, nextState: any) {
         // 此处禁用render， 直接用editor实例更新编辑器
         return false;
     }
@@ -126,7 +186,7 @@ class Editor extends React.Component<any, any> {
         }
     }
     // eslint-disable-next-line
-    UNSAFE_componentWillReceiveProps(nextProps: any) {
+    UNSAFE_componentWillReceiveProps(nextProps: EditorProps) {
         const { sync, value, theme, languageConfig, language } = nextProps;
         if (this.props.value !== value && sync) {
             /**
@@ -184,12 +244,12 @@ class Editor extends React.Component<any, any> {
             }
         )
     }
-    updateMonarch (config: any, language: any) {
+    updateMonarch (config: IMonarchLanguageConf, language: string) {
         if (config && language) {
             if (config) { monaco.languages.setMonarchTokensProvider(language, config); }
         }
     }
-    isValueExist (props: any) {
+    isValueExist (props: EditorProps) {
         const keys = Object.keys(props);
         if (keys.includes('value')) {
             return true;
@@ -241,10 +301,10 @@ class Editor extends React.Component<any, any> {
         monaco.editor.defineTheme('white', whiteTheme);
         this.props.theme && monaco.editor.setTheme(this.props.theme);
     }
-    updateValueWithNoEvent (value: any) {
+    updateValueWithNoEvent (value: string) {
         this.monacoInstance.setValue(value);
     }
-    languageValueOnChange (callback: any) {
+    languageValueOnChange (callback: Function) {
         if (this.props.disabledSyntaxCheck) {
             return;
         }
@@ -343,7 +403,7 @@ class Editor extends React.Component<any, any> {
         return <div
             className={renderClass}
             style={renderStyle}
-            ref={(domIns: any) => { this.monacoDom = domIns; }}
+            ref={(domIns) => { this.monacoDom = domIns; }}
         />;
     }
 }

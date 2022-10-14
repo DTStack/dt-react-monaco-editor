@@ -1,14 +1,4 @@
 import * as React from 'react';
-
-// import 'monaco-editor/esm/vs/editor/browser/controller/coreCommands.js';
-// import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
-// import 'monaco-editor/esm/vs/editor/contrib/folding/folding.js';
-// import 'monaco-editor/esm/vs/editor/contrib/contextmenu/contextmenu.js';
-// import 'monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js';
-
-// import 'monaco-editor/esm/vs/editor/editor.all.js';
-// import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
-// import * as monaco from 'monaco-editor/esm/vs/editor/edcore.main.js';
 import * as monaco from 'monaco-editor';
 import 'monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/python/python.contribution.js';
@@ -24,14 +14,14 @@ import { defaultOptions } from './config';
 export interface DiffEditorProps {
     className?: string;
     style?: object;
-    options?: object;
-    theme?: any;
-    language?: any;
-    value?: any;
+    options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
+    theme?: monaco.editor.BuiltinTheme;
+    language?: string;
+    value?: string;
     /**
      * 该方法的入参为源文件Editor的引用
      */
-    editorInstanceRef?: Function;
+    editorInstanceRef?: (editorInstance: monaco.editor.IStandaloneCodeEditor) => {};
     /**
      * 源文件的属性对象
      * value:文件内容
@@ -46,19 +36,19 @@ export interface DiffEditorProps {
     /**
      * 源文件改变事件回调函数
      */
-    onChange?: Function;
+    onChange?: (originValue: string, originEditorInstance: monaco.editor.IStandaloneCodeEditor) => any;
     /**
      * 源文件失去焦点回调函数
      */
-    onBlur?: Function;
+    onBlur?: (modifiedValue: string, originValue: string) => any;
     /**
      * 源文件获得焦点回调函数
      */
-    onFocus?: Function;
+    onFocus?: (modifiedValue: string, originValue: string) => any;
     /**
      * 文件指针改变事件回调函数
      */
-    onCursorSelection?: Function;
+    onCursorSelection?: (selectionContent: string) => any;
     /**
      * 是否同步源文件内容
      */
@@ -69,18 +59,21 @@ export interface DiffEditorProps {
     isLog?: boolean;
 }
 
+const defaultOriginal = { value: '', cursorPosition: null };
+const defaultModified = { value: '', cursorPosition: null };
+
 class DiffEditor extends React.Component<DiffEditorProps, any> {
     constructor (props: any) {
         super(props);
     }
     monacoDom: any = null;
-    monacoInstance: any = null;
-    _originalEditor: any = null;
-    _modifiedEditor: any = null;
-    _originalModel: any = null;
-    _modifiedModel: any = null;
+    monacoInstance: monaco.editor.IStandaloneDiffEditor = null;
+    _originalEditor: monaco.editor.IStandaloneCodeEditor = null;
+    _modifiedEditor: monaco.editor.IStandaloneCodeEditor = null;
+    _originalModel: monaco.editor.ITextModel = null;
+    _modifiedModel: monaco.editor.ITextModel = null;
 
-    shouldComponentUpdate (nextProps: any, nextState: any) {
+    shouldComponentUpdate (nextProps: DiffEditorProps, nextState: DiffEditorProps) {
         // 此处禁用render，直接用editor实例更新编辑器
         return false;
     }
@@ -92,8 +85,8 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
         }
     }
     // eslint-disable-next-line
-    UNSAFE_componentWillReceiveProps (nextProps: any) {
-        const { sync, original = {}, modified = {}, options = {}, theme } = nextProps;
+    UNSAFE_componentWillReceiveProps (nextProps: DiffEditorProps) {
+        const { sync, original = defaultOriginal, modified = defaultOriginal, options = {}, theme } = nextProps;
         if (this.props.original && this.props.original.value !== original.value && sync) {
             const editorText = !original.value ? '' : original.value;
             this.updateValueWithNoEvent(editorText);
@@ -135,7 +128,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
     }
 
     initMonaco () {
-        const { original = {}, modified = {}, language, options }: any = this.props;
+        const { original = defaultOriginal, modified = defaultModified, language, options } = this.props;
         if (!this.monacoDom) {
             console.error('初始化dom节点出错');
             return;
@@ -222,7 +215,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             }
         });
 
-        this._originalEditor.onDidChangeCursorSelection((event: any) => {
+        this._originalEditor.onDidChangeCursorSelection(() => {
             this.log('编辑器事件 onDidChangeCursorSelection');
             const { onCursorSelection } = this.props;
             const ranges = this._originalEditor.getSelections();
