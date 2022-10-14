@@ -204,7 +204,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             }
         });
 
-        this._originalEditor.onDidBlurEditor((event: any) => {
+        this._originalEditor.onDidFocusEditorWidget(() => {
             this.log('编辑器事件 onDidBlur');
             const { onBlur, value } = this.props;
             if (onBlur) {
@@ -213,7 +213,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             }
         });
 
-        this._originalEditor.onDidFocusEditor((event: any) => {
+        this._originalEditor.onDidFocusEditorWidget(() => {
             this.log('编辑器事件 onDidFocus');
             const { onFocus, value } = this.props;
             if (onFocus) {
