@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.2...v0.3.3) (2022-10-14)
+
+
+### Features
+
+* add ts defination of component props ([62d4c1d](https://github.com/DTStack/dt-react-monaco-editor/commit/62d4c1dc57d4cd555022bebe23507ddc43ec2c0a))
+
+
+### Bug Fixes
+
+* use new api which compat currect version of monaco ([0bbd098](https://github.com/DTStack/dt-react-monaco-editor/commit/0bbd098d3404f1772a469271499b54c92203d152))
+
 ### [0.3.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.1...v0.3.2) (2022-10-13)
 
 
