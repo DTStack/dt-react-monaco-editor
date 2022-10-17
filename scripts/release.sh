@@ -8,28 +8,45 @@ esac; shift; done
 
 # Default as minor, the argument major, minor or patch: 
 if [ -z "$release" ]; then
-    release="minor";
-fi
-
-# Default release branch is master 
-if [ -z "$branch" ] ; then
-    branch="master"; 
+    echo -e 'please select type which your release as';
+    select rel in 'major', 'minor', 'patch'; do
+      release=$rel;
+      break;
+    done;
 fi;
 
+echo -e "\n";
+
+# Default release branch is current branch name 
+currentBranch=$(git rev-parse --abbrev-ref HEAD);
+
+if [ -z "$branch" ] ; then
+  read -p "Please input the branch name that you want release, default is $currentBranch: " inputBr;
+  if [ -z "$inputBr" ]; then
+    branch=$currentBranch;
+  else 
+    branch=$inputBr;
+  fi;
+fi;
 
 echo "Branch is $branch"
 echo "Release as $release"
 
 # Tag prefix
 prefix="v"
-git pull origin $branch
-echo "Current pull origin $branch."
+
+# Push branch to git remote repository
+# echo "Current pull origin $branch.";
+# git pull origin $branch
+
 
 # Auto generate version number and tag
 standard-version -r $release --tag-prefix $prefix --infile CHANGELOG.md
 
-git push --follow-tags origin $branch
+# Push tag to git remote repository
+# git push --follow-tags origin $branch
 
-echo "Release finished."
+echo -e "\nRelease finished.";
+echo -e "Please check the recent commit, and then\n1. Sync branch and tag to git remote repository\n2. Run 'npm publish' to publish a new npm package";
 
 
