@@ -142,7 +142,7 @@ function createDependencyProposals () {
 
 monaco.languages.registerCompletionItemProvider('dtsql', {
     triggerCharacters: ['.'],
-    provideCompletionItems: function (model: any, position: any, token: any, CompletionContext: any) {
+    provideCompletionItems: function (model: any, position: any, completionContext: any, token: any) {
         const completeItems = createDependencyProposals();
         return new Promise<any>(async (resolve: any, reject: any) => {
             const completeProvideFunc = _completeProvideFunc[model.id]
@@ -181,7 +181,7 @@ monaco.languages.registerCompletionItemProvider('dtsql', {
                     context: {
                         columnContext: columnContext,
                         tableContext: tableContext,
-                        completionContext: CompletionContext
+                        completionContext: completionContext
                     }
                 });
             } else {

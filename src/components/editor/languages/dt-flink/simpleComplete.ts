@@ -122,7 +122,7 @@ function createDependencyProposals () {
 
 monaco.languages.registerCompletionItemProvider('dtflink', {
     triggerCharacters: ['.'],
-    provideCompletionItems: function (model: any, position: any, token: any, completionContext: any) {
+    provideCompletionItems: function (model: any, position: any, completionContext: any, token: any) {
         const completeItems = createDependencyProposals();
         return new Promise<any>(async (resolve: any, reject: any) => {
             const completeProvideFunc = _completeProvideFunc[model.id]
