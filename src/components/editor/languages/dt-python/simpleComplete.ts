@@ -3,6 +3,7 @@ import * as monaco from 'monaco-editor';
 import DtWorker from './python.worker';
 import { get } from 'lodash';
 import { language } from './python';
+import { keywordsCompleteItemCreator, functionsCompleteItemCreator, customCompletionItemsCreator } from '../../utils'
 
 let _DtParserInstance: any;
 class DtParser {
@@ -69,12 +70,7 @@ function loadDtParser (currentLanguage: string) {
     }
     return _DtParserInstance;
 }
-/**
- * Select thing from table, table, table;
- * select __+ thing __+ from __+ Table (__* , __*table)* __*;
- * thing=([,.\w])
- */
-// const selectRegExp = /Select\s+[\s\S]+\s+from(\s+\w+)((\s*,\s*\w+)*)\s*;/i;
+
 let _completeProvideFunc: any = {};
 let _tmpDecorations: any = [];
 function dtPythonWords () {
@@ -82,53 +78,7 @@ function dtPythonWords () {
         keywords: language.keywords
     }
 }
-function keywordsCompleteItemCreater (words: any) {
-    return words.map(
-        (word: any, index: any) => {
-            return {
-                label: word,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                detail: '关键字',
-                insertText: word + ' ',
-                sortText: '1000' + index + word,
-                filterText: word.toLowerCase()
-            }
-        }
-    )
-}
-function functionsCompleteItemCreater (functions: any) {
-    return functions.map(
-        (functionName: any, index: any) => {
-            return {
-                label: functionName,
-                kind: monaco.languages.CompletionItemKind.Function,
-                detail: '函数',
-                insertText: functionName + '($1) ',
-                sortText: '2000' + index + functionName,
-                filterText: functionName.toLowerCase(),
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-            }
-        }
-    )
-}
-function customCompletionItemsCreater (_customCompletionItems: any) {
-    if (!_customCompletionItems) {
-        return [];
-    }
-    return _customCompletionItems.map(
-        ([ name, detail, sortIndex, type ]: any, index: any) => {
-            sortIndex = sortIndex || '3000';
-            return {
-                label: name,
-                kind: monaco.languages.CompletionItemKind[type || 'Text'],
-                detail: detail,
-                insertText: type == 'Function' ? (name + '($1) ') : (name),
-                sortText: sortIndex + index + name,
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-            }
-        }
-    )
-}
+
 /**
  * 创建固定的补全项，例如：keywords...
  */
@@ -136,7 +86,7 @@ function createDependencyProposals () {
     const words: any = dtPythonWords();
     const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
     const keywords: any = [].concat(words.keywords);
-    return keywordsCompleteItemCreater(keywords).concat(functionsCompleteItemCreater(functions))
+    return keywordsCompleteItemCreator(keywords).concat(functionsCompleteItemCreator(functions))
 }
 
 monaco.languages.registerCompletionItemProvider('dtPython2', {
@@ -171,7 +121,7 @@ monaco.languages.registerCompletionItemProvider('dtPython2', {
                         suggestions: completeItems
                     })
                 )
-                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreator, {
                     status: 0,
                     model: model,
                     position: position,
@@ -224,7 +174,7 @@ monaco.languages.registerCompletionItemProvider('dtPython3', {
                         suggestions: completeItems
                     })
                 )
-                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreater, {
+                completeProvideFunc(completeItems, resolveCompleteItems, customCompletionItemsCreator, {
                     status: 0,
                     model: model,
                     position: position,

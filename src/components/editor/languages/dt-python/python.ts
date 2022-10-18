@@ -2,8 +2,10 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *-------------------------------------------------------------------------------------------- */
+'use strict';
+import type { languages } from 'monaco-editor'
 
-export const conf: any = {
+export const conf: languages.LanguageConfiguration = {
     comments: {
         lineComment: '#',
         blockComment: ["'''", "'''"]
@@ -31,7 +33,10 @@ export const conf: any = {
         {
             beforeText: new RegExp(
                 '^\\s*(?:def|class|for|if|elif|else|while|try|with|finally|except|async).*?:\\s*$'
-            )
+            ),
+            action: {
+                indentAction: 0
+            }
         }
     ],
     folding: {
@@ -44,7 +49,7 @@ export const conf: any = {
 };
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-export const language = {
+export const language: languages.IMonarchLanguage = {
     defaultToken: '',
     tokenPostfix: '.python',
 
