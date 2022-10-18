@@ -420,3 +420,5 @@ class Editor extends React.Component<EditorProps, any> {
     }
 }
 export default Editor;
+
+export { DiffEditorProps, default as DiffEditor } from './diff'
