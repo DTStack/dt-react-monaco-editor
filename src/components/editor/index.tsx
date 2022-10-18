@@ -7,6 +7,7 @@ import './languages/shell/shell.contribution';
 import * as dtsql from './languages/dtsql/dtsql.contribution'
 import * as dtflink from './languages/dt-flink/dtflink.contribution'
 import * as dtPython from './languages/dt-python/python.contribution'
+import * as dtGreenPlum from './languages/dt-greenplum/greenplum.contribution'
 import './languages/dtlog/dtlog.contribution'
 
 import './style.scss';
@@ -67,6 +68,17 @@ const provideCompletionItemsMap: any = {
          */
         dispose: dtPython.disposeProvider,
         onChange: dtPython.onChange
+    },
+    dtGreenPlum: {
+        /**
+         * 注册自定义补全函数
+         */
+        register: dtGreenPlum.registeCompleteItemsProvider,
+        /**
+         * 释放自定义补全函数
+         */
+        dispose: dtGreenPlum.disposeProvider,
+        onChange: dtGreenPlum.onChange
     }
 };
 
