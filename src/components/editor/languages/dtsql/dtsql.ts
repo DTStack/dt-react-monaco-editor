@@ -4,7 +4,9 @@
 *  Licensed under the MIT License. See License.txt in the project root for license information.
 *-------------------------------------------------------------------------------------------- */
 'use strict';
-export var conf: any = {
+import type { languages } from 'monaco-editor'
+
+export var conf: languages.LanguageConfiguration = {
     comments: {
         lineComment: '--'
     },
@@ -52,7 +54,7 @@ export var conf: any = {
         close: '`'
     }]
 };
-export var language: any = {
+export var language: languages.IMonarchLanguage = {
     defaultToken: '',
     tokenPostfix: '.sql',
     ignoreCase: !0,
