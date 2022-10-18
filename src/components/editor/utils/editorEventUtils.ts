@@ -1,9 +1,9 @@
-
 const commonEvent: any = {
     OPEN_COMMAND_LINE: 'editor.action.quickCommand',
     OPEN_FIND_TOOL: 'actions.find',
     OPEN_REPLACE_TOOL: 'editor.action.startFindReplaceAction'
 }
+
 /**
  * 编辑菜单事件委托
  * @param {IStandaloneCodeEditor} editor 编辑器实例
@@ -30,19 +30,8 @@ export function commonFileEditDelegator (editor: any, customKeys = {}) {
     }
 }
 
-export function jsonEqual (newJson: any, oldJson: any) {
-    if (newJson == oldJson) {
-        return true;
-    }
-    const newStr = JSON.stringify(newJson);
-    const oldStr = JSON.stringify(oldJson);
-    if (newStr == oldStr) {
-        return true;
-    }
-    return false;
-}
 /**
-* 该函数delaytime时间内顶多执行一次func（最后一次），如果freshTime时间内没有执行，则强制执行一次。
+* 该函数delayTime时间内顶多执行一次func（最后一次），如果freshTime时间内没有执行，则强制执行一次。
 * @param {function} func
 */
 export function delayFunctionWrap (func?: any) {
