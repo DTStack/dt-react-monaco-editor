@@ -6,3 +6,4 @@ out400
 package-lock.json
 .cache
 .parcel-cache
+.vscode
