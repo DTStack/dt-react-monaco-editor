@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.5](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.4...v0.3.5) (2022-10-28)
+
+
+### Bug Fixes
+
+* correct ts definations of component ([bed4c92](https://github.com/DTStack/dt-react-monaco-editor/commit/bed4c92ad88c2139fe15b0d03d0c2927f0b496f8))
+
 ### [0.3.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.3...v0.3.4) (2022-10-18)
 
 
