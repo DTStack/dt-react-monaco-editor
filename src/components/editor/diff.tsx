@@ -12,11 +12,29 @@ import './style.scss';
 import { defaultOptions } from './config';
 
 export interface DiffEditorProps {
+    /**
+     * className
+     */
     className?: string;
-    style?: object;
+    /**
+     * style
+     */
+    style?: React.CSSProperties;
+    /**
+     * diffEditor 配置项
+     */
     options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
+    /**
+     * theme
+     */
     theme?: monaco.editor.BuiltinTheme;
+    /**
+     * monaco editor language, default is sql
+     */
     language?: string;
+    /**
+     * editor content
+     */
     value?: string;
     /**
      * 该方法的入参为源文件Editor的引用
@@ -25,7 +43,7 @@ export interface DiffEditorProps {
     /**
      * 源文件的属性对象
      * value:文件内容
-     * cursorPosition:文件的指针位置
+     * cursorPosition: 光标位置
      */
     original?: { value: string; cursorPosition?: object };
     /**
@@ -84,6 +102,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             this.props.editorInstanceRef(this._originalEditor)
         }
     }
+
     // eslint-disable-next-line
     UNSAFE_componentWillReceiveProps (nextProps: DiffEditorProps) {
         const { sync, original = defaultOriginal, modified = defaultOriginal, options = {}, theme } = nextProps;

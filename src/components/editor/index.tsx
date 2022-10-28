@@ -73,23 +73,32 @@ const provideCompletionItemsMap: any = {
 type IMonarchLanguageConf = monaco.languages.IMonarchLanguage | PromiseLike<monaco.languages.IMonarchLanguage>;
 export interface EditorProps {
     /**
-     * editor 的内容
+     * editor content
      */
     value: string;
+    /**
+     * className
+     */
     className?: string;
-    style?: object;
+    /**
+     * style
+     */
+    style?: React.CSSProperties;
     /**
      * editor 配置项
      */
-    options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
+    options?: monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions;
     /**
      * editor 主题
      */
-    theme?: monaco.editor.BuiltinTheme;
+    theme?: monaco.editor.BuiltinTheme | 'white';
     /**
-     * editor language
+     * monaco editor language, default is sql
      */
     language?: string;
+    /**
+     * editor language config
+     */
     languageConfig?: IMonarchLanguageConf;
     /**
      * 获取 editor 实例
@@ -111,10 +120,16 @@ export interface EditorProps {
      * 文件内容改变事件回调函数
      */
     onChange?: (value: string, editorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    /**
+     * editor 失去焦点事件回调函数
+     */
     onBlur?: (value: string, preValue: string) => any;
+    /**
+     * editor 聚焦事件回调函数
+     */
     onFocus?: (value: string, preValue: string) => any;
     /**
-     * 文件指针改变事件回调函数
+     * 选中内容改变事件回调函数
      */
     onCursorSelection?: (selectionContent: string) => any;
     /**
