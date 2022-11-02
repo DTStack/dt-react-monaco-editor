@@ -19,7 +19,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "sass ./src/components/editor/style.scss ./lib/style.scss",
+    "build-css": "sass --no-source-map  ./src/components/editor/style.scss ./lib/style.scss",
     "release": "npm run compile && node ./scripts/release.js",
     "check-types": "tsc --skipLibCheck",
     "test": "jest --no-chche",
