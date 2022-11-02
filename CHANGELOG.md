@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.5...v0.4.0-beta.0) (2022-11-02)
+
+
+### Features
+
+* add greenplum sql language ([e2ac800](https://github.com/DTStack/dt-react-monaco-editor/commit/e2ac800935a66cd74bb0187d0b5f0b83b1281eee))
+* export some built-in types ([dd81504](https://github.com/DTStack/dt-react-monaco-editor/commit/dd8150471bd363f43903c32ca9a8cdd9da013cb6))
+* patch ts definations and optimize customCompletionItemsCreator ([23dfc41](https://github.com/DTStack/dt-react-monaco-editor/commit/23dfc4190ade32bc969ac043d07c92bb746b546b))
+
+
+### Bug Fixes
+
+* export diffEditor in editor file ([298cea8](https://github.com/DTStack/dt-react-monaco-editor/commit/298cea8a4d9a73c6f166b603d2a658574d0ab149))
+
 ## [0.4.0-alpha.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.4...v0.4.0-alpha.1) (2022-10-21)
 
 
