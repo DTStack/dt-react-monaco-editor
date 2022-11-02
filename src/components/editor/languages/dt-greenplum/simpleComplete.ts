@@ -1,9 +1,12 @@
-// import * as monaco from 'monaco-editor/esm/vs/editor/edcore.main.js';
 import * as monaco from 'monaco-editor';
-import { get } from 'lodash';
-import { keywordsCompleteItemCreator, functionsCompleteItemCreator, customCompletionItemsCreator } from '../../utils'
 import DtWorker from './greenplum.worker';
-import { language } from './greenplum'
+import { language } from './greenplum';
+import {
+    keywordsCompleteItemCreator,
+    functionsCompleteItemCreator,
+    customCompletionItemsCreator
+} from '../../utils'
+import type { ICompleteProvideFunc, IOnSyntaxChange, IAutoComplete } from '../../utils'
 
 let _DtParserInstance: any;
 
@@ -69,12 +72,19 @@ function loadDtParser () {
     return _DtParserInstance;
 }
 
-let _completeProvideFunc: any = {};
+let _completeProvideFunc: {
+    [key: string]: ICompleteProvideFunc;
+} = {};
+
 let _tmpDecorations: any = [];
 
 function dtGreenplumWords () {
     return {
-        keywords: language.keywords
+        keywords: language.keywords,
+        builtinFunctions: [],
+        windowsFunctions: [],
+        innerFunctions: [],
+        otherFunctions: []
     }
 }
 
@@ -82,33 +92,39 @@ function dtGreenplumWords () {
  * 创建固定的补全项，例如：keywords...
  */
 function createDependencyProposals () {
-    const words: any = dtGreenplumWords();
-    const functions: any = [].concat(words.builtinFunctions).concat(words.windowsFunctions).concat(words.innerFunctions).concat(words.otherFunctions).filter(Boolean);
-    const keywords: any = [].concat(words.keywords);
+    const words = dtGreenplumWords();
+    const functions: string[] = []
+        .concat(words.builtinFunctions)
+        .concat(words.windowsFunctions)
+        .concat(words.innerFunctions)
+        .concat(words.otherFunctions)
+        .filter(Boolean);
+    const keywords: string[] = [].concat(words.keywords);
+
     return keywordsCompleteItemCreator(keywords).concat(functionsCompleteItemCreator(functions))
 }
 
 monaco.languages.registerCompletionItemProvider('dtGreenPlum', {
     triggerCharacters: ['.'],
-    provideCompletionItems: function (model: any, position: any, CompletionContext: any, token: any) {
+    provideCompletionItems: function (model, position, CompletionContext, token) {
         const completeItems = createDependencyProposals();
-        return new Promise<any>(async (resolve: any, reject: any) => {
+        return new Promise(async (resolve, reject) => {
             const completeProvideFunc = _completeProvideFunc[model.id]
             if (completeProvideFunc) {
                 const textValue = model.getValue();
                 const cursorIndex = model.getOffsetAt(position);
                 const dtParser = loadDtParser();
-                let autoComplete = await dtParser.parserSql([textValue.substr(0, cursorIndex), textValue.substr(cursorIndex)]);
-                let columnContext: any;
-                let tableContext: any;
-                let suggestTablesIdentifierChain = get(autoComplete, 'suggestTables.identifierChain', []);
+                let autoComplete: IAutoComplete = await dtParser.parserSql([textValue.substring(0, cursorIndex), textValue.substring(cursorIndex)]);
+                let columnContext: string[];
+                let tableContext: string;
+                let suggestTablesIdentifierChain = autoComplete?.suggestTables?.identifierChain ?? [];
                 if (suggestTablesIdentifierChain.length) {
                     tableContext = suggestTablesIdentifierChain[0].name;
                 }
-                if (autoComplete.suggestColumns && autoComplete.suggestColumns.tables && autoComplete.suggestColumns.tables.length) {
+                if (autoComplete.suggestColumns?.tables?.length) {
                     columnContext = autoComplete.suggestColumns.tables.map(
-                        (table: any) => {
-                            return table.identifierChain.map((identifier: any) => {
+                        (table) => {
+                            return table.identifierChain.map((identifier) => {
                                 return identifier.name
                             }).join('.');
                         }
@@ -146,7 +162,7 @@ monaco.languages.registerCompletionItemProvider('dtGreenPlum', {
  * 该方法提供一个注册自定义补全函数的接口
  * @param {function} completeProvideFunc
  */
-export function registerCompleteItemsProvider (completeProvideFunc: any, _editor: any) {
+export function registerCompleteItemsProvider (completeProvideFunc, _editor) {
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = completeProvideFunc;
 }
@@ -154,17 +170,21 @@ export function registerCompleteItemsProvider (completeProvideFunc: any, _editor
 /**
  * 注销自定义补全函数
  */
-export function disposeProvider (_editor: any) {
+export function disposeProvider (_editor: monaco.editor.IStandaloneCodeEditor) {
     if (!_editor) {
         return;
     }
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = undefined;
 }
-export async function onChange (value = '', _editor: any, callback: any) {
+export async function onChange (
+    value = '',
+    _editor: monaco.editor.IStandaloneCodeEditor,
+    callback: IOnSyntaxChange
+) {
     const dtParser = loadDtParser();
     const model = _editor.getModel();
-    let autoComplete = await dtParser.parserSql(value);
+    let autoComplete: IAutoComplete = await dtParser.parserSql(value);
     /**
      * The dtsql parser was not compatible with greenplum
      * Syntax parsing is not currently supported

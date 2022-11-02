@@ -13,14 +13,8 @@ import './languages/dtlog/dtlog.contribution'
 import './style.scss';
 import whiteTheme from './theme/whiteTheme';
 import { defaultOptions } from './config';
-import { jsonEqual, delayFunctionWrap } from './utils';
+import { jsonEqual, delayFunctionWrap, ICompleteProvideFunc, IOnSyntaxChange } from './utils';
 
-/**
- * 要注册的语言补全功能所需要实现的接口
- * register 注册补全
- * dispose 取消注册
- * onChange value改变事件
- */
 const provideCompletionItemsMap = {
     dtsql: {
         /**
@@ -161,11 +155,11 @@ export interface EditorProps {
     /**
      * 语法解析完成回调函数
      */
-    onSyntaxChange?: Function;
+    onSyntaxChange?: IOnSyntaxChange;
     /**
      * 提供自动补全项的方法
      */
-    customCompleteProvider?: (completeItems: any, resolve: any, customCompletionItemsCreater: any, ext: any) => any;
+    customCompleteProvider?: ICompleteProvideFunc;
     /**
      * 是否打印编辑器日志
      */
@@ -202,10 +196,10 @@ class Editor extends React.Component<EditorProps, any> {
     /**
      * 补全代理函数，来执行用户自定义补全方法。
      */
-    providerProxy = (completeItems: any, resolve: any, customCompletionItemsCreater: any, ext: any) => {
+    providerProxy = (completeItems: any, resolve: any, customCompletionItemsCreator: any, status: any) => {
         const { customCompleteProvider } = this.props;
         if (customCompleteProvider) {
-            customCompleteProvider(completeItems, resolve, customCompletionItemsCreater, ext);
+            customCompleteProvider(completeItems, resolve, customCompletionItemsCreator, status);
         } else {
             resolve(completeItems)
         }
@@ -217,13 +211,13 @@ class Editor extends React.Component<EditorProps, any> {
             /**
              * 每个函数的补全函数都由该组件统一代理
              */
-            (language as any).register(this.providerProxy, this.monacoInstance);
+            language.register(this.providerProxy, this.monacoInstance);
         }
     }
     disposeProviderProxy () {
         const keyAndValues = Object.entries(provideCompletionItemsMap);
         for (let [, language] of keyAndValues) {
-            (language as any).dispose(this.monacoInstance);
+            language.dispose(this.monacoInstance);
         }
     }
     // eslint-disable-next-line
