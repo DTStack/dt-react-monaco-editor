@@ -146,7 +146,7 @@ monaco.languages.registerCompletionItemProvider('dtGreenPlum', {
  * 该方法提供一个注册自定义补全函数的接口
  * @param {function} completeProvideFunc
  */
-export function registeCompleteItemsProvider (completeProvideFunc: any, _editor: any) {
+export function registerCompleteItemsProvider (completeProvideFunc: any, _editor: any) {
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = completeProvideFunc;
 }

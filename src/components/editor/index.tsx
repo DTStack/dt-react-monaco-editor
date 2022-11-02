@@ -21,12 +21,12 @@ import { jsonEqual, delayFunctionWrap } from './utils';
  * dispose 取消注册
  * onChange value改变事件
  */
-const provideCompletionItemsMap: any = {
+const provideCompletionItemsMap = {
     dtsql: {
         /**
          * 注册自定义补全函数
          */
-        register: dtsql.registeCompleteItemsProvider,
+        register: dtsql.registerCompleteItemsProvider,
         /**
          * 释放自定义补全函数
          */
@@ -40,7 +40,7 @@ const provideCompletionItemsMap: any = {
         /**
          * 注册自定义补全函数
          */
-        register: dtflink.registeCompleteItemsProvider,
+        register: dtflink.registerCompleteItemsProvider,
         /**
          * 释放自定义补全函数
          */
@@ -51,7 +51,7 @@ const provideCompletionItemsMap: any = {
         /**
          * 注册自定义补全函数
          */
-        register: dtPython.registeCompleteItemsProvider,
+        register: dtPython.registerCompleteItemsProvider,
         /**
          * 释放自定义补全函数
          */
@@ -62,7 +62,7 @@ const provideCompletionItemsMap: any = {
         /**
          * 注册自定义补全函数
          */
-        register: dtPython.registeCompleteItemsProvider,
+        register: dtPython.registerCompleteItemsProvider,
         /**
          * 释放自定义补全函数
          */
@@ -73,7 +73,7 @@ const provideCompletionItemsMap: any = {
         /**
          * 注册自定义补全函数
          */
-        register: dtGreenPlum.registeCompleteItemsProvider,
+        register: dtGreenPlum.registerCompleteItemsProvider,
         /**
          * 释放自定义补全函数
          */
@@ -82,7 +82,21 @@ const provideCompletionItemsMap: any = {
     }
 };
 
-type IMonarchLanguageConf = monaco.languages.IMonarchLanguage | PromiseLike<monaco.languages.IMonarchLanguage>;
+/**
+ * monarch language config
+ */
+export type IMonarchLanguageConf = monaco.languages.IMonarchLanguage | PromiseLike<monaco.languages.IMonarchLanguage>;
+
+/**
+ * type of editor instance
+ */
+export type IEditorInstance = monaco.editor.IStandaloneCodeEditor;
+
+/**
+ * type of editor options
+ */
+export type IEditorOptions = monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions;
+
 export interface EditorProps {
     /**
      * editor content
@@ -99,7 +113,7 @@ export interface EditorProps {
     /**
      * editor 配置项
      */
-    options?: monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions;
+    options?: IEditorOptions;
     /**
      * editor 主题
      */
@@ -115,7 +129,7 @@ export interface EditorProps {
     /**
      * 获取 editor 实例
      */
-    editorInstanceRef?: (editorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    editorInstanceRef?: (editorInstance: IEditorInstance) => any;
     /**
      * 光标当前位置
      */
@@ -131,7 +145,7 @@ export interface EditorProps {
     /**
      * 文件内容改变事件回调函数
      */
-    onChange?: (value: string, editorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    onChange?: (value: string, editorInstance: IEditorInstance) => any;
     /**
      * editor 失去焦点事件回调函数
      */
@@ -168,7 +182,7 @@ class Editor extends React.Component<EditorProps, any> {
     /**
      * monaco实例
      */
-    monacoInstance: monaco.editor.IStandaloneCodeEditor = null;
+    monacoInstance: IEditorInstance = null;
     /**
      * monaco渲染外部链接对象的销毁用ID
      */
@@ -436,4 +450,4 @@ class Editor extends React.Component<EditorProps, any> {
 }
 export default Editor;
 
-export { DiffEditorProps, default as DiffEditor } from './diff'
+export { DiffEditorProps, IDiffEditorInstance, default as DiffEditor } from './diff'

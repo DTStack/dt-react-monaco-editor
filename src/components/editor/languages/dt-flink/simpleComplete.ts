@@ -137,7 +137,7 @@ function createLineMarker (begin: monaco.Position, end: monaco.Position) {
         }
     }]
 }
-export function registeCompleteItemsProvider (completeProvideFunc: any, _editor: any) {
+export function registerCompleteItemsProvider (completeProvideFunc: any, _editor: any) {
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = completeProvideFunc;
 }

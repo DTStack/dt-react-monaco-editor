@@ -4,7 +4,7 @@
 *-------------------------------------------------------------------------------------------- */
 'use strict';
 import { registerLanguage } from 'monaco-editor/esm/vs/basic-languages/_.contribution';
-import { registeCompleteItemsProvider, disposeProvider, onChange } from './simpleComplete';
+import { registerCompleteItemsProvider, disposeProvider, onChange } from './simpleComplete';
 
 declare var monaco: any;
 declare var self: any;
@@ -18,4 +18,4 @@ registerLanguage({
     aliases: ['DtSql', 'dtsql'],
     loader: () => import('./dtsql')
 });
-export { registeCompleteItemsProvider, disposeProvider, onChange };
+export { registerCompleteItemsProvider, disposeProvider, onChange };

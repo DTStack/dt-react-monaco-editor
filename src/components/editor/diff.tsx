@@ -11,6 +11,10 @@ import './languages/dt-python/python.contribution'
 import './style.scss';
 import { defaultOptions } from './config';
 
+type IEditorInstance = monaco.editor.IStandaloneCodeEditor
+
+export type IDiffEditorInstance = monaco.editor.IStandaloneDiffEditor
+
 export interface DiffEditorProps {
     /**
      * className
@@ -37,24 +41,28 @@ export interface DiffEditorProps {
      */
     value?: string;
     /**
-     * 该方法的入参为源文件Editor的引用
+     * 该方法的入参为origin Editor的引用 和 modified editor 的引用
      */
-    editorInstanceRef?: (editorInstance: monaco.editor.IStandaloneCodeEditor) => {};
+    editorInstanceRef?: (originEditorInstance: IEditorInstance, modifiedEditorInstance: IEditorInstance) => void;
+    /**
+     * 该方法的入参为 diff editor 的引用
+     */
+    diffEditorInstanceRef?: (diffEditorInstance: IDiffEditorInstance) => void;
     /**
      * 源文件的属性对象
-     * value:文件内容
-     * cursorPosition: 光标位置
+     * @param value:文件内容
+     * @param cursorPosition: 光标位置
      */
     original?: { value: string; cursorPosition?: object };
     /**
      * 被对比文件的属性对象
-     * value:文件内容
+     * @param value:文件内容
      */
     modified?: { value: string };
     /**
      * 源文件改变事件回调函数
      */
-    onChange?: (originValue: string, originEditorInstance: monaco.editor.IStandaloneCodeEditor) => any;
+    onChange?: (originValue: string, originEditorInstance: IEditorInstance) => any;
     /**
      * 源文件失去焦点回调函数
      */
@@ -85,9 +93,9 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
         super(props);
     }
     monacoDom: any = null;
-    monacoInstance: monaco.editor.IStandaloneDiffEditor = null;
-    _originalEditor: monaco.editor.IStandaloneCodeEditor = null;
-    _modifiedEditor: monaco.editor.IStandaloneCodeEditor = null;
+    monacoInstance: IDiffEditorInstance = null;
+    _originalEditor: IEditorInstance = null;
+    _modifiedEditor: IEditorInstance = null;
     _originalModel: monaco.editor.ITextModel = null;
     _modifiedModel: monaco.editor.ITextModel = null;
 
@@ -99,7 +107,8 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
     componentDidMount () {
         this.initMonaco();
         if (typeof this.props.editorInstanceRef === 'function') {
-            this.props.editorInstanceRef(this._originalEditor)
+            this.props.editorInstanceRef(this._originalEditor, this._modifiedEditor)
+            this.props.diffEditorInstanceRef(this.monacoInstance)
         }
     }
 
