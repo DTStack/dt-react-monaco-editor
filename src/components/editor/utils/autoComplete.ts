@@ -9,7 +9,7 @@ export function keywordsCompleteItemCreator (words: string[]): IMonacoLanguageCo
                 kind: monaco.languages.CompletionItemKind.Keyword,
                 detail: '关键字',
                 insertText: word + ' ',
-                sortText: '1000' + index + word,
+                sortText: '1200' + index + word,
                 filterText: word.toLowerCase(),
                 range: undefined as any
             }
@@ -43,7 +43,7 @@ type ICustomCompletionItem1 = {
     /**
      * sortIndex 的值将影响自动补全项的排序，
      * 最终的 sortText = sortIndex + index + name
-     * default is 1000
+     * default is 3000
      */
     sortIndex: string | number;
     type: keyof typeof monaco.languages.CompletionItemKind;
@@ -90,7 +90,7 @@ export function customCompletionItemsCreator (
     return customCompletionItems.map(
         (completionItem, index: any) => {
             if (Array.isArray(completionItem)) {
-                const [name, detail, sortIndex = '1000', type] = completionItem;
+                const [name, detail, sortIndex = '3000', type] = completionItem;
                 return {
                     label: name,
                     kind: monaco.languages.CompletionItemKind[type || 'Text'],
@@ -105,7 +105,7 @@ export function customCompletionItemsCreator (
                 const {
                     name,
                     detail,
-                    sortIndex = '1000',
+                    sortIndex = '3000',
                     type,
                     options: {
                         autoBracketsForFunction = true,

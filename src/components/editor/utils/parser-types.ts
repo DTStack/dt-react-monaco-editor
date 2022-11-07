@@ -11,6 +11,7 @@ interface ILocationInfo {
     type: string;
     missing?: boolean;
     location: ILocation;
+    identifierChain: IdentifierChain;
 }
 
 interface IColumn {
