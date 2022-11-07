@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0-beta.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.0-beta.0...v0.4.0-beta.1) (2022-11-07)
+
+
+### Features
+
+* export everything from index file ([1ff7774](https://github.com/DTStack/dt-react-monaco-editor/commit/1ff777409856aadbdfe47695263c675d89d0fe29))
+* update ILocationInfo interface ([23f3de0](https://github.com/DTStack/dt-react-monaco-editor/commit/23f3de051d3dcbdb73705b1fbb78903110cc746d))
+
 ## [0.4.0-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.3.5...v0.4.0-beta.0) (2022-11-02)
 
 
