@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { FaGitlab } from 'react-icons/fa';
-import MarkdownRender from 'dt-react-component/lib/markdownRender';
+import { FaGithub } from 'react-icons/fa';
+// import MarkdownRender from 'dt-react-component/lib/markdownRender';
 import { Table } from 'antd';
 import OnlineDemo from './components/onlineDemo';
 
-const readmeHtml = require('../../README.md');
+// const readmeHtml = require('../../README.md');
 const { name, repository, version } = require('../../package.json');
 const stories = storiesOf('Dt React Monaco Editor', module)
 const dataSource = [
@@ -124,7 +124,7 @@ stories
             <h1>
                 <span>{name}</span>
                 <a href={repository.url} rel="noopener noreferrer" target='_blank'>
-                    <FaGitlab/>
+                    <FaGithub/>
                 </a>
             </h1>
             <h2>当前版本</h2>
@@ -136,17 +136,23 @@ stories
             <h2>FAQ</h2>
             <p>使用过程中如有问题欢迎沟通～～</p>
         </article>
-    ))
-    .add(`快速上手`, () => {
-        return (
-            <div style={{ marginLeft: 40 }}>
-                <MarkdownRender
-                    text={`${readmeHtml && readmeHtml.default}`}
-                    dark={false}
-                />
-            </div>
-        )
+    ), {
+        info: {
+            TableComponent: () => (<></>),
+            text: ``
+        }
     })
+    // MarkdownRender 组件暂时不支持表格
+    // .add(`快速上手`, () => {
+    //     return (
+    //         <div style={{ marginLeft: 40 }}>
+    //             <MarkdownRender
+    //                 text={`${readmeHtml && readmeHtml.default}`}
+    //                 dark={false}
+    //             />
+    //         </div>
+    //     )
+    // })
     .add('在线演示 & 文档', () => {
         return (
             <div style={{ marginLeft: 40 }}>
