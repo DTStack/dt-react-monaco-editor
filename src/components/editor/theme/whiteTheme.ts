@@ -1,6 +1,6 @@
 import * as monaco from 'monaco-editor';
 
-const writeTheme: monaco.editor.IStandaloneThemeData = {
+const whiteTheme: monaco.editor.IStandaloneThemeData = {
     base: 'vs',
     inherit: true,
     rules: [],
@@ -13,4 +13,4 @@ const writeTheme: monaco.editor.IStandaloneThemeData = {
     }
 }
 
-export default writeTheme;
+monaco.editor.defineTheme('white', whiteTheme);

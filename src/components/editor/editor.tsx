@@ -11,7 +11,7 @@ import * as dtGreenPlum from './languages/dt-greenplum/greenplum.contribution'
 import './languages/dtlog/dtlog.contribution'
 
 import './style.scss';
-import whiteTheme from './theme/whiteTheme';
+import './theme/whiteTheme';
 import { defaultOptions } from './config';
 import { jsonEqual, delayFunctionWrap, ICompleteProvideFunc, IOnSyntaxChange } from './utils';
 
@@ -333,7 +333,6 @@ class Editor extends React.Component<EditorProps, any> {
         // this.initLink();
     }
     initTheme () {
-        monaco.editor.defineTheme('white', whiteTheme);
         this.props.theme && monaco.editor.setTheme(this.props.theme);
     }
     updateValueWithNoEvent (value: string) {
