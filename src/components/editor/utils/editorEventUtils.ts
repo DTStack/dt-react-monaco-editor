@@ -1,3 +1,5 @@
+import * as monaco from 'monaco-editor';
+
 const commonEvent: any = {
     OPEN_COMMAND_LINE: 'editor.action.quickCommand',
     OPEN_FIND_TOOL: 'actions.find',
@@ -9,22 +11,23 @@ const commonEvent: any = {
  * @param {IStandaloneCodeEditor} editor 编辑器实例
  * @param {Object} customKeys 事件对应的键值对，默认为{find: "find", replace: "replace", commandPane: "commandPane"}
  */
-export function commonFileEditDelegator (editor: any, customKeys = {}) {
+export function commonFileEditDelegator (editor: monaco.editor.IStandaloneCodeEditor, customKeys = {}) {
     const defaultKeys: any = { find: 'find', replace: 'replace', commandPane: 'commandPane' };
     const keys: any = { ...defaultKeys, ...customKeys };
 
     return function (key: any) {
         switch (key) {
             case keys.find: {
-                editor.trigger('anyString', commonEvent.OPEN_FIND_TOOL)
+                editor.trigger('anyString', commonEvent.OPEN_FIND_TOOL, {})
                 return;
             }
             case keys.replace: {
-                editor.trigger('anyString', commonEvent.OPEN_REPLACE_TOOL)
+                editor.trigger('anyString', commonEvent.OPEN_REPLACE_TOOL, {})
                 return;
             }
             case keys.commandPane: {
-                editor.trigger('anyString', commonEvent.OPEN_COMMAND_LINE)
+                editor.focus()
+                editor.trigger('anyString', commonEvent.OPEN_COMMAND_LINE, {})
             }
         }
     }
