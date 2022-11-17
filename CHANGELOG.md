@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.1...v0.4.2-beta.0) (2022-11-17)
+
+
+### Bug Fixes
+
+* correct commonFileEditDelegator ([f2548e4](https://github.com/DTStack/dt-react-monaco-editor/commit/f2548e4321c6e7e5a3a35ad5cb4d474919b3b4af))
+
 ### [0.4.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.0...v0.4.1) (2022-11-09)
 
 ## [0.4.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.0-beta.1...v0.4.0) (2022-11-09)
