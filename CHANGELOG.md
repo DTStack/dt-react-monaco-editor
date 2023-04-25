@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.2...v0.4.3-beta.0) (2023-04-25)
+
+
+### Features
+
+* add notParseSqlChange props, avoid repeat parseSql ([65c4142](https://github.com/DTStack/dt-react-monaco-editor/commit/65c4142ad1ea41fde7adb8030c76df594b5de4fe))
+* code review, exchange prop field ([d56abb5](https://github.com/DTStack/dt-react-monaco-editor/commit/d56abb5baa7c361a6a76f93ef83c8adb83b44ed7))
+
 ### [0.4.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.2-beta.0...v0.4.2) (2022-11-17)
 
 ### [0.4.2-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.1...v0.4.2-beta.0) (2022-11-17)
