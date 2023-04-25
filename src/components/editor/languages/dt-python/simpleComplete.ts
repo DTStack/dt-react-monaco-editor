@@ -214,13 +214,16 @@ export function disposeProvider (_editor: any) {
     _completeProvideFunc[id] = undefined;
 }
 
-export async function onChange (value = '', _editor: any, callback: any) {
+export async function onChange (value = '', _editor: any, callback: any, notParseSqlChange?: boolean) {
     const currentLanguage = _editor?.model?._languageIdentifier?.language
 
     const dtParser = loadDtParser(currentLanguage);
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
-    let autoComplete = await dtParser.parserSql(value);
+    let autoComplete = {}
+    if (!notParseSqlChange) {
+        autoComplete = await dtParser.parserSql(value);
+    }
 
     let syntax = await dtParser.parseSyntax(value.replace(/\r\n/g, '\n'));
     if (syntax && syntax.token != 'EOF') {
