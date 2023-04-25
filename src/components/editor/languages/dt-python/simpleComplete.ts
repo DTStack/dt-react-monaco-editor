@@ -214,14 +214,14 @@ export function disposeProvider (_editor: any) {
     _completeProvideFunc[id] = undefined;
 }
 
-export async function onChange (value = '', _editor: any, callback: any, notParseSqlChange?: boolean) {
+export async function onChange (value = '', _editor: any, callback: any, disableParseSqOnChange?: boolean) {
     const currentLanguage = _editor?.model?._languageIdentifier?.language
 
     const dtParser = loadDtParser(currentLanguage);
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
     let autoComplete = {}
-    if (!notParseSqlChange) {
+    if (!disableParseSqOnChange) {
         autoComplete = await dtParser.parserSql(value);
     }
 

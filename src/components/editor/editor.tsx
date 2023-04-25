@@ -165,12 +165,12 @@ export interface EditorProps {
      */
     isLog?: boolean;
     /**
-     * notParseSqlChange
+     * disableParseSqOnChange
      * 当sql 改变时是否不解析 sql
      * true：onChange 既解析 sql 语法（parseSyntax）、也解析 sql 提示（parserSql）
      * false: onChange 时只解析 sql 语法，不解析 sql 提示，sql 由 provideCompletionItems 去解析
      */
-    notParseSqlChange?: boolean;
+    disableParseSqOnChange?: boolean;
 }
 class Editor extends React.Component<EditorProps, any> {
     constructor (props: any) {
@@ -346,14 +346,14 @@ class Editor extends React.Component<EditorProps, any> {
         this.monacoInstance.setValue(value);
     }
     languageValueOnChange (callback: Function) {
-        const { notParseSqlChange = false } = this.props;
+        const { disableParseSqOnChange = false } = this.props;
         if (this.props.disabledSyntaxCheck) {
             return;
         }
         const newValue = this.monacoInstance.getValue();
         const languageId = this.monacoInstance.getModel().getLanguageId();
         if (provideCompletionItemsMap[languageId] && provideCompletionItemsMap[languageId].onChange) {
-            provideCompletionItemsMap[languageId].onChange(newValue, this.monacoInstance, callback, notParseSqlChange);
+            provideCompletionItemsMap[languageId].onChange(newValue, this.monacoInstance, callback, disableParseSqOnChange);
         }
     }
 

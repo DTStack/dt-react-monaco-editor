@@ -100,7 +100,7 @@ monaco.languages.registerCompletionItemProvider('dtflink', {
         });
     }
 });
-export async function onChange (value = '', _editor: monaco.editor.IStandaloneCodeEditor, callback: any, notParseSqlChange?: boolean) {
+export async function onChange (value = '', _editor: monaco.editor.IStandaloneCodeEditor, callback: any, disableParseSqOnChange?: boolean) {
     const dtParser = loadDtParser();
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());

@@ -159,12 +159,12 @@ export function disposeProvider (_editor: any) {
     const id = _editor.getModel().id;
     _completeProvideFunc[id] = undefined;
 }
-export async function onChange (value = '', _editor: any, callback: any, notParseSqlChange?: boolean) {
+export async function onChange (value = '', _editor: any, callback: any, disableParseSqOnChange?: boolean) {
     const dtParser = loadDtParser();
     const model = _editor.getModel();
     // const cursorIndex = model.getOffsetAt(_editor.getPosition());
     let autoComplete = {}
-    if (!notParseSqlChange) {
+    if (!disableParseSqOnChange) {
         autoComplete = await dtParser.parserSql(value);
     }
     let syntax = await dtParser.parseSyntax(value.replace(/\r\n/g, '\n'));

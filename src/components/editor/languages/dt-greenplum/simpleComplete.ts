@@ -181,13 +181,13 @@ export async function onChange (
     value = '',
     _editor: monaco.editor.IStandaloneCodeEditor,
     callback: IOnSyntaxChange,
-    notParseSqlChange?: boolean
+    disableParseSqOnChange?: boolean
 ) {
     const dtParser = loadDtParser();
     const model = _editor.getModel();
     // let autoComplete: IAutoComplete = await dtParser.parserSql(value);
     let autoComplete: IAutoComplete = {}
-    if (!notParseSqlChange) {
+    if (!disableParseSqOnChange) {
         autoComplete = await dtParser.parserSql(value);
     }
     /**
