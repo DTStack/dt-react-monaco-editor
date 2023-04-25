@@ -33,9 +33,9 @@ interface ISuggestKeyword {
 }
 
 export interface IAutoComplete {
-    definitions: IDefinition[];
-    locations: ILocationInfo[];
-    lowerCase: boolean;
+    definitions?: IDefinition[];
+    locations?: ILocationInfo[];
+    lowerCase?: boolean;
     suggestColumns?: {
         tables?: { identifierChain: IdentifierChain } [];
         source?: string;

@@ -180,11 +180,16 @@ export function disposeProvider (_editor: monaco.editor.IStandaloneCodeEditor) {
 export async function onChange (
     value = '',
     _editor: monaco.editor.IStandaloneCodeEditor,
-    callback: IOnSyntaxChange
+    callback: IOnSyntaxChange,
+    disableParseSqOnChange?: boolean
 ) {
     const dtParser = loadDtParser();
     const model = _editor.getModel();
-    let autoComplete: IAutoComplete = await dtParser.parserSql(value);
+    // let autoComplete: IAutoComplete = await dtParser.parserSql(value);
+    let autoComplete: IAutoComplete = {}
+    if (!disableParseSqOnChange) {
+        autoComplete = await dtParser.parserSql(value);
+    }
     /**
      * The dtsql parser was not compatible with greenplum
      * Syntax parsing is not currently supported
