@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.3-beta.0...v0.4.3) (2023-05-15)
+
+
+### Bug Fixes
+
+* do not invoke onchange when manually setValue ([ef0ed30](https://github.com/DTStack/dt-react-monaco-editor/commit/ef0ed309448a294d64c0778d39d773867464b352))
+
 ### 0.4.3-beta.1 (2023-04-25)
 
 
