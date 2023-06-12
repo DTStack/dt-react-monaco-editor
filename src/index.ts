@@ -7,7 +7,7 @@ export type {
     IMonarchLanguageConf,
 } from './editor';
 
-export type { DiffEditorProps, IDiffEditorInstance } from './diff';
+export type { DiffEditorProps } from './diff';
 
 export type {
     ICustomCompletionItem,
@@ -15,8 +15,6 @@ export type {
     ISyntaxContext,
     ICompleteProvideFunc,
 } from './utils';
-
-export { language as basicPythonLanguageConf } from './languages/dt-python/python';
 
 export {
     customCompletionItemsCreator,

@@ -22,9 +22,8 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "compile": "rm -rf lib && npm run build-ts && npm run build-css",
-    "build-ts": "tsc",
-    "build-css": "sass --no-source-map  ./src/components/editor/style.scss ./lib/style.scss",
+    "build": "rm -rf lib && tsc",
+    "watch": "rm -rf lib && tsc --watch",
     "release": "npm run compile && node ./scripts/release.js",
     "check-types": "tsc --noEmit --skipLibCheck",
     "lint": "prettier --check './src/**/*.{js,jsx,tsx,ts,less}'",
@@ -52,8 +51,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "dt-python-parser": "0.8.0",
-    "monaco-editor": "0.30.1",
+    "monaco-editor": "^0.31.0",
     "react": ">=16.13.1 <18.x"
   },
   "license": "MIT"

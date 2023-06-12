@@ -1,160 +1,124 @@
 import * as React from 'react';
 import * as monaco from 'monaco-editor';
-import 'monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js';
-import 'monaco-editor/esm/vs/basic-languages/python/python.contribution.js';
 
-// monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
-import '../languages/shell/shell.contribution';
-import '../languages/dtsql/dtsql.contribution';
-import '../languages/dt-python/python.contribution';
+import './languages/dtlog/dtlog.contribution';
 
-import './style.scss';
 import { defaultOptions } from './config';
-
-type IEditorInstance = monaco.editor.IStandaloneCodeEditor;
-
-export type IDiffEditorInstance = monaco.editor.IStandaloneDiffEditor;
 
 export interface DiffEditorProps {
     /**
-     * className
+     * className to be added to monaco dom container
      */
     className?: string;
     /**
-     * style
+     * className to be added to the editor.
      */
+    extraEditorClassName?: string;
     style?: React.CSSProperties;
-    /**
-     * diffEditor 配置项
-     */
     options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
-    /**
-     * theme
-     */
     theme?: monaco.editor.BuiltinTheme;
-    /**
-     * monaco editor language, default is sql
-     */
     language?: string;
     /**
-     * editor content
+     * modified editor content
      */
-    value?: string;
+    value: string;
     /**
-     * 该方法的入参为origin Editor的引用 和 modified editor 的引用
+     * original editor content
      */
-    editorInstanceRef?: (
-        originEditorInstance: IEditorInstance,
-        modifiedEditorInstance: IEditorInstance
+    original: string;
+    /**
+     * get diff editor instance ref
+     */
+    diffEditorInstanceRef?: (
+        diffEditorInstance: monaco.editor.IStandaloneDiffEditor
     ) => void;
     /**
-     * 该方法的入参为 diff editor 的引用
-     */
-    diffEditorInstanceRef?: (diffEditorInstance: IDiffEditorInstance) => void;
-    /**
-     * 源文件的属性对象
-     * @param value:文件内容
-     * @param cursorPosition: 光标位置
-     */
-    original?: { value: string; cursorPosition?: object };
-    /**
-     * 被对比文件的属性对象
-     * @param value:文件内容
-     */
-    modified?: { value: string };
-    /**
-     * 源文件改变事件回调函数
+     * on modified editor content change
      */
     onChange?: (
         originValue: string,
-        originEditorInstance: IEditorInstance
+        event: monaco.editor.IModelContentChangedEvent
     ) => any;
     /**
-     * 源文件失去焦点回调函数
-     */
-    onBlur?: (modifiedValue: string, originValue: string) => any;
-    /**
-     * 源文件获得焦点回调函数
-     */
-    onFocus?: (modifiedValue: string, originValue: string) => any;
-    /**
-     * 文件指针改变事件回调函数
-     */
-    onCursorSelection?: (selectionContent: string) => any;
-    /**
-     * 是否同步源文件内容
+     * sync to editor content when original or value change
      */
     sync?: boolean;
     /**
-     * 是否打印编辑器日志
+     * Is modified editor readonly
      */
-    isLog?: boolean;
+    readOnly?: boolean;
 }
-
-const defaultOriginal = { value: '', cursorPosition: null };
-const defaultModified = { value: '', cursorPosition: null };
 
 class DiffEditor extends React.Component<DiffEditorProps, any> {
     constructor(props: any) {
         super(props);
     }
-    monacoDom: any = null;
-    monacoInstance: IDiffEditorInstance = null;
-    _originalEditor: IEditorInstance = null;
-    _modifiedEditor: IEditorInstance = null;
-    _originalModel: monaco.editor.ITextModel = null;
-    _modifiedModel: monaco.editor.ITextModel = null;
 
-    shouldComponentUpdate(
-        nextProps: DiffEditorProps,
-        nextState: DiffEditorProps
-    ) {
-        // 此处禁用render，直接用editor实例更新编辑器
-        return false;
-    }
+    diffEditor: monaco.editor.IStandaloneDiffEditor = null;
+
+    private monacoDom: HTMLDivElement = null;
+    private __prevent_onChange = false;
+    private subscription: monaco.IDisposable;
 
     componentDidMount() {
         this.initMonaco();
-        if (typeof this.props.editorInstanceRef === 'function') {
-            this.props.editorInstanceRef(
-                this._originalEditor,
-                this._modifiedEditor
-            );
-            this.props.diffEditorInstanceRef(this.monacoInstance);
+        if (typeof this.props.diffEditorInstanceRef === 'function') {
+            this.props.diffEditorInstanceRef(this.diffEditor);
         }
     }
 
-    // eslint-disable-next-line
-    UNSAFE_componentWillReceiveProps(nextProps: DiffEditorProps) {
+    componentDidUpdate(prevProps) {
         const {
-            sync,
-            original = defaultOriginal,
-            modified = defaultOriginal,
-            options = {},
+            language,
             theme,
-        } = nextProps;
+            options,
+            extraEditorClassName,
+            sync,
+            readOnly,
+        } = this.props;
+        const { original, modified } = this.diffEditor.getModel();
+
+        if (this.props.original !== original.getValue() && sync) {
+            original.setValue(this.props.original);
+        }
         if (
-            this.props.original &&
-            this.props.original.value !== original.value &&
+            this.props.value != null &&
+            this.props.value !== modified.getValue() &&
             sync
         ) {
-            const editorText = !original.value ? '' : original.value;
-            this.updateValueWithNoEvent(editorText);
+            this.__prevent_onChange = true;
+            this.diffEditor.getModifiedEditor().pushUndoStop();
+            modified.pushEditOperations(
+                [],
+                [
+                    {
+                        range: modified.getFullModelRange(),
+                        text: this.props.value,
+                    },
+                ],
+                () => null
+            );
+
+            this.diffEditor.getModifiedEditor().pushUndoStop();
+            this.__prevent_onChange = false;
         }
-        if (
-            this.props.modified &&
-            this.props.modified.value !== modified.value
-        ) {
-            this._modifiedEditor.setValue(modified.value || '');
+        if (prevProps.language !== language) {
+            monaco.editor.setModelLanguage(original, language);
+            monaco.editor.setModelLanguage(modified, language);
         }
-        if (this.props.options !== options) {
-            this.monacoInstance.updateOptions({
+        if (prevProps.theme !== theme) {
+            monaco.editor.setTheme(theme);
+        }
+        if (prevProps.options !== options) {
+            this.diffEditor.updateOptions({
+                ...(extraEditorClassName ? { extraEditorClassName } : {}),
                 ...options,
-                originalEditable: !options.readOnly,
             });
         }
-        if (this.props.theme !== theme) {
-            monaco.editor.setTheme(theme);
+        if (prevProps.readOnly !== readOnly) {
+            this.diffEditor.getModifiedEditor().updateOptions({
+                readOnly,
+            });
         }
     }
 
@@ -162,170 +126,89 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
         this.destroyMonaco();
     }
 
-    isValueExist(props: any) {
-        const keys = Object.keys(props);
-        if (keys.includes('value')) {
-            return true;
-        }
-        return false;
-    }
-
-    log(args: any) {
-        const { isLog } = this.props;
-        isLog && console.log(...args);
-    }
-
-    destroyMonaco() {
-        if (this.monacoInstance) {
-            this._modifiedEditor.dispose();
-            this._originalEditor.dispose();
-            this.monacoInstance.dispose();
-        }
-    }
-
     initMonaco() {
         const {
-            original = defaultOriginal,
-            modified = defaultModified,
+            original,
+            value,
             language,
             options,
+            theme = 'vs',
+            readOnly,
         } = this.props;
         if (!this.monacoDom) {
             console.error('初始化dom节点出错');
             return;
         }
 
-        const editorOptions = Object.assign({}, defaultOptions, options, {
-            originalEditable: options ? !options.readOnly : true, // 支持源可编辑
-            renderIndicators: false,
-            scrollbar: {
-                horizontal: 'visible',
-            },
-        });
+        const editorOptions: monaco.editor.IStandaloneDiffEditorConstructionOptions =
+            {
+                ...defaultOptions,
+                renderIndicators: true,
+                scrollbar: {
+                    horizontal: 'visible',
+                },
+                theme,
+                ...options,
+            };
 
-        this._originalModel = monaco.editor.createModel(
-            original.value,
-            language || 'sql'
+        const originalModel = monaco.editor.createModel(
+            original,
+            language ?? 'sql'
         );
-        this._modifiedModel = monaco.editor.createModel(
-            modified.value,
-            language || 'sql'
+        const modifiedModel = monaco.editor.createModel(
+            value,
+            language ?? 'sql'
         );
-
-        this.monacoInstance = monaco.editor.createDiffEditor(
+        this.diffEditor = monaco.editor.createDiffEditor(
             this.monacoDom,
             editorOptions
         );
-        this.monacoInstance.setModel({
-            original: this._originalModel,
-            modified: this._modifiedModel,
+        this.diffEditor.setModel({
+            original: originalModel,
+            modified: modifiedModel,
         });
-        this._originalEditor = this.monacoInstance.getOriginalEditor();
-        this._modifiedEditor = this.monacoInstance.getModifiedEditor();
-        this._modifiedEditor.updateOptions({
-            readOnly: true,
+        this.diffEditor.getModifiedEditor().updateOptions({
+            readOnly: readOnly,
         });
-        if (this._originalEditor && original.cursorPosition) {
-            this._originalEditor.setPosition(original.cursorPosition);
-            this._originalEditor.focus();
-            this._originalEditor.revealPosition(
-                original.cursorPosition,
-                monaco.editor.ScrollType.Immediate
-            );
-        }
 
-        this.initEditor();
-    }
-
-    initEditor() {
-        this.initTheme();
         this.initEditorEvent();
-    }
-    initTheme() {
-        // hack 交换对比编辑器的位置
-        monaco.editor.defineTheme('flippedDiffTheme', {
-            base: this.props.theme || 'vs',
-            inherit: true,
-            rules: [],
-            colors: {
-                'diffEditor.insertedTextBackground': '#ff000033',
-                'diffEditor.removedTextBackground': '#28d22833',
-            },
-        });
-        monaco.editor.setTheme('flippedDiffTheme');
-    }
-
-    updateValueWithNoEvent(value: any) {
-        this._originalEditor.setValue(value);
     }
 
     initEditorEvent() {
-        this._originalEditor.onDidChangeModelContent((event: any) => {
-            this.log('编辑器事件');
-            const { onChange } = this.props;
-            const newValue = this._originalEditor.getValue();
-            if (onChange) {
-                this.log('订阅事件触发');
-                onChange(newValue, this._originalEditor);
+        const { modified } = this.diffEditor.getModel();
+        this.subscription = modified.onDidChangeContent((event) => {
+            if (!this.__prevent_onChange && this.props.onChange) {
+                this.props.onChange(modified.getValue(), event);
             }
         });
+    }
 
-        this._originalEditor.onDidFocusEditorWidget(() => {
-            this.log('编辑器事件 onDidBlur');
-            const { onBlur, value } = this.props;
-            if (onBlur) {
-                const oldValue = this._originalEditor.getValue();
-                onBlur(value, oldValue);
-            }
-        });
-
-        this._originalEditor.onDidFocusEditorWidget(() => {
-            this.log('编辑器事件 onDidFocus');
-            const { onFocus, value } = this.props;
-            if (onFocus) {
-                const oldValue = this._originalEditor.getValue();
-                onFocus(value, oldValue);
-            }
-        });
-
-        this._originalEditor.onDidChangeCursorSelection(() => {
-            this.log('编辑器事件 onDidChangeCursorSelection');
-            const { onCursorSelection } = this.props;
-            const ranges = this._originalEditor.getSelections();
-            const model = this._originalEditor.getModel();
-            let selectionContent = '';
-            for (let i = 0; i < ranges.length; i++) {
-                selectionContent = selectionContent += model.getValueInRange(
-                    ranges[i]
-                );
-            }
-            if (onCursorSelection) {
-                onCursorSelection(selectionContent);
-            }
-        });
+    destroyMonaco() {
+        if (this.diffEditor) {
+            const { original, modified } = this.diffEditor.getModel();
+            this.diffEditor.dispose();
+            original.dispose();
+            modified.dispose();
+            this.subscription?.dispose();
+        }
     }
 
     render() {
         const { className, style } = this.props;
-
-        let renderClass = 'code-editor';
-        renderClass = className ? `${renderClass} ${className}` : renderClass;
-
-        let renderStyle: any = {
-            position: 'relative',
-            minHeight: '400px',
-            // height: '100%',
+        const renderClass = `react-monaco-diff-editor-container ${
+            className ?? ''
+        }`;
+        const renderStyle: React.CSSProperties = {
+            height: '100%',
             width: '100%',
-            marginTop: '20px',
+            ...(style ?? {}),
         };
-
-        renderStyle = style ? Object.assign(renderStyle, style) : renderStyle;
 
         return (
             <div
                 className={renderClass}
                 style={renderStyle}
-                ref={(domIns: any) => {
+                ref={(domIns) => {
                     this.monacoDom = domIns;
                 }}
             />
