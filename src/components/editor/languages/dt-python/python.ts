@@ -3,31 +3,31 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *-------------------------------------------------------------------------------------------- */
 'use strict';
-import type { languages } from 'monaco-editor'
+import type { languages } from 'monaco-editor';
 
 export const conf: languages.LanguageConfiguration = {
     comments: {
         lineComment: '#',
-        blockComment: ["'''", "'''"]
+        blockComment: ["'''", "'''"],
     },
     brackets: [
         ['{', '}'],
         ['[', ']'],
-        ['(', ')']
+        ['(', ')'],
     ],
     autoClosingPairs: [
         { open: '{', close: '}' },
         { open: '[', close: ']' },
         { open: '(', close: ')' },
         { open: '"', close: '"', notIn: ['string'] },
-        { open: "'", close: "'", notIn: ['string', 'comment'] }
+        { open: "'", close: "'", notIn: ['string', 'comment'] },
     ],
     surroundingPairs: [
         { open: '{', close: '}' },
         { open: '[', close: ']' },
         { open: '(', close: ')' },
         { open: '"', close: '"' },
-        { open: "'", close: "'" }
+        { open: "'", close: "'" },
     ],
     onEnterRules: [
         {
@@ -35,17 +35,17 @@ export const conf: languages.LanguageConfiguration = {
                 '^\\s*(?:def|class|for|if|elif|else|while|try|with|finally|except|async).*?:\\s*$'
             ),
             action: {
-                indentAction: 0
-            }
-        }
+                indentAction: 0,
+            },
+        },
     ],
     folding: {
         offSide: true,
         markers: {
             start: new RegExp('^\\s*#region\\b'),
-            end: new RegExp('^\\s*#endregion\\b')
-        }
-    }
+            end: new RegExp('^\\s*#endregion\\b'),
+        },
+    },
 };
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -189,13 +189,13 @@ export const language: languages.IMonarchLanguage = {
         '__mro__',
         '__subclasses__',
         '__init__',
-        '__import__'
+        '__import__',
     ],
 
     brackets: [
         { open: '{', close: '}', token: 'delimiter.curly' },
         { open: '[', close: ']', token: 'delimiter.bracket' },
-        { open: '(', close: ')', token: 'delimiter.parenthesis' }
+        { open: '(', close: ')', token: 'delimiter.parenthesis' },
     ],
 
     tokenizer: {
@@ -214,10 +214,10 @@ export const language: languages.IMonarchLanguage = {
                 {
                     cases: {
                         '@keywords': 'keyword',
-                        '@default': 'identifier'
-                    }
-                }
-            ]
+                        '@default': 'identifier',
+                    },
+                },
+            ],
         ],
 
         // Deal with white space, including single and multi-line comments
@@ -225,26 +225,26 @@ export const language: languages.IMonarchLanguage = {
             [/\s+/, 'white'],
             [/(^#.*$)/, 'comment'],
             [/'''/, 'string', '@endDocString'],
-            [/"""/, 'string', '@endDblDocString']
+            [/"""/, 'string', '@endDblDocString'],
         ],
         endDocString: [
             [/[^']+/, 'string'],
             [/\\'/, 'string'],
             [/'''/, 'string', '@popall'],
-            [/'/, 'string']
+            [/'/, 'string'],
         ],
         endDblDocString: [
             [/[^"]+/, 'string'],
             [/\\"/, 'string'],
             [/"""/, 'string', '@popall'],
-            [/"/, 'string']
+            [/"/, 'string'],
         ],
 
         // Recognize hex, negatives, decimals, imaginaries, longs, and scientific notation
         numbers: [
             [/-?0x([abcdef]|[ABCDEF]|\d)+[lL]?/, 'number.hex'],
             // eslint-disable-next-line no-useless-escape
-            [/-?(\d*\.)?\d+([eE][+\-]?\d+)?[jJ]?[lL]?/, 'number']
+            [/-?(\d*\.)?\d+([eE][+\-]?\d+)?[jJ]?[lL]?/, 'number'],
         ],
 
         // Recognize strings, including those broken across lines with \ (but not without)
@@ -252,21 +252,21 @@ export const language: languages.IMonarchLanguage = {
             [/'$/, 'string.escape', '@popall'],
             [/'/, 'string.escape', '@stringBody'],
             [/"$/, 'string.escape', '@popall'],
-            [/"/, 'string.escape', '@dblStringBody']
+            [/"/, 'string.escape', '@dblStringBody'],
         ],
         stringBody: [
             [/[^\\']+$/, 'string', '@popall'],
             [/[^\\']+/, 'string'],
             [/\\./, 'string'],
             [/'/, 'string.escape', '@popall'],
-            [/\\$/, 'string']
+            [/\\$/, 'string'],
         ],
         dblStringBody: [
             [/[^\\"]+$/, 'string', '@popall'],
             [/[^\\"]+/, 'string'],
             [/\\./, 'string'],
             [/"/, 'string.escape', '@popall'],
-            [/\\$/, 'string']
-        ]
-    }
+            [/\\$/, 'string'],
+        ],
+    },
 };

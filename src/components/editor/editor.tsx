@@ -4,16 +4,21 @@ import * as monaco from 'monaco-editor';
 
 // monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
 import './languages/shell/shell.contribution';
-import * as dtsql from './languages/dtsql/dtsql.contribution'
-import * as dtflink from './languages/dt-flink/dtflink.contribution'
-import * as dtPython from './languages/dt-python/python.contribution'
-import * as dtGreenPlum from './languages/dt-greenplum/greenplum.contribution'
-import './languages/dtlog/dtlog.contribution'
+import * as dtsql from './languages/dtsql/dtsql.contribution';
+import * as dtflink from './languages/dt-flink/dtflink.contribution';
+import * as dtPython from './languages/dt-python/python.contribution';
+import * as dtGreenPlum from './languages/dt-greenplum/greenplum.contribution';
+import './languages/dtlog/dtlog.contribution';
 
 import './style.scss';
 import './theme/whiteTheme';
 import { defaultOptions } from './config';
-import { jsonEqual, delayFunctionWrap, ICompleteProvideFunc, IOnSyntaxChange } from './utils';
+import {
+    jsonEqual,
+    delayFunctionWrap,
+    ICompleteProvideFunc,
+    IOnSyntaxChange,
+} from './utils';
 
 const provideCompletionItemsMap = {
     dtsql: {
@@ -28,7 +33,7 @@ const provideCompletionItemsMap = {
         /**
          * value改变事件注册函数
          */
-        onChange: dtsql.onChange
+        onChange: dtsql.onChange,
     },
     dtflink: {
         /**
@@ -39,7 +44,7 @@ const provideCompletionItemsMap = {
          * 释放自定义补全函数
          */
         dispose: dtflink.disposeProvider,
-        onChange: dtflink.onChange
+        onChange: dtflink.onChange,
     },
     dtPython2: {
         /**
@@ -50,7 +55,7 @@ const provideCompletionItemsMap = {
          * 释放自定义补全函数
          */
         dispose: dtPython.disposeProvider,
-        onChange: dtPython.onChange
+        onChange: dtPython.onChange,
     },
     dtPython3: {
         /**
@@ -61,7 +66,7 @@ const provideCompletionItemsMap = {
          * 释放自定义补全函数
          */
         dispose: dtPython.disposeProvider,
-        onChange: dtPython.onChange
+        onChange: dtPython.onChange,
     },
     dtGreenPlum: {
         /**
@@ -72,14 +77,16 @@ const provideCompletionItemsMap = {
          * 释放自定义补全函数
          */
         dispose: dtGreenPlum.disposeProvider,
-        onChange: dtGreenPlum.onChange
-    }
+        onChange: dtGreenPlum.onChange,
+    },
 };
 
 /**
  * monarch language config
  */
-export type IMonarchLanguageConf = monaco.languages.IMonarchLanguage | PromiseLike<monaco.languages.IMonarchLanguage>;
+export type IMonarchLanguageConf =
+    | monaco.languages.IMonarchLanguage
+    | PromiseLike<monaco.languages.IMonarchLanguage>;
 
 /**
  * type of editor instance
@@ -89,7 +96,8 @@ export type IEditorInstance = monaco.editor.IStandaloneCodeEditor;
 /**
  * type of editor options
  */
-export type IEditorOptions = monaco.editor.IEditorOptions & monaco.editor.IGlobalEditorOptions;
+export type IEditorOptions = monaco.editor.IEditorOptions &
+    monaco.editor.IGlobalEditorOptions;
 
 export interface EditorProps {
     /**
@@ -173,7 +181,7 @@ export interface EditorProps {
     disableParseSqOnChange?: boolean;
 }
 class Editor extends React.Component<EditorProps, any> {
-    constructor (props: any) {
+    constructor(props: any) {
         super(props);
     }
     /**
@@ -189,30 +197,40 @@ class Editor extends React.Component<EditorProps, any> {
      */
     _linkId: any = null;
 
-    shouldComponentUpdate (nextProps: EditorProps, nextState: any) {
+    shouldComponentUpdate(nextProps: EditorProps, nextState: any) {
         // 此处禁用render， 直接用editor实例更新编辑器
         return false;
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.initMonaco();
         if (typeof this.props.editorInstanceRef === 'function') {
-            this.props.editorInstanceRef(this.monacoInstance)
+            this.props.editorInstanceRef(this.monacoInstance);
         }
     }
     /**
      * 补全代理函数，来执行用户自定义补全方法。
      */
-    providerProxy = (completeItems: any, resolve: any, customCompletionItemsCreator: any, status: any) => {
+    providerProxy = (
+        completeItems: any,
+        resolve: any,
+        customCompletionItemsCreator: any,
+        status: any
+    ) => {
         const { customCompleteProvider } = this.props;
         if (customCompleteProvider) {
-            customCompleteProvider(completeItems, resolve, customCompletionItemsCreator, status);
+            customCompleteProvider(
+                completeItems,
+                resolve,
+                customCompletionItemsCreator,
+                status
+            );
         } else {
-            resolve(completeItems)
+            resolve(completeItems);
         }
-    }
+    };
 
-    initProviderProxy () {
+    initProviderProxy() {
         const keyAndValues = Object.entries(provideCompletionItemsMap);
         for (let [, language] of keyAndValues) {
             /**
@@ -221,7 +239,7 @@ class Editor extends React.Component<EditorProps, any> {
             language.register(this.providerProxy, this.monacoInstance);
         }
     }
-    disposeProviderProxy () {
+    disposeProviderProxy() {
         const keyAndValues = Object.entries(provideCompletionItemsMap);
         for (let [, language] of keyAndValues) {
             language.dispose(this.monacoInstance);
@@ -239,25 +257,28 @@ class Editor extends React.Component<EditorProps, any> {
         }
         if (languageConfig !== this.props.languageConfig) {
             if (!jsonEqual(languageConfig, this.props.languageConfig)) {
-                this.updateMonarch(languageConfig, language)
+                this.updateMonarch(languageConfig, language);
             }
         }
         if (this.props.language !== nextProps.language) {
-            monaco.editor.setModelLanguage(this.monacoInstance.getModel(), nextProps.language)
+            monaco.editor.setModelLanguage(
+                this.monacoInstance.getModel(),
+                nextProps.language
+            );
         }
         if (this.props.options !== nextProps.options) {
-            this.monacoInstance.updateOptions(nextProps.options)
+            this.monacoInstance.updateOptions(nextProps.options);
         }
 
         if (this.props.theme !== theme) {
-            monaco.editor.setTheme(theme)
+            monaco.editor.setTheme(theme);
         }
         // if(this.props.download!==download){
         //     this.initLink(download);
         // }
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.disposeProviderProxy();
         this.destroyMonaco();
     }
@@ -265,33 +286,33 @@ class Editor extends React.Component<EditorProps, any> {
      * 提供下载链接。ps:不是很好用，屏蔽了
      * @param {string} link
      */
-    initLink (link: any) {
-        this.monacoInstance.changeViewZones(
-            (changeAccessor: any) => {
-                if (this._linkId) {
-                    changeAccessor.removeZone(this._linkId);
-                }
-                let boxNode = document.createElement('div');
-                let domNode = document.createElement('a');
-                domNode.innerHTML = '完整下载链接';
-                domNode.className = 'dt-monaco-link';
-                domNode.setAttribute('href', link);
-                domNode.setAttribute('download', '');
-                boxNode.appendChild(domNode);
-                this._linkId = changeAccessor.addZone({
-                    afterLineNumber: 0,
-                    heightInLines: 1,
-                    domNode: boxNode
-                })
+    initLink(link: any) {
+        this.monacoInstance.changeViewZones((changeAccessor: any) => {
+            if (this._linkId) {
+                changeAccessor.removeZone(this._linkId);
             }
-        )
+            let boxNode = document.createElement('div');
+            let domNode = document.createElement('a');
+            domNode.innerHTML = '完整下载链接';
+            domNode.className = 'dt-monaco-link';
+            domNode.setAttribute('href', link);
+            domNode.setAttribute('download', '');
+            boxNode.appendChild(domNode);
+            this._linkId = changeAccessor.addZone({
+                afterLineNumber: 0,
+                heightInLines: 1,
+                domNode: boxNode,
+            });
+        });
     }
-    updateMonarch (config: IMonarchLanguageConf, language: string) {
+    updateMonarch(config: IMonarchLanguageConf, language: string) {
         if (config && language) {
-            if (config) { monaco.languages.setMonarchTokensProvider(language, config); }
+            if (config) {
+                monaco.languages.setMonarchTokensProvider(language, config);
+            }
         }
     }
-    isValueExist (props: EditorProps) {
+    isValueExist(props: EditorProps) {
         const keys = Object.keys(props);
         if (keys.includes('value')) {
             return true;
@@ -299,18 +320,18 @@ class Editor extends React.Component<EditorProps, any> {
         return false;
     }
 
-    log (args: any) {
+    log(args: any) {
         const { isLog } = this.props;
         isLog && console.log(...args);
     }
 
-    destroyMonaco () {
+    destroyMonaco() {
         if (this.monacoInstance) {
             this.monacoInstance.dispose();
         }
     }
 
-    initMonaco () {
+    initMonaco() {
         const { value, language, options, cursorPosition } = this.props;
         if (!this.monacoDom) {
             console.error('初始化dom节点出错');
@@ -319,47 +340,63 @@ class Editor extends React.Component<EditorProps, any> {
 
         const editorOptions = Object.assign({}, defaultOptions, options, {
             value,
-            language: language || 'sql'
+            language: language || 'sql',
         });
 
-        this.monacoInstance = monaco.editor.create(this.monacoDom, editorOptions);
+        this.monacoInstance = monaco.editor.create(
+            this.monacoDom,
+            editorOptions
+        );
 
         if (this.monacoInstance && cursorPosition) {
             this.monacoInstance.setPosition(cursorPosition);
             this.monacoInstance.focus();
-            this.monacoInstance.revealPosition(cursorPosition, monaco.editor.ScrollType.Immediate);
+            this.monacoInstance.revealPosition(
+                cursorPosition,
+                monaco.editor.ScrollType.Immediate
+            );
         }
 
         this.initEditor();
     }
 
-    initEditor () {
+    initEditor() {
         this.initTheme();
         this.initEditorEvent();
         this.initProviderProxy();
         // this.initLink();
     }
-    initTheme () {
+    initTheme() {
         this.props.theme && monaco.editor.setTheme(this.props.theme);
     }
-    updateValueWithNoEvent (value: string) {
+    updateValueWithNoEvent(value: string) {
         this.monacoInstance.setValue(value);
     }
-    languageValueOnChange (callback: Function) {
+    languageValueOnChange(callback: Function) {
         const { disableParseSqOnChange = false } = this.props;
         if (this.props.disabledSyntaxCheck) {
             return;
         }
         const newValue = this.monacoInstance.getValue();
         const languageId = this.monacoInstance.getModel().getLanguageId();
-        if (provideCompletionItemsMap[languageId] && provideCompletionItemsMap[languageId].onChange) {
-            provideCompletionItemsMap[languageId].onChange(newValue, this.monacoInstance, callback, disableParseSqOnChange);
+        if (
+            provideCompletionItemsMap[languageId] &&
+            provideCompletionItemsMap[languageId].onChange
+        ) {
+            provideCompletionItemsMap[languageId].onChange(
+                newValue,
+                this.monacoInstance,
+                callback,
+                disableParseSqOnChange
+            );
         }
     }
 
-    delayLanguageValueOnChange: any = delayFunctionWrap(this.languageValueOnChange.bind(this))
+    delayLanguageValueOnChange: any = delayFunctionWrap(
+        this.languageValueOnChange.bind(this)
+    );
 
-    initEditorEvent () {
+    initEditorEvent() {
         this.languageValueOnChange(this.props.onSyntaxChange);
         this.monacoInstance.onDidChangeModelContent((event) => {
             this.log('编辑器事件');
@@ -398,7 +435,9 @@ class Editor extends React.Component<EditorProps, any> {
             const model = this.monacoInstance.getModel();
             let selectionContent = '';
             for (let i = 0; i < ranges.length; i++) {
-                selectionContent = selectionContent += model.getValueInRange(ranges[i]);
+                selectionContent = selectionContent += model.getValueInRange(
+                    ranges[i]
+                );
             }
             if (onCursorSelection) {
                 onCursorSelection(selectionContent);
@@ -409,25 +448,33 @@ class Editor extends React.Component<EditorProps, any> {
          */
         this.monacoInstance.onContextMenu((e: any) => {
             this.log('编辑器事件 onContextMenu');
-            const contextMenuElement = this.monacoInstance.getDomNode().querySelector<HTMLElement>('.monaco-menu-container');
+            const contextMenuElement = this.monacoInstance
+                .getDomNode()
+                .querySelector<HTMLElement>('.monaco-menu-container');
 
             if (contextMenuElement) {
-                const posY = (e.event.posy + contextMenuElement.clientHeight) > window.innerHeight
-                    ? e.event.posy - contextMenuElement.clientHeight
-                    : e.event.posy;
+                const posY =
+                    e.event.posy + contextMenuElement.clientHeight >
+                    window.innerHeight
+                        ? e.event.posy - contextMenuElement.clientHeight
+                        : e.event.posy;
 
-                const posX = (e.event.posx + contextMenuElement.clientWidth) > window.innerWidth
-                    ? e.event.posx - contextMenuElement.clientWidth
-                    : e.event.posx;
+                const posX =
+                    e.event.posx + contextMenuElement.clientWidth >
+                    window.innerWidth
+                        ? e.event.posx - contextMenuElement.clientWidth
+                        : e.event.posx;
 
                 contextMenuElement.style.position = 'fixed';
-                contextMenuElement.style.top = Math.max(0, Math.floor(posY)) + 'px';
-                contextMenuElement.style.left = Math.max(0, Math.floor(posX)) + 'px';
+                contextMenuElement.style.top =
+                    Math.max(0, Math.floor(posY)) + 'px';
+                contextMenuElement.style.left =
+                    Math.max(0, Math.floor(posX)) + 'px';
             }
         });
     }
 
-    render () {
+    render() {
         const { className, style } = this.props;
 
         let renderClass = 'code-editor';
@@ -437,16 +484,20 @@ class Editor extends React.Component<EditorProps, any> {
             position: 'relative',
             minHeight: '400px',
             height: '100%',
-            width: '100%'
+            width: '100%',
         };
 
         renderStyle = style ? Object.assign(renderStyle, style) : renderStyle;
 
-        return <div
-            className={renderClass}
-            style={renderStyle}
-            ref={(domIns) => { this.monacoDom = domIns; }}
-        />;
+        return (
+            <div
+                className={renderClass}
+                style={renderStyle}
+                ref={(domIns) => {
+                    this.monacoDom = domIns;
+                }}
+            />
+        );
     }
 }
 export default Editor;

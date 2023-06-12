@@ -37,7 +37,7 @@ export interface IAutoComplete {
     locations?: ILocationInfo[];
     lowerCase?: boolean;
     suggestColumns?: {
-        tables?: { identifierChain: IdentifierChain } [];
+        tables?: { identifierChain: IdentifierChain }[];
         source?: string;
     };
     suggestTables?: { identifierChain: IdentifierChain };

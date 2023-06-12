@@ -1,37 +1,38 @@
 import * as monaco from 'monaco-editor';
-import { IAutoComplete } from './parser-types'
+import { IAutoComplete } from './parser-types';
 
-export function keywordsCompleteItemCreator (words: string[]): IMonacoLanguageCompletionItem[] {
-    return words.map(
-        (word, index) => {
-            return {
-                label: word,
-                kind: monaco.languages.CompletionItemKind.Keyword,
-                detail: '关键字',
-                insertText: word + ' ',
-                sortText: '1200' + index + word,
-                filterText: word.toLowerCase(),
-                range: undefined as any
-            }
-        }
-    )
+export function keywordsCompleteItemCreator(
+    words: string[]
+): IMonacoLanguageCompletionItem[] {
+    return words.map((word, index) => {
+        return {
+            label: word,
+            kind: monaco.languages.CompletionItemKind.Keyword,
+            detail: '关键字',
+            insertText: word + ' ',
+            sortText: '1200' + index + word,
+            filterText: word.toLowerCase(),
+            range: undefined as any,
+        };
+    });
 }
 
-export function functionsCompleteItemCreator (functions: string[]): IMonacoLanguageCompletionItem[] {
-    return functions.map(
-        (functionName, index) => {
-            return {
-                label: functionName,
-                kind: monaco.languages.CompletionItemKind.Function,
-                detail: '函数',
-                insertText: functionName + '($1) ',
-                sortText: '2000' + index + functionName,
-                filterText: functionName.toLowerCase(),
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-                range: undefined as any
-            }
-        }
-    )
+export function functionsCompleteItemCreator(
+    functions: string[]
+): IMonacoLanguageCompletionItem[] {
+    return functions.map((functionName, index) => {
+        return {
+            label: functionName,
+            kind: monaco.languages.CompletionItemKind.Function,
+            detail: '函数',
+            insertText: functionName + '($1) ',
+            sortText: '2000' + index + functionName,
+            filterText: functionName.toLowerCase(),
+            insertTextRules:
+                monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+            range: undefined as any,
+        };
+    });
 }
 
 /**
@@ -60,7 +61,7 @@ type ICustomCompletionItem1 = {
          */
         insertAsSnippet?: boolean;
     };
-}
+};
 
 /**
  * @description ICustomCompletionItem1 的简化版本
@@ -70,75 +71,77 @@ type ICustomCompletionItem1 = {
 type ICustomCompletionItem2 = [
     string,
     string,
-    string|number,
+    string | number,
     keyof typeof monaco.languages.CompletionItemKind
-]
+];
 
-export type ICustomCompletionItem = ICustomCompletionItem1 | ICustomCompletionItem2
+export type ICustomCompletionItem =
+    | ICustomCompletionItem1
+    | ICustomCompletionItem2;
 
-type IMonacoLanguageCompletionItem = monaco.languages.CompletionItem
+type IMonacoLanguageCompletionItem = monaco.languages.CompletionItem;
 
 /**
  * 生成自定义的自动提示项
  */
-export function customCompletionItemsCreator (
+export function customCompletionItemsCreator(
     customCompletionItems: ICustomCompletionItem[]
 ): IMonacoLanguageCompletionItem[] {
     if (!customCompletionItems?.length) {
         return [];
     }
-    return customCompletionItems.map(
-        (completionItem, index: any) => {
-            if (Array.isArray(completionItem)) {
-                const [name, detail, sortIndex = '3000', type] = completionItem;
-                return {
-                    label: name,
-                    kind: monaco.languages.CompletionItemKind[type || 'Text'],
-                    detail,
-                    insertText: type == 'Function' ? (name + '($1) ') : (name),
-                    sortText: sortIndex + index + name,
-                    filterText: name.toLowerCase(),
-                    insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-                    range: undefined as any
-                }
-            } else {
-                const {
-                    name,
-                    detail,
-                    sortIndex = '3000',
-                    type,
-                    options: {
-                        autoBracketsForFunction = true,
-                        insertAsSnippet = true
-                    }
-                } = completionItem;
-                let insertText = name
-                if (type == 'Function' && autoBracketsForFunction) {
-                    if (insertAsSnippet) {
-                        insertText = (name + '($1) ')
-                    } else {
-                        insertText = (name + '( ) ')
-                    }
-                }
-                const insertTextRules = insertAsSnippet
-                    ? monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
-                    : monaco.languages.CompletionItemInsertTextRule.KeepWhitespace
-                return {
-                    label: name,
-                    kind: monaco.languages.CompletionItemKind[type || 'Text'],
-                    detail,
-                    insertText,
-                    sortText: sortIndex + index + name,
-                    filterText: name.toLowerCase(),
-                    insertTextRules,
-                    range: undefined as any
+    return customCompletionItems.map((completionItem, index: any) => {
+        if (Array.isArray(completionItem)) {
+            const [name, detail, sortIndex = '3000', type] = completionItem;
+            return {
+                label: name,
+                kind: monaco.languages.CompletionItemKind[type || 'Text'],
+                detail,
+                insertText: type == 'Function' ? name + '($1) ' : name,
+                sortText: sortIndex + index + name,
+                filterText: name.toLowerCase(),
+                insertTextRules:
+                    monaco.languages.CompletionItemInsertTextRule
+                        .InsertAsSnippet,
+                range: undefined as any,
+            };
+        } else {
+            const {
+                name,
+                detail,
+                sortIndex = '3000',
+                type,
+                options: {
+                    autoBracketsForFunction = true,
+                    insertAsSnippet = true,
+                },
+            } = completionItem;
+            let insertText = name;
+            if (type == 'Function' && autoBracketsForFunction) {
+                if (insertAsSnippet) {
+                    insertText = name + '($1) ';
+                } else {
+                    insertText = name + '( ) ';
                 }
             }
+            const insertTextRules = insertAsSnippet
+                ? monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet
+                : monaco.languages.CompletionItemInsertTextRule.KeepWhitespace;
+            return {
+                label: name,
+                kind: monaco.languages.CompletionItemKind[type || 'Text'],
+                detail,
+                insertText,
+                sortText: sortIndex + index + name,
+                filterText: name.toLowerCase(),
+                insertTextRules,
+                range: undefined as any,
+            };
         }
-    )
+    });
 }
 
-export type ICustomCompletionItemsCreator = typeof customCompletionItemsCreator
+export type ICustomCompletionItemsCreator = typeof customCompletionItemsCreator;
 
 export type ISyntaxContext = {
     status: 0;
@@ -151,7 +154,7 @@ export type ISyntaxContext = {
         tableContext: string;
         completionContext: monaco.languages.CompletionContext;
     };
-}
+};
 
 export type ICompleteProvideFunc = (
     /** 所有内置的默认补全项 */

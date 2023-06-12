@@ -4,7 +4,11 @@
  *-------------------------------------------------------------------------------------------- */
 
 import { registerLanguage } from 'monaco-editor/esm/vs/basic-languages/_.contribution';
-import { registerCompleteItemsProvider, disposeProvider, onChange } from './simpleComplete';
+import {
+    registerCompleteItemsProvider,
+    disposeProvider,
+    onChange,
+} from './simpleComplete';
 
 declare var monaco: any;
 declare var self: any;
@@ -17,7 +21,7 @@ registerLanguage({
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
     aliases: ['Python', 'py'],
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
-    loader: () => import('./python')
+    loader: () => import('./python'),
 });
 
 registerLanguage({
@@ -25,6 +29,6 @@ registerLanguage({
     extensions: ['.py', '.rpy', '.pyw', '.cpy', '.gyp', '.gypi'],
     aliases: ['Python', 'py'],
     firstLine: '^#!/.*\\bpython[0-9.-]*\\b',
-    loader: () => import('./python')
+    loader: () => import('./python'),
 });
 export { registerCompleteItemsProvider, disposeProvider, onChange };

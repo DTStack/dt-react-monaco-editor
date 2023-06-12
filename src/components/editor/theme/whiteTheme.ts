@@ -8,9 +8,8 @@ const whiteTheme: monaco.editor.IStandaloneThemeData = {
         'editorSuggestWidget.background': '#fff',
         'editorSuggestWidget.border': '#fff',
         'editorSuggestWidget.foreground': '#88adbf',
-        'editorSuggestWidget.selectedBackground': '#dfeeff'
-
-    }
-}
+        'editorSuggestWidget.selectedBackground': '#dfeeff',
+    },
+};
 
 monaco.editor.defineTheme('white', whiteTheme);

@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------------------------
-*  Copyright (c) Microsoft Corporation. All rights reserved.
-*  Licensed under the MIT License. See License.txt in the project root for license information.
-*-------------------------------------------------------------------------------------------- */
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *-------------------------------------------------------------------------------------------- */
 'use strict';
 import { registerLanguage } from 'monaco-editor/esm/vs/basic-languages/_.contribution';
 
@@ -15,5 +15,5 @@ registerLanguage({
     id: 'dtlog',
     extensions: ['.dtlog', '.dtlog'],
     aliases: ['Dtlog', 'dtlog'],
-    loader: () => import('./dtlog')
+    loader: () => import('./dtlog'),
 });
