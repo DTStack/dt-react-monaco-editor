@@ -1,2 +1,3 @@
-// path 用来指定适配器
-{ "path": "cz-conventional-changelog" }
+{ 
+    "path": "./node_modules/@commitlint/cz-commitlint"
+}

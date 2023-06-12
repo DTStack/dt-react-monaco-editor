@@ -21,56 +21,40 @@
     "lib/*"
   ],
   "scripts": {
+    "prepare": "husky install",
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "sass --no-source-map  ./src/components/editor/style.scss ./lib/style.scss",
     "release": "npm run compile && node ./scripts/release.js",
     "check-types": "tsc --skipLibCheck",
-    "test": "jest --no-chche",
-    "test:update": "npm run test -u",
-    "lint": "npx eslint './src/**/*.tsx' ",
-    "lint-doc": "node ./node_modules/lint-md/bin ./*.md src/stories/**/*.md",
-    "lint-fix": "npx eslint './src/**/*.tsx' --fix && lint-md ./*.md src/stories/markdown/*.md --fix"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -c ./commitlint.config.js -E HUSKY_GIT_PARAMS"
-    }
+    "lint": "prettier --check './src/**/*.{js,jsx,tsx,ts,less}'",
+    "lint-fix": "prettier --write './src/**/*.{js,jsx,tsx,ts,less}'"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-angular": "^8.3.4",
-    "@types/jest": "^25.2.3",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@commitlint/cz-commitlint": "^17.5.0",
     "@types/react": "^16.9.2",
-    "commitizen": "^4.1.2",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^5.16.0",
-    "husky": "^1.2.0",
+    "commitizen": "^4.3.0",
+    "dt-python-parser": "0.8.0",
+    "husky": "^8.0.3",
     "inquirer": "^8.2.2",
-    "jest": "^24.9.0",
-    "lint-md": "^0.2.0",
-    "monaco-editor-webpack-plugin": "^6.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.0",
+    "lint-staged": "^10.0.7",
+    "monaco-editor": "0.30.1",
+    "prettier": "^2.2.0",
+    "react": "17.0.2",
     "sass": "^1.54.9",
     "standard-version": "^7.0.1",
-    "tslib": "^2.0.3",
-    "typescript": "^3.5.3"
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4"
   },
-  "dependencies": {
+  "peerDependencies": {
     "dt-python-parser": "0.8.0",
-    "dt-react-component": "2.0.0",
-    "dt-sql-parser": "3.0.5",
-    "lodash": "^4.17.19",
-    "monaco-editor": "^0.30.1"
+    "monaco-editor": "0.30.1",
+    "react": ">=16.13.1 <18.x"
   },
   "license": "MIT"
 }

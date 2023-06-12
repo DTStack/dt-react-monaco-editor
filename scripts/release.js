@@ -13,7 +13,7 @@ const runCommand = (command, args) => {
             reject({
                 error,
                 message: null,
-                code: null
+                code: null,
             });
         });
 
@@ -22,49 +22,51 @@ const runCommand = (command, args) => {
                 resolve({
                     error: null,
                     message: null,
-                    code
+                    code,
                 });
             } else {
                 reject({
                     error: null,
                     message: null,
-                    code
+                    code,
                 });
             }
         });
-    
+
         executedCommand.on('message', (message) => {
             resolve({
                 error: null,
                 message: message,
-                code: null
-            })
-        })
+                code: null,
+            });
+        });
     });
 };
 
-function execStandardVersion (res) {
+function execStandardVersion(res) {
     const { bumpType, isPrerelease, prereleaseType, tagPrefix } = res;
 
-    let cmd = `standard-version --release-as ${bumpType} `
+    let cmd = `standard-version --release-as ${bumpType} `;
     if (isPrerelease) {
-        cmd += ` --prerelease ${prereleaseType} `
+        cmd += ` --prerelease ${prereleaseType} `;
     }
-    cmd += ` --tag-prefix ${tagPrefix} `
-    cmd += ' --infile CHANGELOG.md '
+    cmd += ` --tag-prefix ${tagPrefix} `;
+    cmd += ' --infile CHANGELOG.md ';
 
-    console.log(`Executing: ${cmd} \n`)
+    console.log(`Executing: ${cmd} \n`);
 
     runCommand(cmd)
         .then(({ message }) => {
-            console.log('Please checkout recent commit, and then') 
-            console.log('Push branch and new tag to github, publish package to npm') 
-            // message && console.log(message) 
+            console.log('Please checkout recent commit, and then');
+            console.log(
+                'Push branch and new tag to github, publish package to npm'
+            );
+            // message && console.log(message)
         })
-        .catch(({error, code}) => {
-            code && console.error('Error: process exit code' + code) 
-            error && console.error(error) 
-        })
+        .catch(({ error, code }) => {
+            code && console.error('Error: process exit code' + code);
+            error && console.error(error);
+        });
 }
 
 inquirer
@@ -89,7 +91,7 @@ inquirer
             message: 'What is the current stage',
             choices: ['alpha', 'beta'],
             when: (answer) => {
-                return answer.isPrerelease
+                return answer.isPrerelease;
             },
             loop: false,
         },
@@ -102,4 +104,3 @@ inquirer
         },
     ])
     .then(execStandardVersion);
-
