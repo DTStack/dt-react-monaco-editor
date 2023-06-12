@@ -4,9 +4,9 @@ import 'monaco-editor/esm/vs/basic-languages/sql/sql.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/python/python.contribution.js';
 
 // monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
-import './languages/shell/shell.contribution';
-import './languages/dtsql/dtsql.contribution';
-import './languages/dt-python/python.contribution';
+import '../languages/shell/shell.contribution';
+import '../languages/dtsql/dtsql.contribution';
+import '../languages/dt-python/python.contribution';
 
 import './style.scss';
 import { defaultOptions } from './config';

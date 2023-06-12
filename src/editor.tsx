@@ -3,15 +3,12 @@ import * as React from 'react';
 import * as monaco from 'monaco-editor';
 
 // monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
-import './languages/shell/shell.contribution';
-import * as dtsql from './languages/dtsql/dtsql.contribution';
-import * as dtflink from './languages/dt-flink/dtflink.contribution';
 import * as dtPython from './languages/dt-python/python.contribution';
-import * as dtGreenPlum from './languages/dt-greenplum/greenplum.contribution';
 import './languages/dtlog/dtlog.contribution';
+import './languages/shell/shell.contribution';
 
 import './style.scss';
-import './theme/whiteTheme';
+import '../theme/whiteTheme';
 import { defaultOptions } from './config';
 import {
     jsonEqual,
@@ -21,31 +18,6 @@ import {
 } from './utils';
 
 const provideCompletionItemsMap = {
-    dtsql: {
-        /**
-         * 注册自定义补全函数
-         */
-        register: dtsql.registerCompleteItemsProvider,
-        /**
-         * 释放自定义补全函数
-         */
-        dispose: dtsql.disposeProvider,
-        /**
-         * value改变事件注册函数
-         */
-        onChange: dtsql.onChange,
-    },
-    dtflink: {
-        /**
-         * 注册自定义补全函数
-         */
-        register: dtflink.registerCompleteItemsProvider,
-        /**
-         * 释放自定义补全函数
-         */
-        dispose: dtflink.disposeProvider,
-        onChange: dtflink.onChange,
-    },
     dtPython2: {
         /**
          * 注册自定义补全函数
@@ -67,17 +39,6 @@ const provideCompletionItemsMap = {
          */
         dispose: dtPython.disposeProvider,
         onChange: dtPython.onChange,
-    },
-    dtGreenPlum: {
-        /**
-         * 注册自定义补全函数
-         */
-        register: dtGreenPlum.registerCompleteItemsProvider,
-        /**
-         * 释放自定义补全函数
-         */
-        dispose: dtGreenPlum.disposeProvider,
-        onChange: dtGreenPlum.onChange,
     },
 };
 

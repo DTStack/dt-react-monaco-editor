@@ -23,10 +23,10 @@
   "scripts": {
     "prepare": "husky install",
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
-    "build-ts": "tsc -p tsconfig.build.json",
+    "build-ts": "tsc",
     "build-css": "sass --no-source-map  ./src/components/editor/style.scss ./lib/style.scss",
     "release": "npm run compile && node ./scripts/release.js",
-    "check-types": "tsc --skipLibCheck",
+    "check-types": "tsc --noEmit --skipLibCheck",
     "lint": "prettier --check './src/**/*.{js,jsx,tsx,ts,less}'",
     "lint-fix": "prettier --write './src/**/*.{js,jsx,tsx,ts,less}'"
   },
@@ -45,7 +45,7 @@
     "lint-staged": "^10.0.7",
     "monaco-editor": "0.30.1",
     "prettier": "^2.2.0",
-    "react": "17.0.2",
+    "react": "^17.0.2",
     "sass": "^1.54.9",
     "standard-version": "^7.0.1",
     "tslib": "^2.5.0",

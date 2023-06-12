@@ -1,7 +1,6 @@
 // import * as monaco from 'monaco-editor/esm/vs/editor/edcore.main.js';
 import * as monaco from 'monaco-editor';
 import DtWorker from './python.worker';
-import { get } from 'lodash';
 import { language } from './python';
 import {
     keywordsCompleteItemCreator,
@@ -122,11 +121,8 @@ monaco.languages.registerCompletionItemProvider('dtPython2', {
                 ]);
                 let columnContext: any;
                 let tableContext: any;
-                let suggestTablesIdentifierChain = get(
-                    autoComplete,
-                    'suggestTables.identifierChain',
-                    []
-                );
+                let suggestTablesIdentifierChain =
+                    autoComplete.suggestTables?.identifierChain ?? [];
                 if (suggestTablesIdentifierChain.length) {
                     tableContext = suggestTablesIdentifierChain[0].name;
                 }
@@ -198,11 +194,8 @@ monaco.languages.registerCompletionItemProvider('dtPython3', {
                 ]);
                 let columnContext: any;
                 let tableContext: any;
-                let suggestTablesIdentifierChain = get(
-                    autoComplete,
-                    'suggestTables.identifierChain',
-                    []
-                );
+                let suggestTablesIdentifierChain =
+                    autoComplete.suggestTables?.identifierChain ?? [];
                 if (suggestTablesIdentifierChain.length) {
                     tableContext = suggestTablesIdentifierChain[0].name;
                 }

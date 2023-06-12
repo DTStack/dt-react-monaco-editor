@@ -16,10 +16,7 @@ export type {
     ICompleteProvideFunc,
 } from './utils';
 
-export { language as basicGreenPlumLanguageConf } from './languages/dt-greenplum/greenplum';
-export { language as basicFlinkLanguageConf } from './languages/dt-flink/dtflink';
 export { language as basicPythonLanguageConf } from './languages/dt-python/python';
-export { language as basicDtSqlLanguageConf } from './languages/dtsql/dtsql';
 
 export {
     customCompletionItemsCreator,
