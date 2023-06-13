@@ -1,64 +1,18 @@
 import * as React from 'react';
-import * as monaco from 'monaco-editor';
-
-import './languages/dtlog/dtlog.contribution';
+import { editor, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { defaultOptions } from './config';
+import type { DiffEditorProps } from './types';
 
-export interface DiffEditorProps {
-    /**
-     * className to be added to monaco dom container
-     */
-    className?: string;
-    /**
-     * className to be added to the editor.
-     */
-    extraEditorClassName?: string;
-    style?: React.CSSProperties;
-    options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
-    theme?: monaco.editor.BuiltinTheme;
-    language?: string;
-    /**
-     * modified editor content
-     */
-    value: string;
-    /**
-     * original editor content
-     */
-    original: string;
-    /**
-     * get diff editor instance ref
-     */
-    diffEditorInstanceRef?: (
-        diffEditorInstance: monaco.editor.IStandaloneDiffEditor
-    ) => void;
-    /**
-     * on modified editor content change
-     */
-    onChange?: (
-        originValue: string,
-        event: monaco.editor.IModelContentChangedEvent
-    ) => any;
-    /**
-     * sync to editor content when original or value change
-     */
-    sync?: boolean;
-    /**
-     * Is modified editor readonly
-     */
-    readOnly?: boolean;
-}
-
-class DiffEditor extends React.Component<DiffEditorProps, any> {
+class MonacoDiffEditor extends React.Component<DiffEditorProps, any> {
     constructor(props: any) {
         super(props);
     }
 
-    diffEditor: monaco.editor.IStandaloneDiffEditor = null;
-
+    diffEditor: editor.IStandaloneDiffEditor = null;
     private monacoDom: HTMLDivElement = null;
     private __prevent_onChange = false;
-    private subscription: monaco.IDisposable;
+    private subscription: IDisposable;
 
     componentDidMount() {
         this.initMonaco();
@@ -68,14 +22,7 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
     }
 
     componentDidUpdate(prevProps) {
-        const {
-            language,
-            theme,
-            options,
-            extraEditorClassName,
-            sync,
-            readOnly,
-        } = this.props;
+        const { language, theme, options, sync, readOnly } = this.props;
         const { original, modified } = this.diffEditor.getModel();
 
         if (this.props.original !== original.getValue() && sync) {
@@ -103,15 +50,14 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             this.__prevent_onChange = false;
         }
         if (prevProps.language !== language) {
-            monaco.editor.setModelLanguage(original, language);
-            monaco.editor.setModelLanguage(modified, language);
+            editor.setModelLanguage(original, language);
+            editor.setModelLanguage(modified, language);
         }
         if (prevProps.theme !== theme) {
-            monaco.editor.setTheme(theme);
+            editor.setTheme(theme);
         }
         if (prevProps.options !== options) {
             this.diffEditor.updateOptions({
-                ...(extraEditorClassName ? { extraEditorClassName } : {}),
                 ...options,
             });
         }
@@ -136,30 +82,23 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
             readOnly,
         } = this.props;
         if (!this.monacoDom) {
-            console.error('初始化dom节点出错');
+            console.error('Can not get monacoDom element!');
             return;
         }
 
-        const editorOptions: monaco.editor.IStandaloneDiffEditorConstructionOptions =
-            {
-                ...defaultOptions,
-                renderIndicators: true,
-                scrollbar: {
-                    horizontal: 'visible',
-                },
-                theme,
-                ...options,
-            };
+        const editorOptions: editor.IStandaloneDiffEditorConstructionOptions = {
+            ...defaultOptions,
+            renderIndicators: true,
+            theme,
+            scrollbar: {
+                horizontal: 'visible',
+            },
+            ...options,
+        };
 
-        const originalModel = monaco.editor.createModel(
-            original,
-            language ?? 'sql'
-        );
-        const modifiedModel = monaco.editor.createModel(
-            value,
-            language ?? 'sql'
-        );
-        this.diffEditor = monaco.editor.createDiffEditor(
+        const originalModel = editor.createModel(original, language ?? 'sql');
+        const modifiedModel = editor.createModel(value, language ?? 'sql');
+        this.diffEditor = editor.createDiffEditor(
             this.monacoDom,
             editorOptions
         );
@@ -215,4 +154,5 @@ class DiffEditor extends React.Component<DiffEditorProps, any> {
         );
     }
 }
-export default DiffEditor;
+
+export default MonacoDiffEditor;

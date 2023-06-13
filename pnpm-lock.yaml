@@ -10,10 +10,9 @@ specifiers:
   husky: ^8.0.3
   inquirer: ^8.2.2
   lint-staged: ^10.0.7
-  monaco-editor: 0.30.1
+  monaco-editor: 0.31.0
   prettier: ^2.2.0
   react: ^17.0.2
-  sass: ^1.54.9
   standard-version: ^7.0.1
   tslib: ^2.5.0
   typescript: ^5.0.4
@@ -28,10 +27,9 @@ devDependencies:
   husky: 8.0.3
   inquirer: 8.2.4
   lint-staged: 10.5.4
-  monaco-editor: 0.30.1
+  monaco-editor: 0.31.0
   prettier: 2.8.8
   react: 17.0.2
-  sass: 1.55.0
   standard-version: 7.1.0
   tslib: 2.5.3
   typescript: 5.1.3
@@ -402,14 +400,6 @@ packages:
     resolution: {integrity: sha512-en/MxQ4OkPgGJQ3wD/muzj1uDnFSzdFIhc2+c6bHZokWkuBb6RRvFjpWhPxWLbgQvaEzldJZ0GSQpfSAaE3hqg==}
     dev: true
 
-  /anymatch/3.1.2:
-    resolution: {integrity: sha512-P43ePfOAIupkguHUycrc4qJ9kz8ZiuOUijaETwX7THt0Y/GNK7v0aa8rY816xWjZ7rJdA5XdMcpVFTKMq+RvWg==}
-    engines: {node: '>= 8'}
-    dependencies:
-      normalize-path: 3.0.0
-      picomatch: 2.3.1
-    dev: true
-
   /arg/4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
     dev: true
@@ -448,11 +438,6 @@ packages:
 
   /base64-js/1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
-    dev: true
-
-  /binary-extensions/2.2.0:
-    resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
-    engines: {node: '>=8'}
     dev: true
 
   /bl/4.1.0:
@@ -545,21 +530,6 @@ packages:
 
   /chardet/0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
-    dev: true
-
-  /chokidar/3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
-    engines: {node: '>= 8.10.0'}
-    dependencies:
-      anymatch: 3.1.2
-      braces: 3.0.2
-      glob-parent: 5.1.2
-      is-binary-path: 2.1.0
-      is-glob: 4.0.3
-      normalize-path: 3.0.0
-      readdirp: 3.6.0
-    optionalDependencies:
-      fsevents: 2.3.2
     dev: true
 
   /clean-stack/2.2.0:
@@ -1253,14 +1223,6 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
-  /fsevents/2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
@@ -1351,13 +1313,6 @@ packages:
     resolution: {integrity: sha512-spLUXeTAVHxDtKsJc8FkFVgFtMdEN9qPGpL23VfSHx4fP4+Ds097IXLvymbnDH8FnmxX5Nr9bPw3A+AQ6mWEaQ==}
     dependencies:
       ini: 1.3.8
-    dev: true
-
-  /glob-parent/5.1.2:
-    resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
-    engines: {node: '>= 6'}
-    dependencies:
-      is-glob: 4.0.3
     dev: true
 
   /glob/7.2.3:
@@ -1482,10 +1437,6 @@ packages:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
     dev: true
 
-  /immutable/4.1.0:
-    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
-    dev: true
-
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -1563,13 +1514,6 @@ packages:
 
   /is-arrayish/0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
-    dev: true
-
-  /is-binary-path/2.1.0:
-    resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
-    engines: {node: '>=8'}
-    dependencies:
-      binary-extensions: 2.2.0
     dev: true
 
   /is-core-module/2.10.0:
@@ -2029,8 +1973,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /monaco-editor/0.30.1:
-    resolution: {integrity: sha512-B/y4+b2O5G2gjuxIFtCE2EkM17R2NM7/3F8x0qcPsqy4V83bitJTIO4TIeZpYlzu/xy6INiY/+84BEm6+7Cmzg==}
+  /monaco-editor/0.31.0:
+    resolution: {integrity: sha512-H3QmysEwxxY8oxmFhIFcY9JkuwilUDa6txdAxb797cVr7XFZX27a3SDwcGJmTlV9iGPwdh132r3KKCS5aNL4Gg==}
     dev: true
 
   /ms/2.1.2:
@@ -2379,13 +2323,6 @@ packages:
       util-deprecate: 1.0.2
     dev: true
 
-  /readdirp/3.6.0:
-    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
-    engines: {node: '>=8.10.0'}
-    dependencies:
-      picomatch: 2.3.1
-    dev: true
-
   /redent/2.0.0:
     resolution: {integrity: sha512-XNwrTx77JQCEMXTeb8movBKuK75MgH0RZkujNuDKCezemx/voapl9i2gCSi8WWm8+ox5ycJi1gxF22fR7c0Ciw==}
     engines: {node: '>=4'}
@@ -2485,16 +2422,6 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass/1.55.0:
-    resolution: {integrity: sha512-Pk+PMy7OGLs9WaxZGJMn7S96dvlyVBwwtToX895WmCpAOr5YiJYEUJfiJidMuKb613z2xNWcXCHEuOvjZbqC6A==}
-    engines: {node: '>=12.0.0'}
-    hasBin: true
-    dependencies:
-      chokidar: 3.5.3
-      immutable: 4.1.0
-      source-map-js: 1.0.2
-    dev: true
-
   /semver-compare/1.0.0:
     resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
     dev: true
@@ -2553,11 +2480,6 @@ packages:
       ansi-styles: 4.3.0
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
-    dev: true
-
-  /source-map-js/1.0.2:
-    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
-    engines: {node: '>=0.10.0'}
     dev: true
 
   /source-map/0.6.1:

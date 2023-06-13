@@ -1,73 +1,15 @@
 import * as React from 'react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-// monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
-import './languages/dtlog/dtlog.contribution';
 import { defaultOptions } from './config';
+import type { EditorProps } from './types';
 
-/**
- * monarch language config
- */
-export type IMonarchLanguageConf =
-    | monaco.languages.IMonarchLanguage
-    | PromiseLike<monaco.languages.IMonarchLanguage>;
-
-/**
- * type of editor instance
- */
-export type IEditorInstance = monaco.editor.IStandaloneCodeEditor;
-
-/**
- * type of editor options
- */
-export type IEditorOptions = monaco.editor.IEditorOptions &
-    monaco.editor.IGlobalEditorOptions;
-
-export interface EditorProps {
-    /**
-     * editor content
-     */
-    value: string;
-    /**
-     * className to be added to monaco dom container
-     */
-    className?: string;
-    /**
-     * className to be added to the editor.
-     */
-    extraEditorClassName?: string;
-    style?: React.CSSProperties;
-    options?: IEditorOptions;
-    theme?: monaco.editor.BuiltinTheme;
-    language?: string;
-    /**
-     * get editor instance ref
-     */
-    editorInstanceRef?: (editorInstance: IEditorInstance) => any;
-    /**
-     * sync to editor content when value change
-     */
-    sync?: boolean;
-    /**
-     * callback for selection change event
-     */
-    onCursorSelection?: (
-        selectionContent: string,
-        event: monaco.editor.ICursorSelectionChangedEvent
-    ) => any;
-    onChange?: (
-        value: string,
-        event: monaco.editor.IModelContentChangedEvent
-    ) => any;
-    onFocus?: (value: string) => any;
-    onBlur?: (value: string) => any;
-}
-class Editor extends React.Component<EditorProps, any> {
+class MonacoEditor extends React.Component<EditorProps, any> {
     constructor(props: any) {
         super(props);
     }
 
-    editor: IEditorInstance = null;
+    editor: monaco.editor.IStandaloneCodeEditor = null;
     private monacoDom: any = null;
     private __prevent_onChange = false;
     private _changeSubscription: monaco.IDisposable;
@@ -84,8 +26,7 @@ class Editor extends React.Component<EditorProps, any> {
     }
 
     componentDidUpdate(prevProps) {
-        const { language, theme, options, extraEditorClassName, sync } =
-            this.props;
+        const { language, theme, options, sync } = this.props;
         if (
             this.props.value != null &&
             this.props.value !== this.editor.getValue() &&
@@ -103,7 +44,6 @@ class Editor extends React.Component<EditorProps, any> {
                 ],
                 () => null
             );
-
             this.editor.pushUndoStop();
             this.__prevent_onChange = false;
         }
@@ -114,9 +54,7 @@ class Editor extends React.Component<EditorProps, any> {
             monaco.editor.setTheme(theme);
         }
         if (prevProps.options !== options) {
-            console.log(options);
             this.editor.updateOptions({
-                ...(extraEditorClassName ? { extraEditorClassName } : {}),
                 ...options,
             });
         }
@@ -129,7 +67,7 @@ class Editor extends React.Component<EditorProps, any> {
     initMonaco() {
         const { value, language, options, theme } = this.props;
         if (!this.monacoDom) {
-            console.error('初始化dom节点出错');
+            console.error('Can not get monacoDom element!');
             return;
         }
         const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions =
@@ -239,4 +177,4 @@ class Editor extends React.Component<EditorProps, any> {
         );
     }
 }
-export default Editor;
+export default MonacoEditor;

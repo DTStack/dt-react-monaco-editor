@@ -10,6 +10,6 @@
     "experimentalDecorators": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/utils/.ts"],
   "exclude": ["node_modules", "build", "scripts", "lib"]
 }

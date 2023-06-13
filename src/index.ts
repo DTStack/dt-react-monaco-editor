@@ -1,27 +1,5 @@
-import Editor from './editor';
+export { default as MonacoEditor } from './editor';
+export { default as MonacoDiffEditor } from './diff';
+export * from './utils';
 
-export type {
-    EditorProps,
-    IEditorInstance,
-    IEditorOptions,
-    IMonarchLanguageConf,
-} from './editor';
-
-export type { DiffEditorProps } from './diff';
-
-export type {
-    ICustomCompletionItem,
-    ICustomCompletionItemsCreator,
-    ISyntaxContext,
-    ICompleteProvideFunc,
-} from './utils';
-
-export {
-    customCompletionItemsCreator,
-    commonFileEditDelegator,
-    delayFunctionWrap,
-} from './utils';
-
-export { default as DiffEditor } from './diff';
-
-export default Editor;
+export type * from './types';

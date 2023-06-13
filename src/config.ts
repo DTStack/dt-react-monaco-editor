@@ -1,6 +1,6 @@
-import * as monaco from 'monaco-editor';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-export const defaultOptions: monaco.editor.IStandaloneDiffEditorConstructionOptions =
+export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions =
     {
         readOnly: false,
         contextmenu: true,
