@@ -2,9 +2,9 @@ import * as React from 'react';
 import { editor, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { defaultOptions } from './config';
-import type { DiffEditorProps } from './types';
+import type { MonacoDiffEditorProps } from './types';
 
-class MonacoDiffEditor extends React.Component<DiffEditorProps, any> {
+class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
     constructor(props: any) {
         super(props);
     }

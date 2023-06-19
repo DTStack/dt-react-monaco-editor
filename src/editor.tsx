@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { defaultOptions } from './config';
-import type { EditorProps } from './types';
+import type { MonacoEditorProps } from './types';
 
-class MonacoEditor extends React.Component<EditorProps, any> {
+class MonacoEditor extends React.Component<MonacoEditorProps, any> {
     constructor(props: any) {
         super(props);
     }
