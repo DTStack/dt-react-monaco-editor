@@ -10,7 +10,7 @@ specifiers:
   husky: ^8.0.3
   inquirer: ^8.2.2
   lint-staged: ^10.0.7
-  monaco-editor: 0.31.0
+  monaco-editor: 0.31.1
   prettier: ^2.2.0
   react: ^17.0.2
   standard-version: ^7.0.1
@@ -27,7 +27,7 @@ devDependencies:
   husky: 8.0.3
   inquirer: 8.2.4
   lint-staged: 10.5.4
-  monaco-editor: 0.31.0
+  monaco-editor: 0.31.1
   prettier: 2.8.8
   react: 17.0.2
   standard-version: 7.1.0
@@ -1973,8 +1973,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /monaco-editor/0.31.0:
-    resolution: {integrity: sha512-H3QmysEwxxY8oxmFhIFcY9JkuwilUDa6txdAxb797cVr7XFZX27a3SDwcGJmTlV9iGPwdh132r3KKCS5aNL4Gg==}
+  /monaco-editor/0.31.1:
+    resolution: {integrity: sha512-FYPwxGZAeP6mRRyrr5XTGHD9gRXVjy7GUzF4IPChnyt3fS5WrNxIkS8DNujWf6EQy0Zlzpxw8oTVE+mWI2/D1Q==}
     dev: true
 
   /ms/2.1.2:
