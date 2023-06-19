@@ -19,7 +19,7 @@ export interface BasicEditorProps {
      * Refer to monaco type BuiltinTheme.
      * @see {@link  monaco.editor.BuiltinTheme}
      */
-    theme?: monaco.editor.BuiltinTheme | 'string';
+    theme?: monaco.editor.BuiltinTheme | string;
     /**
      * Language of model in MonacoEditor, defaults to 'sql'.
      */
