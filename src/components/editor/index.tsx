@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as monaco from 'monaco-editor';
 
 // monaco 当前版本并未集成最新basic-languages， 暂时shell单独引入
-import './languages/shell/shell.contribution';
+// import './languages/shell/shell.contribution';
 import * as dtsql from './languages/dtsql/dtsql.contribution'
 import * as dtflink from './languages/dt-flink/dtflink.contribution'
 import * as dtPython from './languages/dt-python/python.contribution'
