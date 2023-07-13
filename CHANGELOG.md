@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.0...v1.0.1) (2023-07-13)
+
+
+### Bug Fixes
+
+* allow sync value when editor is readOnly ([195bcea](https://github.com/DTStack/dt-react-monaco-editor/commit/195bcea292a177b35c0cd0701d6fe9654a2b3003))
+
 ## [1.0.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.0-beta.2...v1.0.0) (2023-07-13)
 
 
