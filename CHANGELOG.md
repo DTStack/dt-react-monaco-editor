@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.0-beta.2...v1.0.0) (2023-07-13)
+
+
+### Bug Fixes
+
+* replace pushEditOperations with executeEdits to sync value ([760c51a](https://github.com/DTStack/dt-react-monaco-editor/commit/760c51a58fcc11f34ba2f6179e35b88d2f80a805))
+
 ## [1.0.0-beta.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-06-19)
 
 
