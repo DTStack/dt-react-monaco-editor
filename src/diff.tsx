@@ -35,17 +35,13 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
         ) {
             this.__prevent_onChange = true;
             this.diffEditor.getModifiedEditor().pushUndoStop();
-            modified.pushEditOperations(
-                [],
-                [
-                    {
-                        range: modified.getFullModelRange(),
-                        text: this.props.value,
-                    },
-                ],
-                () => null
-            );
-
+            this.diffEditor.getModifiedEditor().executeEdits('sync-value', [
+                {
+                    range: modified.getFullModelRange(),
+                    text: this.props.value,
+                    forceMoveMarkers: true,
+                },
+            ]);
             this.diffEditor.getModifiedEditor().pushUndoStop();
             this.__prevent_onChange = false;
         }

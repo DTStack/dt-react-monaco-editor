@@ -33,17 +33,13 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
             sync
         ) {
             this.__prevent_onChange = true;
-            this.editor.pushUndoStop();
-            this.editor.getModel().pushEditOperations(
-                [],
-                [
-                    {
-                        range: this.editor.getModel().getFullModelRange(),
-                        text: this.props.value,
-                    },
-                ],
-                () => null
-            );
+            this.editor.executeEdits('sync-value', [
+                {
+                    range: this.editor.getModel().getFullModelRange(),
+                    text: this.props.value,
+                    forceMoveMarkers: true,
+                },
+            ]);
             this.editor.pushUndoStop();
             this.__prevent_onChange = false;
         }
