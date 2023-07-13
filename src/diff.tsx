@@ -34,6 +34,9 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
             sync
         ) {
             this.__prevent_onChange = true;
+            this.diffEditor.getModifiedEditor().updateOptions({
+                readOnly: false,
+            });
             this.diffEditor.getModifiedEditor().pushUndoStop();
             this.diffEditor.getModifiedEditor().executeEdits('sync-value', [
                 {
@@ -43,6 +46,9 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
                 },
             ]);
             this.diffEditor.getModifiedEditor().pushUndoStop();
+            this.diffEditor.getModifiedEditor().updateOptions({
+                readOnly,
+            });
             this.__prevent_onChange = false;
         }
         if (prevProps.language !== language) {

@@ -33,6 +33,7 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
             sync
         ) {
             this.__prevent_onChange = true;
+            this.editor.updateOptions({ readOnly: false });
             this.editor.executeEdits('sync-value', [
                 {
                     range: this.editor.getModel().getFullModelRange(),
@@ -41,6 +42,7 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
                 },
             ]);
             this.editor.pushUndoStop();
+            this.editor.updateOptions({ ...options });
             this.__prevent_onChange = false;
         }
         if (prevProps.language !== language) {
