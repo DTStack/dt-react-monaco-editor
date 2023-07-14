@@ -11,6 +11,8 @@
 [download-img]: https://img.shields.io/npm/dm/dt-react-monaco-editor.svg?style=flat
 [download-url]: https://www.npmjs.com/package/dt-react-monaco-editor
 
+English | [简体中文](./README.zh-CN.md)
+
 </div>
 
 ## Introduction
@@ -23,19 +25,19 @@ Provides `MonacoEditor` and `MonacoDiffEditor` component, make it easier to use 
 
 use npm
 
-```bash
+```shell
 npm install dt-react-monaco-editor
 ```
 
 or use yarn
 
-```bash
+```shell
 yarn add dt-react-monaco-editor
 ```
 
 or use pnpm
 
-```
+```shell
 pnpm install dt-react-monaco-editor
 ```
 
@@ -102,7 +104,7 @@ common properties can be used on `MonacoEditor` and `MonacoDiffEditor`.
 
 -   `theme` theme used when the editor renders, defaults to `vs`.
 -   `language` language of model in editor, defaults to `sql`.
--   `sync` sync value to model when value change, if sync property is true, the editor is controlled.
+-   `sync` sync value to model when value change, if sync property is true, the editor is controlled, defaults to `false`.
 -   `onChange` an event emitted when the value of the editor model has changed.
 
 ### MonacoEditor Own Properties
@@ -134,7 +136,7 @@ common properties can be used on `MonacoEditor` and `MonacoDiffEditor`.
 
 Please See [monaco-sql-languages](https://github.com/DTStack/monaco-sql-languages).
 
-`monaco-sql-languages` provides **highlighting**, **error prompts** and **auto-completion** functions for many kinds of SQL Languages for BigData domain.
+`monaco-sql-languages` provides **highlighting**, **error prompts** and **auto-completion** functions for many kinds of SQL Languages for BigData domain. It supports on-demand import and is easy to integrate.
 
 <br/>
 
