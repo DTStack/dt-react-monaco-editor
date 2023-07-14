@@ -4,13 +4,13 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { defaultOptions } from './config';
 import type { MonacoEditorProps } from './types';
 
-class MonacoEditor extends React.Component<MonacoEditorProps, any> {
-    constructor(props: any) {
+class MonacoEditor extends React.Component<MonacoEditorProps> {
+    constructor(props) {
         super(props);
     }
 
     editor: monaco.editor.IStandaloneCodeEditor = null;
-    private monacoDom: any = null;
+    private monacoDom = React.createRef<HTMLDivElement>();
     private __prevent_onChange = false;
     private _changeSubscription: monaco.IDisposable;
     private _selectionSubscription: monaco.IDisposable;
@@ -20,6 +20,9 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
 
     componentDidMount() {
         this.initMonaco();
+        /**
+         * @deprecated editorInstanceRef will be removed in a future release
+         */
         if (typeof this.props.editorInstanceRef === 'function') {
             this.props.editorInstanceRef(this.editor);
         }
@@ -34,6 +37,7 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
         ) {
             this.__prevent_onChange = true;
             this.editor.updateOptions({ readOnly: false });
+            this.editor.pushUndoStop();
             this.editor.executeEdits('sync-value', [
                 {
                     range: this.editor.getModel().getFullModelRange(),
@@ -59,15 +63,18 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
     }
 
     componentWillUnmount() {
+        this.props.editorWillUnMount?.(this.editor);
         this.destroyMonaco();
     }
 
     initMonaco() {
         const { value, language, options, theme } = this.props;
-        if (!this.monacoDom) {
+        if (!this.monacoDom.current) {
             console.error('Can not get monacoDom element!');
             return;
         }
+
+        this.props.editorWillMount?.();
         const editorOptions: monaco.editor.IStandaloneEditorConstructionOptions =
             {
                 ...defaultOptions,
@@ -76,8 +83,12 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
                 language: language || 'sql',
                 theme,
             };
-        this.editor = monaco.editor.create(this.monacoDom, editorOptions);
+        this.editor = monaco.editor.create(
+            this.monacoDom.current,
+            editorOptions
+        );
         this.initEditorEvent();
+        this.props.editorDidMount?.(this.editor);
     }
 
     initEditorEvent() {
@@ -113,7 +124,7 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
         });
 
         /**
-         * set contextMenu dom position to fixed
+         * Set contextMenu dom position to fixed
          * to avoid the contextMenu being truncated by "overflow: hidden"
          */
         this._contextSubscription = this.editor.onContextMenu((e) => {
@@ -168,9 +179,7 @@ class MonacoEditor extends React.Component<MonacoEditorProps, any> {
             <div
                 className={renderClass}
                 style={renderStyle}
-                ref={(domIns) => {
-                    this.monacoDom = domIns;
-                }}
+                ref={this.monacoDom}
             />
         );
     }

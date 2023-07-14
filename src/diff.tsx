@@ -4,18 +4,21 @@ import { editor, IDisposable } from 'monaco-editor/esm/vs/editor/editor.api';
 import { defaultOptions } from './config';
 import type { MonacoDiffEditorProps } from './types';
 
-class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
-    constructor(props: any) {
+class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
+    constructor(props) {
         super(props);
     }
 
     diffEditor: editor.IStandaloneDiffEditor = null;
-    private monacoDom: HTMLDivElement = null;
+    private monacoDom = React.createRef<HTMLDivElement>();
     private __prevent_onChange = false;
     private subscription: IDisposable;
 
     componentDidMount() {
         this.initMonaco();
+        /**
+         * @deprecated editorInstanceRef will be removed in a future release
+         */
         if (typeof this.props.diffEditorInstanceRef === 'function') {
             this.props.diffEditorInstanceRef(this.diffEditor);
         }
@@ -71,6 +74,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
     }
 
     componentWillUnmount() {
+        this.props.editorWillUnMount?.(this.diffEditor);
         this.destroyMonaco();
     }
 
@@ -83,11 +87,12 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
             theme = 'vs',
             readOnly,
         } = this.props;
-        if (!this.monacoDom) {
+        if (!this.monacoDom.current) {
             console.error('Can not get monacoDom element!');
             return;
         }
 
+        this.props.editorWillMount?.();
         const editorOptions: editor.IStandaloneDiffEditorConstructionOptions = {
             ...defaultOptions,
             renderIndicators: true,
@@ -101,7 +106,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
         const originalModel = editor.createModel(original, language ?? 'sql');
         const modifiedModel = editor.createModel(value, language ?? 'sql');
         this.diffEditor = editor.createDiffEditor(
-            this.monacoDom,
+            this.monacoDom.current,
             editorOptions
         );
         this.diffEditor.setModel({
@@ -113,6 +118,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
         });
 
         this.initEditorEvent();
+        this.props.editorDidMount?.(this.diffEditor);
     }
 
     initEditorEvent() {
@@ -149,9 +155,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps, any> {
             <div
                 className={renderClass}
                 style={renderStyle}
-                ref={(domIns) => {
-                    this.monacoDom = domIns;
-                }}
+                ref={this.monacoDom}
             />
         );
     }

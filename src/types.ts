@@ -50,10 +50,23 @@ export interface MonacoEditorProps extends BasicEditorProps {
     options?: monaco.editor.IStandaloneEditorConstructionOptions;
     /**
      * Get editor instance.
+     * @deprecated Use {@link editorDidMount} instead.
      */
     editorInstanceRef?: (
         editorInstance: monaco.editor.IStandaloneCodeEditor
     ) => any;
+    /**
+     * Called immediately before the editor is mounted (similar to componentWillMount of React).
+     */
+    editorWillMount?: () => void;
+    /**
+     * Called immediately after the editor is mounted (similar to componentDidMount of React).
+     */
+    editorDidMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+    /**
+     * Called immediately before the editor is destroyed (similar to componentWillUnmount of React).
+     */
+    editorWillUnMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
     /**
      * An event emitted when the selection of the editor model has changed.
      */
@@ -73,14 +86,13 @@ export interface MonacoEditorProps extends BasicEditorProps {
 
 export interface MonacoDiffEditorProps extends BasicEditorProps {
     /**
-     * Value of model in modifiedEditor.
-     */
-    value: string;
-    /**
-     * Value of model in originalEditor.
+     * Value of model in originalEditor (left one).
      */
     original: string;
-
+    /**
+     * Value of model in modifiedEditor (right one).
+     */
+    value: string;
     /**
      * Options for monaco diff editor.
      * Refer to monaco interface IStandaloneEditorConstructionOptions.
@@ -88,13 +100,26 @@ export interface MonacoDiffEditorProps extends BasicEditorProps {
      */
     options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
     /**
+     * Is modifiedEditor readonly, defaults to false.
+     */
+    readOnly?: boolean;
+    /**
      * Get diff editor instance.
+     * @deprecated Use {@link editorDidMount} instead.
      */
     diffEditorInstanceRef?: (
         diffEditorInstance: monaco.editor.IStandaloneDiffEditor
     ) => void;
     /**
-     * Is modified editor readonly.
+     * Called immediately before the editor is mounted (similar to componentWillMount of React).
      */
-    readOnly?: boolean;
+    editorWillMount?: () => void;
+    /**
+     * Called immediately after the editor is mounted (similar to componentDidMount of React).
+     */
+    editorDidMount?: (editor: monaco.editor.IStandaloneDiffEditor) => void;
+    /**
+     * Called immediately before the editor is destroyed (similar to componentWillUnmount of React).
+     */
+    editorWillUnMount?: (editor: monaco.editor.IStandaloneDiffEditor) => void;
 }
