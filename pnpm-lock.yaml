@@ -4,15 +4,14 @@ specifiers:
   '@commitlint/cli': ^17.6.3
   '@commitlint/config-conventional': ^17.6.3
   '@commitlint/cz-commitlint': ^17.5.0
-  '@types/react': ^16.9.2
+  '@types/react': 18.x
   commitizen: ^4.3.0
-  dt-python-parser: 0.8.0
   husky: ^8.0.3
   inquirer: ^8.2.2
   lint-staged: ^10.0.7
   monaco-editor: 0.31.1
   prettier: ^2.2.0
-  react: ^17.0.2
+  react: 18.x
   standard-version: ^7.0.1
   tslib: ^2.5.0
   typescript: ^5.0.4
@@ -21,15 +20,14 @@ devDependencies:
   '@commitlint/cli': 17.6.5
   '@commitlint/config-conventional': 17.6.5
   '@commitlint/cz-commitlint': 17.5.0_commitizen@4.3.0+inquirer@8.2.4
-  '@types/react': 16.14.32
+  '@types/react': 18.2.37
   commitizen: 4.3.0
-  dt-python-parser: 0.8.0
   husky: 8.0.3
   inquirer: 8.2.4
   lint-staged: 10.5.4
   monaco-editor: 0.31.1
   prettier: 2.8.8
-  react: 17.0.2
+  react: 18.2.0
   standard-version: 7.1.0
   tslib: 2.5.3
   typescript: 5.1.3
@@ -289,10 +287,6 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@types/antlr4/4.7.2:
-    resolution: {integrity: sha512-v6NASzZa4pUgO2QJJqGHTRRBfZDTOk2savuugSfCLatRTd2q+UtW0I7ub9mjzERhm7aWqGxBi886HnJkLYiIEA==}
-    dev: true
-
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
@@ -313,8 +307,8 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react/16.14.32:
-    resolution: {integrity: sha512-hvEy4vGVADbtj/U6+CA5SRC5QFIjdxD7JslAie8EuAYZwhYY9bgforpXNyF1VFzhnkEOesDy1278t1wdjN74cw==}
+  /@types/react/18.2.37:
+    resolution: {integrity: sha512-RGAYMi2bhRgEXT3f4B92WTohopH6bIXw05FuGlmJEnv/omEn190+QYEIYxIAuIBdKgboYYdVved2p1AxZVQnaw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
@@ -394,10 +388,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       color-convert: 2.0.1
-    dev: true
-
-  /antlr4/4.8.0:
-    resolution: {integrity: sha512-en/MxQ4OkPgGJQ3wD/muzj1uDnFSzdFIhc2+c6bHZokWkuBb6RRvFjpWhPxWLbgQvaEzldJZ0GSQpfSAaE3hqg==}
     dev: true
 
   /arg/4.1.3:
@@ -1029,13 +1019,6 @@ packages:
     dependencies:
       find-up: 3.0.0
       minimatch: 3.1.2
-    dev: true
-
-  /dt-python-parser/0.8.0:
-    resolution: {integrity: sha512-P5NX0wtbmSkU12rY5nopwjSB4L7q/54uWKSyHm3kF9XGquZQj1W+WRGog4yTn2iy5nYT0ph0XIQGjVc9gNWZGg==}
-    dependencies:
-      '@types/antlr4': 4.7.2
-      antlr4: 4.8.0
     dev: true
 
   /emoji-regex/8.0.0:
@@ -2030,11 +2013,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /object-assign/4.1.1:
-    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
-    engines: {node: '>=0.10.0'}
-    dev: true
-
   /once/1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
     dependencies:
@@ -2258,12 +2236,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /react/17.0.2:
-    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+  /react/18.2.0:
+    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: true
 
   /read-pkg-up/3.0.0:
