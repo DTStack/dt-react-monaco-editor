@@ -6,13 +6,12 @@
 
 <br/>
 
-## 暂未发布
+## 1.0.2
 
-`future`
+`2023-11-10`
 
 -   🆕 新增 `editorWillMount`、 `editorDidMount`、 `editorWillUnMount` 三个生命周期钩子，`MonacoEditor` 与 `MonacoDiffEditor` 均支持。([57ca6ff](https://github.com/DTStack/dt-react-monaco-editor/commit/57ca6ff91126bf7cb35e45158ec56b3b76e22260))
 -   🚫 废弃 `MonacoEditor` 的 `editorInstanceRef` 属性和 `MonacoDiffEditor` 的 `diffEditorInstanceRef` 属性，并计划在未来版本移除，对应可以使用 `editorDidMount` 声明周期钩子替代。([57ca6ff](https://github.com/DTStack/dt-react-monaco-editor/commit/57ca6ff91126bf7cb35e45158ec56b3b76e22260))
--   🆕 新增具名导出 `monaco`。([8524e17](https://github.com/DTStack/dt-react-monaco-editor/commit/8524e17c87cb82dd3850eebee87f8570c4206002))
 
 <br/>
 
