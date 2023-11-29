@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Menu } from 'antd';
 import Editor, { basicGreenPlumLanguageConf, EditorProps, ICustomCompletionItem } from '../../../components/editor';
+import { commonFileEditDelegator } from '../../../components/editor/utils';
 import { greenPlumSqlText, currentSchemaTableColumnMap, schemaTableColumnMap } from '../const'
 
 class GreenPlumEditor extends React.Component<any, any> {
@@ -139,12 +141,27 @@ class GreenPlumEditor extends React.Component<any, any> {
 
     render () {
         return (
-            <Editor
-                value={greenPlumSqlText}
-                language="dtGreenPlum"
-                customCompleteProvider={this.completeProvider}
-                onChange={this.handleEditorTxtChange}
-            />
+            <div>
+                <Menu
+                    onClick={({ key }) => {
+                        commonFileEditDelegator(this._editor)(key);
+                    }}
+                >
+                    <Menu.Item key="find">查找（Cmd/Ctrl）+ F</Menu.Item>
+                    <Menu.Item key="replace">替换（Cmd/Ctrl）+ F</Menu.Item>
+                    <Menu.Item key="undo">回撤（Cmd/Ctrl）+ Z</Menu.Item>
+                    <Menu.Item key="commandPane">命令面板 (F1)</Menu.Item>
+                </Menu>
+                <Editor
+                    value={greenPlumSqlText}
+                    language="dtGreenPlum"
+                    customCompleteProvider={this.completeProvider}
+                    onChange={this.handleEditorTxtChange}
+                    editorInstanceRef={(editorIns) => {
+                        this._editor = editorIns;
+                    }}
+                />
+            </div>
         );
     }
 }
