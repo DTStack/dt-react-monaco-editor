@@ -343,7 +343,15 @@ class Editor extends React.Component<EditorProps, any> {
         this.props.theme && monaco.editor.setTheme(this.props.theme);
     }
     updateValueWithNoEvent (value: string) {
-        this.monacoInstance.setValue(value);
+        this.monacoInstance.pushUndoStop();
+        this.monacoInstance.executeEdits('sync-value', [
+            {
+                range: this.monacoInstance.getModel().getFullModelRange(),
+                text: value,
+                forceMoveMarkers: true
+            }
+        ]);
+        this.monacoInstance.pushUndoStop();
     }
     languageValueOnChange (callback: Function) {
         const { disableParseSqOnChange = false } = this.props;
