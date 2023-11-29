@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.4...v0.4.5-beta.0) (2023-11-29)
+
+
+### Features
+
+* update commonFileEditDelegator, support diposit ([7cbc6fa](https://github.com/DTStack/dt-react-monaco-editor/commit/7cbc6faa2886c96a7974693110715ad02f62d146))
+
+
+### Bug Fixes
+
+* fixed setValue can't deposit ([ccc7c21](https://github.com/DTStack/dt-react-monaco-editor/commit/ccc7c2186f7c4130086990e64407c6d97c2b9426))
+
 ### [0.4.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.3...v0.4.4) (2023-06-26)
 
 
