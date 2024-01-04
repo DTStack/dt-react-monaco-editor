@@ -3,7 +3,8 @@ import * as monaco from 'monaco-editor';
 const commonEvent: any = {
     OPEN_COMMAND_LINE: 'editor.action.quickCommand',
     OPEN_FIND_TOOL: 'actions.find',
-    OPEN_REPLACE_TOOL: 'editor.action.startFindReplaceAction'
+    OPEN_REPLACE_TOOL: 'editor.action.startFindReplaceAction',
+    UNDO: 'undo'
 }
 
 /**
@@ -12,7 +13,7 @@ const commonEvent: any = {
  * @param {Object} customKeys 事件对应的键值对，默认为{find: "find", replace: "replace", commandPane: "commandPane"}
  */
 export function commonFileEditDelegator (editor: monaco.editor.IStandaloneCodeEditor, customKeys = {}) {
-    const defaultKeys: any = { find: 'find', replace: 'replace', commandPane: 'commandPane' };
+    const defaultKeys: any = { find: 'find', replace: 'replace', commandPane: 'commandPane', undo: 'undo' };
     const keys: any = { ...defaultKeys, ...customKeys };
 
     return function (key: any) {
@@ -28,6 +29,14 @@ export function commonFileEditDelegator (editor: monaco.editor.IStandaloneCodeEd
             case keys.commandPane: {
                 editor.focus()
                 editor.trigger('anyString', commonEvent.OPEN_COMMAND_LINE, {})
+                return;
+            }
+            case keys.undo: {
+                editor.trigger('anyString', commonEvent.UNDO, {});
+                return;
+            }
+            default: {
+                console.warn(key, 'not matched any key');
             }
         }
     }
