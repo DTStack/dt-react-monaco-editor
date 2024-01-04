@@ -1,6 +1,6 @@
 {
   "name": "dt-react-monaco-editor",
-  "version": "0.4.5-beta.0",
+  "version": "0.4.5-beta.1",
   "description": "Monaco editor for React.",
   "repository": {
     "type": "git",

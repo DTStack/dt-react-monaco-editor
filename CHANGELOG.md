@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5-beta.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.5-beta.0...v0.4.5-beta.1) (2024-01-04)
+
+
+### Bug Fixes
+
+* set readOnly false before editor executeEdits value ([450d4b6](https://github.com/DTStack/dt-react-monaco-editor/commit/450d4b6ab103075f6c7e6db191d5ddbbe936358b))
+
 ### [0.4.5-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v0.4.4...v0.4.5-beta.0) (2023-11-29)
 
 
