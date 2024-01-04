@@ -13,6 +13,7 @@
     "lib/*"
   ],
   "scripts": {
+    "prepublishOnly": "npm run compile",
     "dev": "start-storybook -p 9001 -c .storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook",
@@ -20,7 +21,7 @@
     "compile": "rm -rf lib && npm run build-ts && npm run build-css",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "sass --no-source-map  ./src/components/editor/style.scss ./lib/style.scss",
-    "release": "npm run compile && node ./scripts/release.js",
+    "release": "node ./scripts/release.js",
     "check-types": "tsc --skipLibCheck",
     "test": "jest --no-chche",
     "test:update": "npm run test -u",
