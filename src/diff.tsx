@@ -132,10 +132,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
 
     destroyMonaco() {
         if (this.diffEditor) {
-            const { original, modified } = this.diffEditor.getModel();
             this.diffEditor.dispose();
-            original.dispose();
-            modified.dispose();
             this.subscription?.dispose();
         }
     }
