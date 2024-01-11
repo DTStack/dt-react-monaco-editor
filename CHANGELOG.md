@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.2...v1.0.3) (2024-01-11)
+
+
+### Bug Fixes
+
+* do not dispose model manually ([486092d](https://github.com/DTStack/dt-react-monaco-editor/commit/486092d0891985bec77c40c2dac254507b224de9))
+
 ### [1.0.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.1...v1.0.2) (2023-11-10)
 
 
