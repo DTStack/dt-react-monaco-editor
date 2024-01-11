@@ -6,6 +6,14 @@
 
 <br/>
 
+## 1.0.1
+
+`2024-01-11`
+
+-   🐞 不再手动销毁 model ([486092d](https://github.com/DTStack/dt-react-monaco-editor/commit/486092d0891985bec77c40c2dac254507b224de9))
+
+<br/>
+
 ## 1.0.2
 
 `2023-11-10`
