@@ -6,7 +6,15 @@
 
 <br/>
 
-## 1.0.1
+## 1.0.4
+
+`2024-04-17`
+
+-   🚫 移除 `MonacoDiffEditor` 的 `readOnly` 选项，因为它与 `options.readOnly` 冲突 ([c953ea5](https://github.com/DTStack/dt-react-monaco-editor/commit/6183eae4bbe74af25e178f3764ba8c02bc953ea5))
+
+<br/>
+
+## 1.0.3
 
 `2024-01-11`
 
