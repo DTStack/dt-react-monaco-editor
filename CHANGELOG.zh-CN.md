@@ -73,6 +73,10 @@
 -   🛠 内置 dom container 的 `className` 从 `code-editor` 变更为 `react-monaco-diff-editor-container`。
 -   🗑 不再在组件挂载时动态改变 `theme`。
 
+#### 其他
+
+-  🛠 `commonFileEditDelegator` 已经重命名为 `commandDelegator`。
+
 <br/>
 
 ## 如何继续使用 0.x 版本支持的 languages 功能？
