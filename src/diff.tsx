@@ -25,35 +25,9 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
     }
 
     componentDidUpdate(prevProps) {
-        const { language, theme, options, sync, readOnly } = this.props;
+        const { language, theme, options, sync } = this.props;
         const { original, modified } = this.diffEditor.getModel();
 
-        if (this.props.original !== original.getValue() && sync) {
-            original.setValue(this.props.original);
-        }
-        if (
-            this.props.value != null &&
-            this.props.value !== modified.getValue() &&
-            sync
-        ) {
-            this.__prevent_onChange = true;
-            this.diffEditor.getModifiedEditor().updateOptions({
-                readOnly: false,
-            });
-            this.diffEditor.getModifiedEditor().pushUndoStop();
-            this.diffEditor.getModifiedEditor().executeEdits('sync-value', [
-                {
-                    range: modified.getFullModelRange(),
-                    text: this.props.value,
-                    forceMoveMarkers: true,
-                },
-            ]);
-            this.diffEditor.getModifiedEditor().pushUndoStop();
-            this.diffEditor.getModifiedEditor().updateOptions({
-                readOnly,
-            });
-            this.__prevent_onChange = false;
-        }
         if (prevProps.language !== language) {
             editor.setModelLanguage(original, language);
             editor.setModelLanguage(modified, language);
@@ -66,10 +40,43 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
                 ...options,
             });
         }
-        if (prevProps.readOnly !== readOnly) {
-            this.diffEditor.getModifiedEditor().updateOptions({
-                readOnly,
-            });
+
+        if (this.props.original !== original.getValue() && sync) {
+            original.setValue(this.props.original);
+        }
+
+        if (
+            this.props.value != null &&
+            this.props.value !== modified.getValue() &&
+            sync
+        ) {
+            this.__prevent_onChange = true;
+            const modifiedEditor = this.diffEditor.getModifiedEditor();
+
+            const readOnly = modifiedEditor.getRawOptions().readOnly;
+
+            if (readOnly) {
+                modifiedEditor.updateOptions({
+                    readOnly: false,
+                });
+            }
+
+            modifiedEditor.pushUndoStop();
+            modifiedEditor.executeEdits('sync-value', [
+                {
+                    range: modified.getFullModelRange(),
+                    text: this.props.value,
+                    forceMoveMarkers: true,
+                },
+            ]);
+            modifiedEditor.pushUndoStop();
+
+            if (readOnly) {
+                modifiedEditor.updateOptions({
+                    readOnly: readOnly,
+                });
+            }
+            this.__prevent_onChange = false;
         }
     }
 
@@ -79,14 +86,7 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
     }
 
     initMonaco() {
-        const {
-            original,
-            value,
-            language,
-            options,
-            theme = 'vs',
-            readOnly,
-        } = this.props;
+        const { original, value, language, options, theme = 'vs' } = this.props;
         if (!this.monacoDom.current) {
             console.error('Can not get monacoDom element!');
             return;
@@ -112,9 +112,6 @@ class MonacoDiffEditor extends React.Component<MonacoDiffEditorProps> {
         this.diffEditor.setModel({
             original: originalModel,
             modified: modifiedModel,
-        });
-        this.diffEditor.getModifiedEditor().updateOptions({
-            readOnly: readOnly,
         });
 
         this.initEditorEvent();

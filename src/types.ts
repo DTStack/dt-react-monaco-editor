@@ -28,13 +28,6 @@ export interface BasicEditorProps {
      * Sync value to model when value change if sync is true.
      */
     sync?: boolean;
-    /**
-     * An event emitted when the value of the modifiedEditor model has changed.
-     */
-    onChange?: (
-        originValue: string,
-        event: monaco.editor.IModelContentChangedEvent
-    ) => any;
 }
 
 export interface MonacoEditorProps extends BasicEditorProps {
@@ -82,6 +75,13 @@ export interface MonacoEditorProps extends BasicEditorProps {
      * An event emitted when the editor is out of focus.
      */
     onBlur?: (value: string) => any;
+    /**
+     * An event emitted when the value of the model has changed.
+     */
+    onChange?: (
+        value: string,
+        event: monaco.editor.IModelContentChangedEvent
+    ) => any;
 }
 
 export interface MonacoDiffEditorProps extends BasicEditorProps {
@@ -99,10 +99,6 @@ export interface MonacoDiffEditorProps extends BasicEditorProps {
      * @see {@link monaco.editor.IStandaloneDiffEditorConstructionOptions}
      */
     options?: monaco.editor.IStandaloneDiffEditorConstructionOptions;
-    /**
-     * Is modifiedEditor readonly, defaults to false.
-     */
-    readOnly?: boolean;
     /**
      * Get diff editor instance.
      * @deprecated Use {@link editorDidMount} instead.
@@ -122,4 +118,11 @@ export interface MonacoDiffEditorProps extends BasicEditorProps {
      * Called immediately before the editor is destroyed (similar to componentWillUnmount of React).
      */
     editorWillUnMount?: (editor: monaco.editor.IStandaloneDiffEditor) => void;
+    /**
+     * An event emitted when the value of the modifiedEditor model has changed.
+     */
+    onChange?: (
+        modifiedValue: string,
+        event: monaco.editor.IModelContentChangedEvent
+    ) => any;
 }
