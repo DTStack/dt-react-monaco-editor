@@ -66,7 +66,7 @@ function App() {
             onChange={(value) => {
                 console.log(value);
             }}
-            editorInstanceRef={(ins) => (editorRef.current = ins)}
+            editorDidMount={(ins) => (editorRef.current = ins)}
         />
     );
 }
@@ -88,7 +88,7 @@ function App() {
             onChange={(value) => {
                 console.log(value);
             }}
-            diffEditorInstanceRef={(ins) => (editorRef.current = ins)}
+            editorDidMount={(ins) => (editorRef.current = ins)}
         />
     );
 }
@@ -124,7 +124,6 @@ function App() {
 -   `value` modifiedEditor（右边的编辑器） 的值。
 -   `original` originalEditor（左边的编辑器） 的值。
 -   `options` Monaco DiffEditor 的选项， 关联 monaco 接口 [IStandaloneDiffEditorConstructionOptions](https://microsoft.github.io/monaco-editor/typedoc/interfaces/editor.IStandaloneDiffEditorConstructionOptions.html).
--   `readOnly` modifiedEditor（右边的编辑器）是否为只读模式。
 -   **[deprecated]** `diffEditorInstanceRef` 获取 `MonacoDiffEditor` 内部的 diffEditor 实例。
 -   `editorWillMount` 在编辑器即将挂载时调用（类似于 React 的 componentWillMount）。
 -   `editorDidMount` 当编辑器挂载完成时调用 （类似于 React 的 componentDidMount）。

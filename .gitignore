@@ -8,3 +8,4 @@ package-lock.json
 .parcel-cache
 .vscode
 example
+*.tgz

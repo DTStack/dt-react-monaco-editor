@@ -66,7 +66,7 @@ function App() {
             onChange={(value) => {
                 console.log(value);
             }}
-            editorInstanceRef={(ins) => (editorRef.current = ins)}
+            editorDidMount={(ins) => (editorRef.current = ins)}
         />
     );
 }
@@ -88,7 +88,7 @@ function App() {
             onChange={(value) => {
                 console.log(value);
             }}
-            diffEditorInstanceRef={(ins) => (editorRef.current = ins)}
+            editorDidMount={(ins) => (editorRef.current = ins)}
         />
     );
 }
@@ -124,7 +124,6 @@ common properties can be used on `MonacoEditor` and `MonacoDiffEditor`.
 -   `value` value of model in modifiedEditor.
 -   `original` value of model in originalEditor.
 -   `options` options for monaco diff editor, refer to monaco interface [IStandaloneDiffEditorConstructionOptions](https://microsoft.github.io/monaco-editor/typedoc/interfaces/editor.IStandaloneDiffEditorConstructionOptions.html).
--   `readOnly` set modified editor readonly.
 -   **[deprecated]** `diffEditorInstanceRef` get diff editor instance.
 -   `editorWillMount` called immediately before the editor is mounted (similar to componentWillMount of React).
 -   `editorDidMount` called immediately after the editor is mounted (similar to componentDidMount of React).
@@ -134,7 +133,7 @@ common properties can be used on `MonacoEditor` and `MonacoDiffEditor`.
 
 ## Support more sql languages
 
-Please See [monaco-sql-languages](https://github.com/DTStack/monaco-sql-languages).
+Please see [monaco-sql-languages](https://github.com/DTStack/monaco-sql-languages).
 
 `monaco-sql-languages` provides **highlighting**, **error prompts** and **auto-completion** functions for many kinds of SQL Languages for BigData domain. It supports on-demand import and is easy to integrate.
 
