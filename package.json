@@ -1,6 +1,6 @@
 {
   "name": "dt-react-monaco-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Monaco editor for React.",
   "authors": "DTStack Corporation",
   "keywords": [
@@ -20,10 +20,10 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "prepublishOnly": "npm run compile",
-    "compile": "rm -rf lib && tsc",
+    "prepublishOnly": "npm run build",
+    "build": "rm -rf lib && tsc",
     "watch": "rm -rf lib && tsc --watch",
-    "release": "npm run compile && node ./scripts/release.js",
+    "release": "npm run build && node ./scripts/release.js",
     "check-types": "tsc --noEmit --skipLibCheck",
     "lint": "prettier --check './src/**/*.{js,jsx,tsx,ts,less}'",
     "lint-fix": "prettier --write './src/**/*.{js,jsx,tsx,ts,less}'"

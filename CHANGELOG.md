@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.3...v1.0.4) (2024-04-17)
+
+
+### Bug Fixes
+
+* remove monacoDiffEditor readonly props ([6183eae](https://github.com/DTStack/dt-react-monaco-editor/commit/6183eae4bbe74af25e178f3764ba8c02bc953ea5))
+
 ### [1.0.3](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.2...v1.0.3) (2024-01-11)
 
 
