@@ -75,7 +75,7 @@
 
 #### 其他
 
--  🛠 `commonFileEditDelegator` 已经重命名为 `commandDelegator`。
+-   🛠 `commonFileEditDelegator` 已经重命名为 `commandDelegator`。
 
 <br/>
 
