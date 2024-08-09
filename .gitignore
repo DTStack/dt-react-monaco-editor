@@ -9,3 +9,4 @@ package-lock.json
 .vscode
 example
 *.tgz
+.DS_Store
