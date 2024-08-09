@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/DTStack/dt-react-monaco-editor"
+    "url": "https://github.com/DTStack/dt-react-monaco-editor.git"
   },
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -51,5 +51,9 @@
     "monaco-editor": "^0.31.0",
     "react": ">=16.13.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@9.7.0"
 }
