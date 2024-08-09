@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "outDir": "lib",
-    "module": "esnext",
-    "target": "ES6",
-    "declaration": true,
-    "jsx": "react",
-    "moduleResolution":"Node",
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*", "src/utils/.ts"],
-  "exclude": ["node_modules", "build", "scripts", "lib"]
+    "compilerOptions": {
+        "outDir": "lib",
+        "module": "esnext",
+        "target": "ES6",
+        "declaration": true,
+        "jsx": "react",
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*", "src/utils/.ts"],
+    "exclude": ["node_modules", "build", "scripts", "lib"]
 }
