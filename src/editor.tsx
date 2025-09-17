@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { defaultOptions } from './config';
@@ -80,13 +81,21 @@ class MonacoEditor extends React.Component<MonacoEditorProps> {
                 ...defaultOptions,
                 ...options,
                 value,
-                language: language || 'sql',
+                language: language || 'plaintext',
                 theme,
             };
+        // const model = monaco.editor.createModel(value,language || 'plaintext');
         this.editor = monaco.editor.create(
             this.monacoDom.current,
             editorOptions
         );
+        // 创建后再设置语言和值
+        if (language) {
+            monaco.editor.setModelLanguage(this.editor.getModel(), language);
+        }
+        if (value) {
+            this.editor.setValue(value);
+        }
         this.initEditorEvent();
         this.props.editorDidMount?.(this.editor);
     }
