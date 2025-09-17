@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.4...v2.0.0-beta.0) (2025-09-17)
+
+
+### Features
+
+* **upgrade monaco-editor's version to 0.52.2:** upgrade ([a3b74fb](https://github.com/DTStack/dt-react-monaco-editor/commit/a3b74fb61fdb9cb96eec77967ee84e981663abc5))
+
 ### [1.0.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.3...v1.0.4) (2024-04-17)
 
 
