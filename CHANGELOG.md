@@ -9,6 +9,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 * optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
 
+## [2.0.0-beta.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.2) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
 ## [2.0.0-beta.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2025-09-18)
 
 
