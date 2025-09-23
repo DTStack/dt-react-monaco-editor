@@ -1,6 +1,6 @@
 {
     "name": "dt-react-monaco-editor",
-    "version": "2.0.0-beta.8",
+    "version": "2.0.0-beta.9",
     "description": "Monaco editor for React.",
     "authors": "DTStack Corporation",
     "keywords": [
@@ -48,7 +48,7 @@
         "typescript": "^5.0.4"
     },
     "peerDependencies": {
-        "monaco-editor": "^0.53.0",
+        "monaco-editor": "^0.52.2",
         "react": ">=16.13.1"
     },
     "license": "MIT",

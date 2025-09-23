@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.9](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2025-09-23)
+
 ## [2.0.0-beta.8](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2025-09-23)
 
 ## [2.0.0-beta.7](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2025-09-18)
