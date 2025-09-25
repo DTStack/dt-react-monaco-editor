@@ -17,4 +17,7 @@ export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions 
         dropIntoEditor: {
             enabled: false,
         },
+        inlineSuggest: {
+            enabled: true,
+        },
     };
