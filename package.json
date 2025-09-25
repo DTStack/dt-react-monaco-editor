@@ -1,6 +1,6 @@
 {
     "name": "dt-react-monaco-editor",
-    "version": "2.0.0-beta.18",
+    "version": "2.0.0-beta.19",
     "description": "Monaco editor for React.",
     "authors": "DTStack Corporation",
     "keywords": [
@@ -40,7 +40,7 @@
         "husky": "^8.0.3",
         "inquirer": "^8.2.2",
         "lint-staged": "^10.0.7",
-        "monaco-editor": "0.53.0",
+        "monaco-editor": "0.52.2",
         "prettier": "^2.2.0",
         "react": "16.13.x",
         "standard-version": "^7.0.1",
