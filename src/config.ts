@@ -13,4 +13,11 @@ export const defaultOptions: monaco.editor.IStandaloneEditorConstructionOptions 
         fontSize: 13,
         fixedOverflowWidgets: true,
         renderControlCharacters: true,
+        dragAndDrop: false,
+        dropIntoEditor: {
+            enabled: false,
+        },
+        inlineSuggest: {
+            enabled: true,
+        },
     };

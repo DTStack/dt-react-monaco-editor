@@ -2,6 +2,90 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.20](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2025-09-25)
+
+
+### Features
+
+* upgrade monaco-editor's version ([6eab9cd](https://github.com/DTStack/dt-react-monaco-editor/commit/6eab9cd4999d725e1976b88bf207e4f24b251eda))
+
+## [2.0.0-beta.19](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2025-09-25)
+
+## [2.0.0-beta.18](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2025-09-24)
+
+## [2.0.0-beta.17](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.16...v2.0.0-beta.17) (2025-09-24)
+
+## [2.0.0-beta.16](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.15...v2.0.0-beta.16) (2025-09-24)
+
+## [2.0.0-beta.15](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2025-09-24)
+
+## [2.0.0-beta.14](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2025-09-24)
+
+## [2.0.0-beta.13](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2025-09-24)
+
+## [2.0.0-beta.12](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2025-09-24)
+
+## [2.0.0-beta.11](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2025-09-23)
+
+## [2.0.0-beta.10](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2025-09-23)
+
+## [2.0.0-beta.9](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2025-09-23)
+
+## [2.0.0-beta.8](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2025-09-23)
+
+## [2.0.0-beta.7](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2025-09-18)
+
+## [2.0.0-beta.6](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2025-09-18)
+
+## [2.0.0-beta.5](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.5) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.4) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.3](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.3) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.2) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.2](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.2) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.1](https://github.com/DTStack/dt-react-monaco-editor/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2025-09-18)
+
+
+### Features
+
+* optimize ([4a13ddc](https://github.com/DTStack/dt-react-monaco-editor/commit/4a13ddc26816c9adede8231de6067219cfb0b57d))
+
+## [2.0.0-beta.0](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.4...v2.0.0-beta.0) (2025-09-17)
+
+
+### Features
+
+* **upgrade monaco-editor's version to 0.52.2:** upgrade ([a3b74fb](https://github.com/DTStack/dt-react-monaco-editor/commit/a3b74fb61fdb9cb96eec77967ee84e981663abc5))
+
 ### [1.0.4](https://github.com/DTStack/dt-react-monaco-editor/compare/v1.0.3...v1.0.4) (2024-04-17)
 
 
