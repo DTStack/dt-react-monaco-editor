@@ -1,0 +1,23 @@
+package.json
+  3bb6c650e1f72ff7 43,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "c5a83c896962300d94b36b5e9275fe05de6e2a96",
+  "prompts": {
+    "3bb6c650e1f72ff7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "461d8f47-c065-4eec-ae3f-e0328bdc32be",
+        "model": "mimo-v2.5-pro"
+      },
+      "human_author": "liuxy0551",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 9,
+      "accepted_lines": 11,
+      "overriden_lines": 2
+    }
+  }
+}
