@@ -32,8 +32,8 @@ importers:
                 specifier: ^10.0.7
                 version: 10.5.4
             monaco-editor:
-                specifier: 0.52.2
-                version: 0.52.2
+                specifier: 0.54.0
+                version: 0.54.0
             prettier:
                 specifier: ^2.2.0
                 version: 2.8.8
@@ -1043,6 +1043,12 @@ packages:
             }
         engines: { node: '>=0.3.1' }
 
+    dompurify@3.1.7:
+        resolution:
+            {
+                integrity: sha512-VaTstWtsneJY8xzy7DekmYWEOZcmzIe3Qb3zPd4STve1OBTa+e+WmS1ITQec1fZYXI3HCsOZZiSMpG6oxoWMWQ==,
+            }
+
     dot-prop@3.0.0:
         resolution:
             {
@@ -1941,6 +1947,14 @@ packages:
             }
         engines: { node: '>=8' }
 
+    marked@14.0.0:
+        resolution:
+            {
+                integrity: sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==,
+            }
+        engines: { node: '>= 18' }
+        hasBin: true
+
     meow@4.0.1:
         resolution:
             {
@@ -2034,10 +2048,10 @@ packages:
             }
         engines: { node: '>=0.10.0' }
 
-    monaco-editor@0.52.2:
+    monaco-editor@0.54.0:
         resolution:
             {
-                integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==,
+                integrity: sha512-hx45SEUoLatgWxHKCmlLJH81xBo0uXP4sRkESUpmDQevfi+e7K1VuiSprK6UpQ8u4zOcKNiH0pMvHvlMWA/4cw==,
             }
 
     ms@2.1.2:
@@ -3762,6 +3776,8 @@ snapshots:
 
     diff@4.0.2: {}
 
+    dompurify@3.1.7: {}
+
     dot-prop@3.0.0:
         dependencies:
             is-obj: 1.0.1
@@ -4288,6 +4304,8 @@ snapshots:
 
     map-obj@4.3.0: {}
 
+    marked@14.0.0: {}
+
     meow@4.0.1:
         dependencies:
             camelcase-keys: 4.2.0
@@ -4360,7 +4378,10 @@ snapshots:
 
     modify-values@1.0.1: {}
 
-    monaco-editor@0.52.2: {}
+    monaco-editor@0.54.0:
+        dependencies:
+            dompurify: 3.1.7
+            marked: 14.0.0
 
     ms@2.1.2: {}
 
